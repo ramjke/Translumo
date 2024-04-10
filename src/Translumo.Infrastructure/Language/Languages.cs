@@ -20,6 +20,7 @@ namespace Translumo.Infrastructure.Language
         Thai = 12,
         Arabic = 13,
         Greek = 14,
-        PortugueseBrazil = 15
+        PortugueseBrazil = 15,
+        Belarusian = 16,
     }
 }

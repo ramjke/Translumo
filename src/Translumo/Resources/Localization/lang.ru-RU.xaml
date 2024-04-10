@@ -110,6 +110,7 @@
     <system:String x:Key="Str.Languages.Arabic">Арабский</system:String>
     <system:String x:Key="Str.Languages.Greek">Греческий</system:String>
     <system:String x:Key="Str.Languages.PortugueseBrazil">Португальский (бразильский)</system:String>
+    <system:String x:Key="Str.Languages.Belarusian">Белорусский</system:String>
 
     <!--Dialog stages-->
     <system:String x:Key="Str.Stages.CheckPyModules">Проверка установленных модулей...</system:String>

@@ -16,7 +16,7 @@ namespace Translumo.Translation.Papago
         private readonly AutoResetEvent _sync;
         private readonly HashSet<Languages> _unsupportedLanguages = new(new[]
         {
-            Languages.Turkish, Languages.Arabic, Languages.PortugueseBrazil, Languages.Greek
+            Languages.Turkish, Languages.Arabic, Languages.PortugueseBrazil, Languages.Greek, Languages.Belarusian
         });
 
         public PapagoTranslator(TranslationConfiguration translationConfiguration, LanguageService languageService, ILogger logger) : 
