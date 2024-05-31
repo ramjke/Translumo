@@ -5,6 +5,7 @@
 
 # large artifacts
 ext_components/
+components.zip
 
 # User-specific files
 *.rsuser
