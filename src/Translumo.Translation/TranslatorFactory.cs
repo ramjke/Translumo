@@ -5,6 +5,7 @@ using Translumo.Infrastructure.Language;
 using Translumo.Translation.Configuration;
 using Translumo.Translation.Deepl;
 using Translumo.Translation.Google;
+using Translumo.Translation.Llama;
 using Translumo.Translation.Papago;
 using Translumo.Translation.Yandex;
 
@@ -35,6 +36,8 @@ namespace Translumo.Translation
                     return new PapagoTranslator(translatorConfiguration, _languageService, _logger);
                 case Translators.Google:
                     return new GoogleTranslator(translatorConfiguration, _languageService, _logger);
+                case Translators.LocalOllama:
+                    return new LlamaTranslator(translatorConfiguration, _languageService, _logger);
                 default:
                     throw new NotSupportedException();
             }

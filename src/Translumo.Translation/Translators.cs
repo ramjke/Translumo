@@ -9,6 +9,8 @@ namespace Translumo.Translation
 
         Google = 2,
 
-        Papago = 3
+        Papago = 3,
+
+        LocalOllama = 4
     }
 }
