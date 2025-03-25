@@ -6,6 +6,11 @@
 </p>
 <p align="center"><b>EN</b> | <a href="docs/README-RU.md"><b>RU</b></a></p>
 <p align="center">Advanced screen translator. <b>Translumo</b> is able to detect and translate appearing in the selected area text in real-time (e.g. subtitles).</p>
+
+<h1>My Edition</h1>
+modify Translator.cs, TranslatorFactory.cs, to add a llama enum type; 
+Add LlamaTranslator.cs, LlamaContainer.cs
+
 <h1>Main features</h1>
 <ul>
   <li><b>High text recognition precision</b></li>
