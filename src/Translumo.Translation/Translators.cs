@@ -11,6 +11,6 @@ namespace Translumo.Translation
 
         Papago = 3,
 
-        Llama3_Latest = 4
+        LocalOllama = 4
     }
 }

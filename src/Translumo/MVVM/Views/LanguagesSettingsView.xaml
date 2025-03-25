@@ -51,6 +51,10 @@
                 <Label HorizontalAlignment="Stretch" Content="{DynamicResource Str.LangSettings.Translator}" Style="{StaticResource ControlCaptionLabel}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
+                <TextBox Width="130" Style="{DynamicResource MaterialDesignTextBox}"  Text="{Binding Path=Model.OllamaModel, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <Label HorizontalAlignment="Stretch" Content="{DynamicResource Str.LangSettings.OllamaModel}" Style="{StaticResource ControlCaptionLabel}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
                 <ComboBox Width="130" Style="{DynamicResource MaterialDesignComboBox}"  ItemsSource="{Binding Source={StaticResource ttsSystems}}" SelectedItem="{Binding Path=TtsSystem}"></ComboBox>
                 <Label HorizontalAlignment="Stretch" Content="{DynamicResource Str.LangSettings.TtsSystem}" Style="{StaticResource ControlCaptionLabel}"/>
             </StackPanel>

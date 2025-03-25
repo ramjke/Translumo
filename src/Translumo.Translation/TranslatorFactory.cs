@@ -36,7 +36,7 @@ namespace Translumo.Translation
                     return new PapagoTranslator(translatorConfiguration, _languageService, _logger);
                 case Translators.Google:
                     return new GoogleTranslator(translatorConfiguration, _languageService, _logger);
-                case Translators.Llama3_Latest:
+                case Translators.LocalOllama:
                     return new LlamaTranslator(translatorConfiguration, _languageService, _logger);
                 default:
                     throw new NotSupportedException();

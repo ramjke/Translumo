@@ -20,11 +20,13 @@ namespace Translumo.Translation.Llama
     {
         private const string LLAMA_API_URL = "http://localhost:11434/api/generate";
         private readonly HttpClient _httpClient;
+        private string _modelName;
 
         public LlamaTranslator(TranslationConfiguration translationConfiguration, LanguageService languageService, ILogger logger)
             : base(translationConfiguration, languageService, logger)
         {
             _httpClient = new HttpClient();
+            _modelName = translationConfiguration.OllamaModel;
         }
 
         public override Task<string> TranslateTextAsync(string sourceText)
@@ -44,7 +46,7 @@ namespace Translumo.Translation.Llama
         {
             var requestBody = new
             {
-                model = "llama3:latest", // 你可以改成本地安装的模型，如 "llama2"、"mistral"
+                model = _modelName, // 你可以改成本地安装的模型，如 "llama2"、"mistral"
                 prompt = $"Translate this text to {TargetLangDescriptor.Language.ToString()}: {sourceText}",
                 stream = false // 设置 stream=false 以同步返回完整翻译结果
             };

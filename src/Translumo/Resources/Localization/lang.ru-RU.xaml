@@ -30,6 +30,7 @@
     <system:String x:Key="Str.LangSettings.SourceLang">Исходный язык</system:String>
     <system:String x:Key="Str.LangSettings.TranslationLang">Язык перевода</system:String>
     <system:String x:Key="Str.LangSettings.Translator">Переводчик</system:String>
+    <system:String x:Key="Str.LangSettings.OllamaModel">OllamaModel</system:String>
     <system:String x:Key="Str.LangSettings.TtsSystem">Синтез речи TTS (предварительная версия)</system:String>
 
     <!--Hotkeys descriptions-->

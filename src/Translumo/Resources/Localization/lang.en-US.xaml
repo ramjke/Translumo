@@ -30,6 +30,7 @@
     <system:String x:Key="Str.LangSettings.SourceLang">Source language</system:String>
     <system:String x:Key="Str.LangSettings.TranslationLang">Translation language</system:String>
     <system:String x:Key="Str.LangSettings.Translator">Translator</system:String>
+    <system:String x:Key="Str.LangSettings.OllamaModel">OllamaModel</system:String>
     <system:String x:Key="Str.LangSettings.TtsSystem">Text to speech system (experimental feature)</system:String>
 
     <!--Hotkeys descriptions-->
