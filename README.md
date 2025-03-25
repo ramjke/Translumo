@@ -11,7 +11,7 @@
 Add a ollama enum type and a text box UI to input local ollama model name
 -Modify Translator.cs, TranslatorFactory.cs, TranslationConfiguration.cs, LanguagesSettingsView.xaml, lang.en-US.xaml and lang.ru-RU.xaml;  
 -Add LlamaTranslator.cs, LlamaContainer.cs
-<img src="[https://github.com/Danily07/Translumo/blob/7f4a73ffba0e5a0090ea0bfc3d72acb99832a0f4/docs/preview-EN.gif](https://github.com/WaterS-MoYu/Translumollama/blob/3806535696304a2d5ed7aacdc026526aba35232b/docs/Add%20text%20box%20UI.png)">
+<img src="https://github.com/WaterS-MoYu/Translumollama/blob/3806535696304a2d5ed7aacdc026526aba35232b/docs/Add%20text%20box%20UI.png)">
 
 <h1>Main features</h1>
 <ul>
