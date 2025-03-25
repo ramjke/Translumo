@@ -8,9 +8,9 @@
 <p align="center">Advanced screen translator. <b>Translumo</b> is able to detect and translate appearing in the selected area text in real-time (e.g. subtitles).</p>
 
 <h1>My Edition</h1>
-Add a ollama enum type and a text box UI to input local ollama model name
--Modify Translator.cs, TranslatorFactory.cs, TranslationConfiguration.cs, LanguagesSettingsView.xaml, lang.en-US.xaml and lang.ru-RU.xaml;  
--Add LlamaTranslator.cs, LlamaContainer.cs
+<li>Add a ollama enum type and a text box UI to input local ollama model name</li>
+<li>Modify Translator.cs, TranslatorFactory.cs, TranslationConfiguration.cs, LanguagesSettingsView.xaml, lang.en-US.xaml and lang.ru-RU.xaml </li>
+<li>Add LlamaTranslator.cs, LlamaContainer.cs</li>
 <img src="https://github.com/WaterS-MoYu/Translumollama/blob/master/docs/AddtextboxUI.png">
 
 <h1>Main features</h1>
