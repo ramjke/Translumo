@@ -112,6 +112,9 @@
     <system:String x:Key="Str.Languages.Greek">Greek</system:String>
     <system:String x:Key="Str.Languages.PortugueseBrazil">Portuguese (BR)</system:String>
     <system:String x:Key="Str.Languages.Polish">Polish</system:String>
+    <system:String x:Key="Str.Languages.Belarusian">Belarusian</system:String>
+    <system:String x:Key="Str.Languages.Persian">Persian</system:String>
+    <system:String x:Key="Str.Languages.Indonesian">Indonesian</system:String>
 
     <!--Dialog stages-->
     <system:String x:Key="Str.Stages.CheckPyModules">Checking installed modules...</system:String>
