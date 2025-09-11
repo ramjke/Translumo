@@ -1,71 +1,142 @@
-﻿<UserControl x:Class="Translumo.MVVM.Views.LanguagesSettingsView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:System="clr-namespace:System;assembly=mscorlib"
-             xmlns:controls="clr-namespace:Translumo.Controls"
-             xmlns:translation="clr-namespace:Translumo.Translation;assembly=Translumo.Translation"
-             xmlns:tts="clr-namespace:Translumo.TTS;assembly=Translumo.TTS"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+﻿<UserControl
+    x:Class="Translumo.MVVM.Views.LanguagesSettingsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    xmlns:controls="clr-namespace:Translumo.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:translation="clr-namespace:Translumo.Translation;assembly=Translumo.Translation"
+    xmlns:tts="clr-namespace:Translumo.TTS;assembly=Translumo.TTS"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
     <UserControl.Resources>
-        <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
-                            ObjectType="{x:Type System:Enum}">
+        <ObjectDataProvider
+            x:Key="dataFromEnum"
+            MethodName="GetValues"
+            ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="translation:Translators"/>
+                <x:Type TypeName="translation:Translators" />
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
 
-        <ObjectDataProvider x:Key="ttsSystems" MethodName="GetValues"
-                            ObjectType="{x:Type System:Enum}">
+        <ObjectDataProvider
+            x:Key="ttsSystems"
+            MethodName="GetValues"
+            ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="tts:TTSEngines"/>
+                <x:Type TypeName="tts:TTSEngines" />
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
 
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="450"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="480" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0">
             <StackPanel.Resources>
                 <Style TargetType="{x:Type StackPanel}">
-                    <Setter Property="Margin" Value="0,0,0,7"></Setter>
+                    <Setter Property="Margin" Value="0,0,0,20" />
                 </Style>
             </StackPanel.Resources>
             <StackPanel Orientation="Horizontal">
-                <ComboBox Style="{StaticResource ComboBoxBase}" ItemsSource="{Binding Path=AvailableLanguages}" DisplayMemberPath="DisplayName" SelectedValuePath="LanguageDescriptor.Language" SelectedValue="{Binding Path=TranslateFromLang}"></ComboBox>
-                <Label Content="{DynamicResource Str.LangSettings.SourceLang}" Style="{StaticResource ControlCaptionLabel}"/>
+                <ComboBox
+                    DisplayMemberPath="DisplayName"
+                    FontSize="14"
+                    ItemsSource="{Binding Path=AvailableLanguages}"
+                    SelectedValue="{Binding Path=TranslateFromLang}"
+                    SelectedValuePath="LanguageDescriptor.Language"
+                    Style="{StaticResource ComboBoxBase}" />
+                <Label
+                    Margin="10,0,0,0"
+                    Content="{DynamicResource Str.LangSettings.SourceLang}"
+                    Style="{StaticResource ControlCaptionLabel}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <ComboBox Style="{StaticResource ComboBoxBase}" ItemsSource="{Binding Path=AvailableTranslationLanguages}" DisplayMemberPath="DisplayName" SelectedValuePath="LanguageDescriptor.Language" SelectedValue="{Binding Path=TranslateToLang}" MaxDropDownHeight="180"></ComboBox>
-                <Label Content="{DynamicResource Str.LangSettings.TranslationLang}" Style="{StaticResource ControlCaptionLabel}"/>
+                <ComboBox
+                    DisplayMemberPath="DisplayName"
+                    FontSize="14"
+                    ItemsSource="{Binding Path=AvailableTranslationLanguages}"
+                    MaxDropDownHeight="300"
+                    SelectedValue="{Binding Path=TranslateToLang}"
+                    SelectedValuePath="LanguageDescriptor.Language"
+                    Style="{StaticResource ComboBoxBase}" />
+                <Label
+                    Margin="10,0,0,0"
+                    Content="{DynamicResource Str.LangSettings.TranslationLang}"
+                    Style="{StaticResource ControlCaptionLabel}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <ComboBox Width="130" Style="{DynamicResource MaterialDesignComboBox}"  ItemsSource="{Binding Source={StaticResource dataFromEnum}}" SelectedItem="{Binding Path=Model.Translator}"></ComboBox>
-                <Label HorizontalAlignment="Stretch" Content="{DynamicResource Str.LangSettings.Translator}" Style="{StaticResource ControlCaptionLabel}"/>
+                <ComboBox
+                    Width="130"
+                    FontSize="14"
+                    ItemsSource="{Binding Source={StaticResource dataFromEnum}}"
+                    SelectedItem="{Binding Path=Model.Translator}"
+                    Style="{DynamicResource MaterialDesignComboBox}" />
+                <Label
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Stretch"
+                    Content="{DynamicResource Str.LangSettings.Translator}"
+                    Style="{StaticResource ControlCaptionLabel}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <ComboBox Width="130" Style="{DynamicResource MaterialDesignComboBox}"  ItemsSource="{Binding Source={StaticResource ttsSystems}}" SelectedItem="{Binding Path=TtsSystem}"></ComboBox>
-                <Label HorizontalAlignment="Stretch" Content="{DynamicResource Str.LangSettings.TtsSystem}" Style="{StaticResource ControlCaptionLabel}"/>
+                <ComboBox
+                    Width="130"
+                    FontSize="14"
+                    ItemsSource="{Binding Source={StaticResource ttsSystems}}"
+                    SelectedItem="{Binding Path=TtsSystem}"
+                    Style="{DynamicResource MaterialDesignComboBox}" />
+                <Label
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Stretch"
+                    Content="{DynamicResource Str.LangSettings.TtsSystem}"
+                    Style="{StaticResource ControlCaptionLabel}" />
             </StackPanel>
-            <GroupBox Style="{StaticResource MaterialDesignGroupBox}" Margin="0,20,0,0">
+            <GroupBox Margin="0,20,0,0" Style="{StaticResource MaterialDesignGroupBox}">
                 <GroupBox.Header>
-                    <Label Style="{StaticResource SecondaryHeaderLabel}" Margin="0,-7,0,-7" Content="{DynamicResource Str.ProxySettings.Proxy}" />
+                    <Label
+                        Margin="0,-7,0,-7"
+                        Content="{DynamicResource Str.ProxySettings.Proxy}"
+                        Style="{StaticResource SecondaryHeaderLabel}" />
                 </GroupBox.Header>
                 <StackPanel>
-                    <TextBlock Text="{DynamicResource Str.ProxySettings.Note}" Style="{StaticResource TextBlockBase}" TextWrapping="WrapWithOverflow"/>
-                    <Button Command="{Binding ProxySettingsClickedCommand}" Style="{StaticResource MaterialDesignFlatDarkButton}" HorizontalAlignment="Left"  Content="{DynamicResource Str.Button.SettingProxy}" Margin="0,5,0,0"></Button>
+                    <TextBlock
+                        FontSize="12"
+                        Style="{StaticResource TextBlockBase}"
+                        Text="{DynamicResource Str.ProxySettings.Note}"
+                        TextWrapping="WrapWithOverflow" />
+                    <Button
+                        Margin="0,5,0,0"
+                        HorizontalAlignment="Left"
+                        Background="{DynamicResource PrimaryHueMidBrush}"
+                        Command="{Binding ProxySettingsClickedCommand}"
+                        Content="{DynamicResource Str.Button.SettingProxy}"
+                        Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"
+                        Style="{StaticResource MaterialDesignFlatLightButton}" />
                 </StackPanel>
             </GroupBox>
         </StackPanel>
-        <DockPanel Grid.Row="0" Grid.Column="1" Visibility="{Binding ProxySettingsIsOpened, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="9,0,0,0">
-            <controls:ProxyEditList x:Name="ProxyListControl" HorizontalAlignment="Stretch" UseLayoutRounding="False" BorderBrush="{StaticResource PrimaryHueMidBrush}" BorderThickness="1,0,0,0" Padding="9,0,0,0" SourceList="{Binding Path=ProxyCollection, Mode=TwoWay}" DeleteCommand="{Binding ProxyItemDeletedCommand}" AddCommand="{Binding ProxyItemAddCommand}" SubmitCommand="{Binding ProxySettingsSubmitCommand}"></controls:ProxyEditList>
+        <DockPanel
+            Grid.Row="0"
+            Grid.Column="1"
+            Margin="9,0,0,0"
+            Visibility="{Binding ProxySettingsIsOpened, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <controls:ProxyEditList
+                x:Name="ProxyListControl"
+                Padding="9,0,0,0"
+                HorizontalAlignment="Stretch"
+                AddCommand="{Binding ProxyItemAddCommand}"
+                BorderBrush="{StaticResource PrimaryHueMidBrush}"
+                BorderThickness="1,0,0,0"
+                DeleteCommand="{Binding ProxyItemDeletedCommand}"
+                SourceList="{Binding Path=ProxyCollection, Mode=TwoWay}"
+                SubmitCommand="{Binding ProxySettingsSubmitCommand}"
+                UseLayoutRounding="False" />
         </DockPanel>
     </Grid>
 </UserControl>
