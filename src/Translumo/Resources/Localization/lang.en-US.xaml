@@ -111,6 +111,7 @@
     <system:String x:Key="Str.Languages.Arabic">Arabic</system:String>
     <system:String x:Key="Str.Languages.Greek">Greek</system:String>
     <system:String x:Key="Str.Languages.PortugueseBrazil">Portuguese (BR)</system:String>
+    <system:String x:Key="Str.Languages.Indonesian">Indonesian</system:String>
     <system:String x:Key="Str.Languages.Persian">Persian</system:String>
 
     <!--Dialog stages-->
