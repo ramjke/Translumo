@@ -23,7 +23,6 @@
     <system:String x:Key="Str.Tray.Exit">Выйти</system:String>
 
     <!--  Chat  -->
-    <system:String x:Key="Str.Chat.SettingsOpened">Закройте окно настроек чтобы начать перевод</system:String>
     <system:String x:Key="Str.Chat.WindowLocked">Окно перевода заблокировано</system:String>
     <system:String x:Key="Str.Chat.WindowUnlocked">Окно перевода разблокировано</system:String>
 
