@@ -13,7 +13,7 @@ namespace Translumo.OCR
 {
     public class OcrEnginesFactory
     {
-        private IList<IOCREngine> _cachedEngines;
+        private readonly List<IOCREngine> _cachedEngines;
 
         private readonly LanguageService _languageService;
         private readonly PythonEngineWrapper _pythonEngine;
@@ -21,11 +21,12 @@ namespace Translumo.OCR
 
         public OcrEnginesFactory(LanguageService languageService, PythonEngineWrapper pythonEngine, ILogger<OcrEnginesFactory> logger)
         {
-            this._languageService = languageService;
+            _languageService = languageService;
             _pythonEngine = pythonEngine;
-            this._logger = logger;
-            this._cachedEngines = new List<IOCREngine>();
+            _logger = logger;
+            _cachedEngines = new List<IOCREngine>();
         }
+
         public IEnumerable<IOCREngine> GetEngines(IEnumerable<OcrConfiguration> ocrConfigurations,
             Languages detectionLanguage)
         {
@@ -38,25 +39,45 @@ namespace Translumo.OCR
                 if (confType == typeof(WindowsOCRConfiguration))
                 {
                     if (!TryRemoveIfDisabled<WindowsOCREngine>(ocrConfiguration))
-                        yield return GetEngine(() => new WindowsOCREngine(langDescriptor), detectionLanguage);
+                    {
+                        var engine = TryGetEngine(() => new WindowsOCREngine(langDescriptor), detectionLanguage);
+                        if (engine != null)
+                            yield return engine;
+                    }
 
                     if (!TryRemoveIfDisabled<WinOCREngineWithPreprocess>(ocrConfiguration))
-                        yield return GetEngine(() => new WinOCREngineWithPreprocess(langDescriptor), detectionLanguage);
+                    {
+                        var engine = TryGetEngine(() => new WinOCREngineWithPreprocess(langDescriptor), detectionLanguage);
+                        if (engine != null)
+                            yield return engine;
+                    }
                 }
 
                 if (confType == typeof(TesseractOCRConfiguration))
                 {
                     if (!TryRemoveIfDisabled<TesseractOCREngine>(ocrConfiguration))
-                        yield return GetEngine(() => new TesseractOCREngine(langDescriptor), detectionLanguage);
+                    {
+                        var engine = TryGetEngine(() => new TesseractOCREngine(langDescriptor), detectionLanguage);
+                        if (engine != null)
+                            yield return engine;
+                    }
 
                     if (!TryRemoveIfDisabled<TesseractOCREngineWIthPreprocess>(ocrConfiguration))
-                        yield return GetEngine(() => new TesseractOCREngineWIthPreprocess(langDescriptor), detectionLanguage);
+                    {
+                        var engine = TryGetEngine(() => new TesseractOCREngineWIthPreprocess(langDescriptor), detectionLanguage);
+                        if (engine != null)
+                            yield return engine;
+                    }
                 }
 
                 if (confType == typeof(EasyOCRConfiguration))
                 {
                     if (!TryRemoveIfDisabled<EasyOCREngine>(ocrConfiguration))
-                        yield return GetEngine(() => new EasyOCREngine(langDescriptor, _pythonEngine, _logger), detectionLanguage);
+                    {
+                        var engine = TryGetEngine(() => new EasyOCREngine(langDescriptor, _pythonEngine, _logger), detectionLanguage);
+                        if (engine != null)
+                            yield return engine;
+                    }
                 }
             }
 
@@ -69,8 +90,21 @@ namespace Translumo.OCR
                 }
 
                 RemoveCachedEngine<TEngine>();
-
                 return true;
+            }
+        }
+
+        private IOCREngine? TryGetEngine<TEngine>(Func<TEngine> ocrFactoryFunc, Languages detectionLanguage)
+            where TEngine : IOCREngine
+        {
+            try
+            {
+                return GetEngine(ocrFactoryFunc, detectionLanguage);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to create OCR engine {EngineType} for {Lang}", typeof(TEngine).Name, detectionLanguage);
+                return null;
             }
         }
 
@@ -82,7 +116,6 @@ namespace Translumo.OCR
             {
                 cachedEngine = ocrFactoryFunc.Invoke();
                 _cachedEngines.Add(cachedEngine);
-
                 return cachedEngine;
             }
 
@@ -91,7 +124,7 @@ namespace Translumo.OCR
                 return cachedEngine;
             }
 
-            //cached engine used another detection language
+            // cached engine used another detection language
             RemoveCachedEngine<TEngine>();
 
             cachedEngine = ocrFactoryFunc.Invoke();
@@ -99,7 +132,6 @@ namespace Translumo.OCR
 
             return cachedEngine;
         }
-
 
         private void RemoveCachedEngine<TEngine>()
             where TEngine : IOCREngine

@@ -22,18 +22,41 @@ namespace Translumo.Dialog.Stages
                 .AddException(new ExceptionInteractionStage(dialogService, (ex) => logger.LogError(ex, "Language change error"), LocalizationManager.GetValue("Str.Stages.SwitchLanguageError")));
         }
 
-        public static InteractionStage CreateWindowsOcrCheckingStages(DialogService dialogService, string languageCode, InteractionStage enableFlagStage, ILogger logger)
-        {
-            return new ConditionalInteractionStage(dialogService,
-                    () => OptionalFeaturesProvider.OcrLanguagePackIsInstalled(languageCode), LocalizationManager.GetValue("Str.Stages.CheckLangPack"))
-                .AddNextFalse(new DialogQuestionInteractionStage(dialogService, string.Format(LocalizationManager.GetValue("Str.Stages.LangPackQuestion", true), languageCode))
-                    .AddNextStage(new ConditionalInteractionStage(dialogService, async () => (await OptionalFeaturesProvider.OcrLanguagePackInstall(languageCode)).RestartIsNeeded, LocalizationManager.GetValue("Str.Stages.InstallationLangPack"))
-                        .AddNextFalse(enableFlagStage)
-                        .AddNextStage(new DialogInteractionStage(dialogService, LocalizationManager.GetValue("Str.Stages.LangPackInstalledRestart"))
-                            .AddNextStage(enableFlagStage))
-                        .AddException(new ExceptionInteractionStage(dialogService, (ex) => logger.LogError(ex, "Language windows pack install error"), LocalizationManager.GetValue("Str.Stages.InstallationLangError")))))
+        public static InteractionStage CreateWindowsOcrCheckingStages(
+            DialogService dialogService,
+            string languageCode,
+            InteractionStage enableFlagStage,
+            ILogger logger)
+            {
+            return new ConditionalInteractionStage(
+                    dialogService,
+                    () => Task.FromResult(OCR.WindowsOCR.WindowsOCRHelper.IsLanguageOcrCapabilityInstalled(languageCode)),
+                    LocalizationManager.GetValue("Str.Stages.CheckLangPack"))
+                .AddNextFalse(
+                    new DialogQuestionInteractionStage(
+                            dialogService,
+                            string.Format(LocalizationManager.GetValue("Str.Stages.LangPackQuestion", true), languageCode))
+                        .AddNextStage(
+                            new ConditionalInteractionStage(
+                                    dialogService,
+                                    async () => await OCR.WindowsOCR.WindowsOCRHelper.InstallOcrLanguageCapatibility(languageCode),
+                                    LocalizationManager.GetValue("Str.Stages.InstallationLangPack"))
+                                .AddNextStage(
+                                    new DialogInteractionStage(
+                                            dialogService,
+                                            LocalizationManager.GetValue("Str.Stages.LangPackInstalledRestart"))
+                                        .AddNextStage(enableFlagStage))
+                                .AddException(
+                                    new ExceptionInteractionStage(
+                                        dialogService,
+                                        ex => logger.LogError(ex, "Language windows pack install error"),
+                                        LocalizationManager.GetValue("Str.Stages.InstallationLangError")))))
                 .AddNextStage(enableFlagStage)
-                .AddException(new ExceptionInteractionStage(dialogService, (ex) => logger.LogError(ex, "Checking language pack error"), LocalizationManager.GetValue("Str.Stages.CheckLangPackError", true)));
+                .AddException(
+                    new ExceptionInteractionStage(
+                        dialogService,
+                        ex => logger.LogError(ex, "Checking language pack error"),
+                        LocalizationManager.GetValue("Str.Stages.CheckLangPackError", true)));
         }
 
         public static InteractionStage CreateWindowsTtsCheckingStages(DialogService dialogService, string languageCode, InteractionStage enableFlagStage, ILogger logger)
