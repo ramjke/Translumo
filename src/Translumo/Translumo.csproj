@@ -139,7 +139,7 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition=" '$(SkipBinariesExtract)' == '' ">
-    <Exec Command="$(SolutionDir)binaries_extract.bat $(TargetDir)" />
+    <Exec Command="&quot;$(SolutionDir)binaries_extract.bat&quot; &quot;$(TargetDir)&quot;" />
   </Target>
 
 </Project>
