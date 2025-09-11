@@ -32,6 +32,9 @@ namespace Translumo.OCR.WindowsOCR
 
         public string[] GetTextLines(byte[] image)
         {
+            if (MsEngine == null) 
+                return [];
+
             using var stream = new MemoryStream(image);
             Bitmap bitmap = PreProcess(new Bitmap(stream));
 
