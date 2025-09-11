@@ -83,8 +83,8 @@ namespace Translumo.Configuration
         public static ChatWindowConfiguration Default => new()
         {
             BackgroundColor = Color.FromRgb(0, 0, 0),
-            FontColor = Color.FromRgb(255, 128, 0),
-            BackgroundOpacity = 0.35f,
+            FontColor = Color.FromRgb(255, 255, 255),
+            BackgroundOpacity = 0.65f,
             FontSize = 15,
             FontBold = true,
             LineSpacing = 14,
