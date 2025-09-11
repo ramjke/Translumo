@@ -6,10 +6,10 @@
 	
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
+		<TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
 		<UseWPF>true</UseWPF>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
-		<RuntimeIdentifier>win10-x64</RuntimeIdentifier>
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
 		<SatelliteResourceLanguages>en-US;en</SatelliteResourceLanguages>
 		<IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
 		<PublishSingleFile>true</PublishSingleFile>
