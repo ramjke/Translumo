@@ -22,5 +22,6 @@ namespace Translumo.Infrastructure.Language
         Greek = 14,
         PortugueseBrazil = 15,
         Indonesian= 16,
+        Persian = 17
     }
 }
