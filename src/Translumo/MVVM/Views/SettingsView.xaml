@@ -76,11 +76,11 @@
                         <materialDesign:ColorZone Mode="PrimaryDark">
                             <mde:SideNavigation
                                 Name="SnMenu"
-                                Loaded="SnMenu_Loaded"
                                 Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                                 IconForeground="{DynamicResource MaterialDesignDarkForeground}"
                                 Items="{Binding Path=NavigationItems, Mode=OneTime}"
                                 LabelForeground="#FFFAFAFA"
+                                Loaded="SnMenu_Loaded"
                                 NavigationItemFeedback="{DynamicResource SecondaryHueLightBrush}"
                                 NavigationItemSelectedCommand="{Binding NavigationItemSelectedCommand}"
                                 SelectionBackground="{DynamicResource MaterialDesignBackground}"
@@ -123,7 +123,7 @@
 
                 <ContentControl
                     Grid.Column="1"
-                    Margin="20"
+                    Margin="25,25,10,10"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Stretch"
                     Content="{Binding SelectedViewModel}" />

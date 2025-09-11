@@ -1,95 +1,136 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-                    xmlns:controls="clr-namespace:Translumo.Controls">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Translumo.Controls"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
-    <Style TargetType="Button" x:Key="RoundSecondaryButton">
-        <Setter Property="Background" Value="Transparent"></Setter>
-        <Setter Property="BorderThickness" Value="0"></Setter>
-        <Setter Property="Width" Value="24"></Setter>
-        <Setter Property="Height" Value="24"></Setter>
+    <Style x:Key="RoundSecondaryButton" TargetType="Button">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Width" Value="24" />
+        <Setter Property="Height" Value="24" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border CornerRadius="15" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}">
-                        <ContentPresenter Content="{TemplateBinding Content}" VerticalAlignment="Center" HorizontalAlignment="Center"></ContentPresenter>
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="15">
+                        <ContentPresenter
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Content="{TemplateBinding Content}" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource PrimaryHueMidBrush}"></Setter>
+                <Setter Property="Background" Value="{DynamicResource PrimaryHueMidBrush}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="{DynamicResource PrimaryHueDarkBrush}"></Setter>
+                <Setter Property="Background" Value="{DynamicResource PrimaryHueDarkBrush}" />
             </Trigger>
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="Button" x:Key="RoundPrimaryButton" BasedOn="{StaticResource MaterialDesignFloatingActionLightButton}">
-        <Setter Property="Width" Value="38"></Setter>
-        <Setter Property="Height" Value="38"></Setter>
+    <Style
+        x:Key="RoundPrimaryButton"
+        BasedOn="{StaticResource MaterialDesignFloatingActionLightButton}"
+        TargetType="Button">
+        <Setter Property="Width" Value="30" />
+        <Setter Property="Height" Value="30" />
     </Style>
 
-    <Style TargetType="Button" x:Key="OutlinedPrimaryButton" BasedOn="{StaticResource MaterialDesignOutlinedSecondaryDarkButton}">
+    <Style
+        x:Key="OutlinedPrimaryButton"
+        BasedOn="{StaticResource MaterialDesignOutlinedSecondaryDarkButton}"
+        TargetType="Button" />
+
+    <Style
+        x:Key="OutlinedBottomButton"
+        BasedOn="{StaticResource OutlinedPrimaryButton}"
+        TargetType="Button">
+        <Setter Property="Margin" Value="45,0,45,15" />
     </Style>
 
-    <Style TargetType="Button" x:Key="OutlinedBottomButton" BasedOn="{StaticResource OutlinedPrimaryButton}">
-        <Setter Property="Margin" Value="45,0,45,15"/>
+    <Style
+        x:Key="FlatLeftButton"
+        BasedOn="{StaticResource MaterialDesignFlatDarkButton}"
+        TargetType="Button">
+        <Setter Property="Padding" Value="8,2,8,2" />
     </Style>
 
-    <Style TargetType="Button" x:Key="FlatLeftButton" BasedOn="{StaticResource MaterialDesignFlatDarkButton}">
-        <Setter Property="Padding" Value="8, 2, 8, 2"/>
-    </Style>
-
-    <Style TargetType="Button" x:Key="SystemButton" BasedOn="{StaticResource MaterialDesignOutlinedDarkButton}">
-        <Setter Property="VerticalAlignment" Value="Top"></Setter>
-        <Setter Property="Width" Value="21"></Setter>
-        <Setter Property="Height" Value="21"></Setter>
-        <Setter Property="BorderThickness" Value="1"></Setter>
+    <Style
+        x:Key="SystemButton"
+        BasedOn="{StaticResource MaterialDesignOutlinedDarkButton}"
+        TargetType="Button">
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Width" Value="21" />
+        <Setter Property="Height" Value="21" />
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{StaticResource PrimaryHueDarkBrush}" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}">
-                        <ContentPresenter Content="{TemplateBinding Content}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="Center"></ContentPresenter>
+                    <Border
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{StaticResource PrimaryHueDarkBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Content="{TemplateBinding Content}" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource HoverBackgroundBrush}"></Setter>
+                <Setter Property="Background" Value="{StaticResource HoverBackgroundBrush}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="BorderThickness" Value="2"></Setter>
+                <Setter Property="BorderThickness" Value="2" />
             </Trigger>
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="Button" x:Key="SystemAdditionalButton" BasedOn="{StaticResource MaterialDesignFlatLightButton}">
-        <Setter Property="Width" Value="50"></Setter>
-        <Setter Property="BorderThickness" Value="0"></Setter>
+    <Style
+        x:Key="SystemAdditionalButton"
+        BasedOn="{StaticResource MaterialDesignFlatLightButton}"
+        TargetType="Button">
+        <Setter Property="Width" Value="50" />
+        <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}">
-                        <ContentPresenter Content="{TemplateBinding Content}" VerticalAlignment="Center" HorizontalAlignment="Center"></ContentPresenter>
+                        <ContentPresenter
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Content="{TemplateBinding Content}" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
-    <Style TargetType="controls:ExtendedButton" BasedOn="{StaticResource {x:Type Button}}">
-        <Setter Property="BorderThickness" Value="0.8"></Setter>
-        <Setter Property="BorderBrush" Value="{StaticResource PrimaryHueDarkBrush}"></Setter>
-        <Setter Property="Background" Value="{StaticResource PrimaryHueLightBrush}"></Setter>
-        <Setter Property="Height" Value="35"></Setter>
+    <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="controls:ExtendedButton">
+        <Setter Property="BorderThickness" Value="0.8" />
+        <Setter Property="BorderBrush" Value="{StaticResource PrimaryHueDarkBrush}" />
+        <Setter Property="Background" Value="{StaticResource PrimaryHueLightBrush}" />
+        <Setter Property="Height" Value="35" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:ExtendedButton}">
-                    <Border CornerRadius="3" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}">
+                    <Border
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="3">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
@@ -97,9 +138,20 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Column="0" Margin="5 0 0 0" DockPanel.Dock="Left" Text="{TemplateBinding Caption}" VerticalAlignment="Center" Style="{StaticResource ButtonTextBlock}"/>
-                            <TextBlock Grid.Column="1"></TextBlock>
-                            <materialDesign:PackIcon Grid.Column="2" Margin="0 0 5 0" DockPanel.Dock="Right" Kind="{TemplateBinding IconKind}" VerticalAlignment="Center"></materialDesign:PackIcon>
+                            <TextBlock
+                                Grid.Column="0"
+                                Margin="5,0,0,0"
+                                VerticalAlignment="Center"
+                                DockPanel.Dock="Left"
+                                Style="{StaticResource ButtonTextBlock}"
+                                Text="{TemplateBinding Caption}" />
+                            <TextBlock Grid.Column="1" />
+                            <materialDesign:PackIcon
+                                Grid.Column="2"
+                                Margin="0,0,5,0"
+                                VerticalAlignment="Center"
+                                DockPanel.Dock="Right"
+                                Kind="{TemplateBinding IconKind}" />
                         </Grid>
                     </Border>
                 </ControlTemplate>
@@ -108,10 +160,10 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource HoverBackgroundBrush}"></Setter>
+                <Setter Property="Background" Value="{StaticResource HoverBackgroundBrush}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="BorderThickness" Value="2"></Setter>
+                <Setter Property="BorderThickness" Value="2" />
             </Trigger>
         </Style.Triggers>
     </Style>

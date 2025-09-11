@@ -1,38 +1,39 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
-    <!--Generic-->
+    <!--  Generic  -->
     <system:String x:Key="Str.Login">Login</system:String>
     <system:String x:Key="Str.Password">Password</system:String>
     <system:String x:Key="Str.ExitConfirmation" xml:space="preserve">Do you want to close the application?&#13;You can use minimize button for hiding settings window (the app will still be available via tray icon).</system:String>
     <system:String x:Key="Str.ExitConfirmationCaption">Exit confirmation</system:String>
     <system:String x:Key="Str.NewVersion">The new version of Translumo is already available. Please check Github page to download.</system:String>
 
-    <!--Notifications-->
+    <!--  Notifications  -->
     <system:String x:Key="Str.Notification.CaptchaPass" xml:space="preserve">Please complete captcha on the website to use service.&#13;Also it may be required for each registered proxy.</system:String>
 
-    <!--Titles-->
+    <!--  Titles  -->
     <system:String x:Key="Str.Title.SettingWindow" xml:space="preserve">Settings - Translumo</system:String>
     <system:String x:Key="Str.Title.BrowserWindow" xml:space="preserve">Browser - Translumo</system:String>
 
-    <!--Tray-->
+    <!--  Tray  -->
     <system:String x:Key="Str.Tray.ShowHideSettings">Show/Hide settings</system:String>
     <system:String x:Key="Str.Tray.ShowHideTranslation">Show/Hide translation</system:String>
     <system:String x:Key="Str.Tray.Exit">Exit</system:String>
 
-    <!--Chat-->
+    <!--  Chat  -->
     <system:String x:Key="Str.Chat.SettingsOpened">Close settings to start translation</system:String>
     <system:String x:Key="Str.Chat.WindowLocked">Translation window has been locked</system:String>
     <system:String x:Key="Str.Chat.WindowUnlocked">Translation window has been unlocked</system:String>
 
-    <!--Language settings-->
+    <!--  Language settings  -->
     <system:String x:Key="Str.LangSettings.SourceLang">Source language</system:String>
     <system:String x:Key="Str.LangSettings.TranslationLang">Translation language</system:String>
     <system:String x:Key="Str.LangSettings.Translator">Translator</system:String>
     <system:String x:Key="Str.LangSettings.TtsSystem">Text to speech system (experimental feature)</system:String>
 
-    <!--Hotkeys descriptions-->
+    <!--  Hotkeys descriptions  -->
     <system:String x:Key="Str.Hotkeys.ChatVisibility">Show/hide translation window</system:String>
     <system:String x:Key="Str.Hotkeys.SettingsVisibility">Open/close the Settings window</system:String>
     <system:String x:Key="Str.Hotkeys.SelectArea">Select screen capture area</system:String>
@@ -45,7 +46,7 @@
     <system:String x:Key="Str.Hotkeys.OnTranslationHelp">Press '{0}' to start translation</system:String>
     <system:String x:Key="Str.Hotkeys.GeneralHelp">To control the app use context menu from tray or following hotkeys:</system:String>
 
-    <!--Appearance settings-->
+    <!--  Appearance settings  -->
     <system:String x:Key="Str.AppearanceSettings.WindowColor">Window color</system:String>
     <system:String x:Key="Str.AppearanceSettings.FontColor">Font color</system:String>
     <system:String x:Key="Str.AppearanceSettings.FontSize">Font size</system:String>
@@ -55,17 +56,16 @@
     <system:String x:Key="Str.AppearanceSettings.FontSizePanelCaption">Font size — change</system:String>
     <system:String x:Key="Str.AppearanceSettings.FontColorPanelCaption">Font color — change</system:String>
     <system:String x:Key="Str.AppearanceSettings.KeepFormatting">Keep source formatting</system:String>
-    <system:String x:Key="Str.AppearanceSettings.TextAlignment">Text alignment</system:String>
-    <system:String x:Key="Str.AppearanceSettings.Left">Left</system:String>
-    <system:String x:Key="Str.AppearanceSettings.Right">Right</system:String>
-    <system:String x:Key="Str.AppearanceSettings.Center">Center</system:String>
-    <system:String x:Key="Str.AppearanceSettings.Justify">Justify</system:String>
+    <system:String x:Key="Str.AppearanceSettings.Left">Align Text Left</system:String>
+    <system:String x:Key="Str.AppearanceSettings.Center">Align Text Center</system:String>
+    <system:String x:Key="Str.AppearanceSettings.Right">Align Text Right</system:String>
+    <system:String x:Key="Str.AppearanceSettings.Justify">Align Text Justify</system:String>
     <system:String x:Key="Str.AppearanceSettings.AutoClearTexts">Auto clear window</system:String>
     <system:String x:Key="Str.AppearanceSettings.AutoClearTexts2">after inactivity</system:String>
     <system:String x:Key="Str.AppearanceSettings.Ms">ms</system:String>
 
 
-    <!--Proxy settings-->
+    <!--  Proxy settings  -->
     <system:String x:Key="Str.ProxySettings.Proxy">Proxy</system:String>
     <system:String x:Key="Str.ProxySettings.IpAddress">IP address</system:String>
     <system:String x:Key="Str.ProxySettings.Port">Port</system:String>
@@ -73,7 +73,7 @@
     <system:String x:Key="Str.ProxySettings.Caption">Proxy list — change</system:String>
 
 
-    <!--OCR settings-->
+    <!--  OCR settings  -->
     <system:String x:Key="Str.OcrSettings.TesseractOcr">Tesseract OCR</system:String>
     <system:String x:Key="Str.OcrSettings.WindowsOcr">Windows OCR</system:String>
     <system:String x:Key="Str.OcrSettings.EasyOcr">EasyOCR</system:String>
@@ -83,18 +83,18 @@
     <system:String x:Key="Str.OcrSettings.EasyOcrDesc" xml:space="preserve">The most advanced open-source OCR solution by Jaided AI.&#13;High precision of text recognition even with a complex background and uncommon fonts.&#13;&lt;Bold&gt;Performance impact:&lt;/Bold&gt; high</system:String>
     <system:String x:Key="Str.OcrSettings.EasyOcrDesc2">Installation additional packages (Python, PyTorch) is required</system:String>
 
-    <!--About window-->
+    <!--  About window  -->
     <system:String x:Key="Str.About.DevelopedBy">Developed by Danil Iushkov</system:String>
     <system:String x:Key="Str.About.ProjectPage">Project page</system:String>
     <system:String x:Key="Str.About.ReportIssue">Report an issue</system:String>
 
-    <!--Navigation menu-->
+    <!--  Navigation menu  -->
     <system:String x:Key="Str.Navigation.Languages">Languages</system:String>
     <system:String x:Key="Str.Navigation.Appearance">Appearance</system:String>
     <system:String x:Key="Str.Navigation.Ocr">Text recognition</system:String>
     <system:String x:Key="Str.Navigation.HotKeys">Hotkeys</system:String>
 
-    <!--Languages-->
+    <!--  Languages  -->
     <system:String x:Key="Str.Languages.English">English</system:String>
     <system:String x:Key="Str.Languages.Russian">Russian</system:String>
     <system:String x:Key="Str.Languages.Japanese">Japanese</system:String>
@@ -116,7 +116,7 @@
     <system:String x:Key="Str.Languages.Persian">Persian</system:String>
     <system:String x:Key="Str.Languages.Indonesian">Indonesian</system:String>
 
-    <!--Dialog stages-->
+    <!--  Dialog stages  -->
     <system:String x:Key="Str.Stages.CheckPyModules">Checking installed modules...</system:String>
     <system:String x:Key="Str.Stages.PyModulesQuestion" xml:space="preserve">Required Python modules are not installed. Do you want to install it now?&#13;Option is available only for NVIDIA GPUs!</system:String>
     <system:String x:Key="Str.Stages.PyModulesQuestion2" xml:space="preserve">Required modules will take up ~5gb of disk space.&#13;Installation can take from a few minutes to an hour.&#13;Do you want to proceed?</system:String>
@@ -137,7 +137,7 @@
     <system:String x:Key="Str.Stages.SwitchLanguageError">Failed to switch language: '{0}'</system:String>
     <system:String x:Key="Str.Stages.TtsNotSupportLanguageTemplate">{0} '{1}' doesn't support '{2}' language</system:String>
 
-    <!--Buttons-->
+    <!--  Buttons  -->
     <system:String x:Key="Str.Button.SettingProxy">Configure proxy</system:String>
     <system:String x:Key="Str.Button.ShowText">Show text example</system:String>
     <system:String x:Key="Str.Button.Apply">Apply</system:String>
