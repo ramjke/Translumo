@@ -76,6 +76,7 @@
                         <materialDesign:ColorZone Mode="PrimaryDark">
                             <mde:SideNavigation
                                 Name="SnMenu"
+                                Loaded="SnMenu_Loaded"
                                 Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                                 IconForeground="{DynamicResource MaterialDesignDarkForeground}"
                                 Items="{Binding Path=NavigationItems, Mode=OneTime}"

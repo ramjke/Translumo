@@ -90,5 +90,18 @@ namespace Translumo.MVVM.Views
                 this.DragMove();
             }
         }
+
+        private void SnMenu_Loaded(object sender, RoutedEventArgs e)
+        {
+            var sideNav = sender as MaterialDesignExtensions.Controls.SideNavigation;
+            if (sideNav == null) return;
+
+            // Check if there is at least one item
+            if (sideNav.Items.Count > 0)
+            {
+                // Set the first item as selected
+                sideNav.SelectedItem = (MaterialDesignExtensions.Model.INavigationItem)sideNav.Items[0];
+            }
+        }
     }
 }
