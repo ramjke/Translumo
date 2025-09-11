@@ -6,10 +6,12 @@
 </p>
 <p align="center"><b>EN</b> | <a href="docs/README-RU.md"><b>RU</b></a></p>
 <p align="center">Advanced screen translator. <b>Translumo</b> is able to detect and translate appearing in the selected area text in real-time (e.g. subtitles).</p>
+<p align="center"><b>Enchanted version including more languages due to the abandonment of the original project.</b></p>
+
 <h1>Main features</h1>
 <ul>
   <li><b>High text recognition precision</b></li>
-  <p>Translumo allows to combine the usage of several OCR engines simultaneously. It uses machine learning training model for scoring each recognized result by OCR and chooses the best one.</p>
+  <p>Translumo allows combining the usage of several OCR engines simultaneously. It uses a machine learning training model for scoring each recognized result by OCR and chooses the best one.</p>
   <p align="center">
     <img width="740" src="https://github.com/Danily07/Translumo/assets/29047281/649e5fab-a5de-4c54-a3d8-f7ea95b8f218">
   </p>
@@ -20,7 +22,7 @@
   <li><b>Integrated modern OCR engines:</b> Tesseract 5.2, WindowsOCR, EasyOCR</li>
   <li><b>Available translators:</b> Google Translate, Yandex translate, Naver Papago, DeepL</li>
   <li><b>Available recognition languages:</b> English, Russian, Japanese, Chinese (simplified), Korean</li>
-  <li><b>Available translation languages:</b> English, Russian, Japanese, Chinese (simplified), Korean, French, Spanish, German, Portuguese, Italian, Vietnamese, Thai, Turkish, Arabic</li>
+  <li><b>Available translation languages:</b> English, Russian, Japanese, Chinese (simplified), Korean, French, Spanish, German, Portuguese, Italian, Vietnamese, Thai, Turkish, Arabic, Greek, Brazilian Portuguese, Polish, Belarusian, Persian, Indonesian</li>
 </ul>
 <h1>System requirements</h1>
 <ul>

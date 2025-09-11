@@ -52,8 +52,10 @@ namespace Translumo.Infrastructure.Language
                 new LanguageDescriptor() { Language = Languages.Arabic, Code = "ar-SA", IsoCode = "ar", TranslationOnly = true },
                 new LanguageDescriptor() { Language = Languages.Greek, Code = "el-GR", IsoCode = "el", TranslationOnly = true },
                 new LanguageDescriptor() { Language = Languages.PortugueseBrazil, Code = "pt-BR", IsoCode = "pt", TranslationOnly = true, RegionalVariant = true },
-                new LanguageDescriptor() { Language = Languages.Indonesian, Code = "id-ID", IsoCode = "id", TranslationOnly = true },
+                new LanguageDescriptor() { Language = Languages.Polish, Code = "pl-PL", IsoCode = "pl", TranslationOnly = true },
+                new LanguageDescriptor() { Language = Languages.Belarusian, Code = "be-BY", IsoCode = "be", TranslationOnly = true },
                 new LanguageDescriptor() { Language = Languages.Persian, Code = "fa-IR", IsoCode = "fa", TranslationOnly = true, Asian = true },
+                new LanguageDescriptor() { Language = Languages.Indonesian, Code = "id-ID", IsoCode = "id", TranslationOnly = true }
             };
         }
     }

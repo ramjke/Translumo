@@ -11,7 +11,7 @@ jobs:
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
     env:
       Solution_Name: Translumo.sln
-      SkipBinariesExtract: true   # Skip download additional binaries, those are setted in cproj as prebuild step
+      SkipBinariesExtract: true   # Skip download additional binaries, those are set in cproj as a prebuilt step
       
     steps:
     - name: Checkout

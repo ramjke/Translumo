@@ -18,6 +18,11 @@ namespace Translumo.Translation.Deepl
     public sealed class DeepLTranslator : BaseTranslator<DeeplContainer>
     {
         private const string DEEPL_API_URL = "https://www2.deepl.com/jsonrpc";
+        
+        private readonly HashSet<Languages> _unsupportedLanguages = new(new[]
+        {
+            Languages.Vietnamese, Languages.Thai, Languages.Arabic, Languages.Belarusian, Languages.Persian
+        });
 
         public DeepLTranslator(TranslationConfiguration translationConfiguration, LanguageService languageService, ILogger logger)
             : base(translationConfiguration, languageService, logger)
@@ -27,10 +32,9 @@ namespace Translumo.Translation.Deepl
         public override Task<string> TranslateTextAsync(string sourceText)
         {
             //TODO: Temp implementation for specific lang
-            if (TargetLangDescriptor.Language == Languages.Vietnamese 
-                || TargetLangDescriptor.Language == Languages.Thai || TargetLangDescriptor.Language == Languages.Arabic)
+            if (_unsupportedLanguages.Contains(TargetLangDescriptor.Language))
             {
-                throw new TransactionException("DeepL translator for this language is unavailable");
+                throw new TransactionException("DeepL translator is unavailable for this language");
             }
 
             return base.TranslateTextAsync(sourceText);

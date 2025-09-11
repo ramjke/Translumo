@@ -21,7 +21,9 @@ namespace Translumo.Infrastructure.Language
         Arabic = 13,
         Greek = 14,
         PortugueseBrazil = 15,
-        Indonesian= 16,
-        Persian = 17
+        Polish = 16,
+        Belarusian = 17,
+        Persian = 18,
+        Indonesian = 19,
     }
 }
