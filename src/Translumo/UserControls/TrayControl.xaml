@@ -1,28 +1,47 @@
-﻿<UserControl x:Class="Translumo.Controls.TrayControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:tb="http://www.hardcodet.net/taskbar"
-             xmlns:system="clr-namespace:System;assembly=System.Runtime"
-             xmlns:common="clr-namespace:Translumo.MVVM.Common"
-             xmlns:controls="clr-namespace:Translumo.Controls"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" x:Name="TrayUserControl">
+﻿<UserControl
+    x:Class="Translumo.Controls.TrayControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:common="clr-namespace:Translumo.MVVM.Common"
+    xmlns:controls="clr-namespace:Translumo.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    xmlns:tb="http://www.hardcodet.net/taskbar"
+    x:Name="TrayUserControl"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
     <UserControl.Resources>
-        <Style TargetType="MenuItem" x:Key="MenuItemDefaultStyle"></Style>
-        <Style TargetType="Separator" x:Key="SeparatorDefaultStyle"></Style>
-        <Style TargetType="ContextMenu" x:Key="ContextMenuDefaultStyle"></Style>
+        <Style x:Key="MenuItemDefaultStyle" TargetType="MenuItem" />
+        <Style x:Key="SeparatorDefaultStyle" TargetType="Separator" />
+        <Style x:Key="ContextMenuDefaultStyle" TargetType="ContextMenu" />
         <system:Boolean x:Key="ConfirmationClose">False</system:Boolean>
     </UserControl.Resources>
     <Grid>
-        <tb:TaskbarIcon Name="TiIcon" IconSource="/Resources/Icons/favicon.ico" ToolTipText="{StaticResource ApplicationName}" DataContext="{Binding RelativeSource={RelativeSource AncestorType=controls:TrayControl}}">
+        <tb:TaskbarIcon
+            Name="TiIcon"
+            DataContext="{Binding RelativeSource={RelativeSource AncestorType=controls:TrayControl}}"
+            DoubleClickCommand="{Binding SettingsOpeningCommand}"
+            IconSource="/Resources/Icons/favicon.ico"
+            ToolTipText="{StaticResource ApplicationName}">
             <tb:TaskbarIcon.ContextMenu>
                 <ContextMenu Style="{StaticResource ContextMenuDefaultStyle}">
-                    <MenuItem x:Name="First" Header="{DynamicResource Str.Tray.ShowHideSettings}" Style="{StaticResource MenuItemDefaultStyle}" Command="{Binding SettingsOpeningCommand}"/>
-                    <MenuItem Header="{DynamicResource Str.Tray.ShowHideTranslation}" Style="{StaticResource MenuItemDefaultStyle}" Command="{Binding ChatOpeningCommand}"/>
-                    <Separator Style="{StaticResource SeparatorDefaultStyle}"/>
-                    <MenuItem Header="{DynamicResource Str.Tray.Exit}" Style="{StaticResource MenuItemDefaultStyle}" Command="{common:CloseAppCommand}" CommandParameter="{StaticResource ConfirmationClose}"></MenuItem>
+                    <MenuItem
+                        x:Name="First"
+                        Command="{Binding SettingsOpeningCommand}"
+                        Header="{DynamicResource Str.Tray.ShowHideSettings}"
+                        Style="{StaticResource MenuItemDefaultStyle}" />
+                    <MenuItem
+                        Command="{Binding ChatOpeningCommand}"
+                        Header="{DynamicResource Str.Tray.ShowHideTranslation}"
+                        Style="{StaticResource MenuItemDefaultStyle}" />
+                    <Separator Style="{StaticResource SeparatorDefaultStyle}" />
+                    <MenuItem
+                        Command="{common:CloseAppCommand}"
+                        CommandParameter="{StaticResource ConfirmationClose}"
+                        Header="{DynamicResource Str.Tray.Exit}"
+                        Style="{StaticResource MenuItemDefaultStyle}" />
                 </ContextMenu>
             </tb:TaskbarIcon.ContextMenu>
         </tb:TaskbarIcon>
