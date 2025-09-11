@@ -1,27 +1,33 @@
 ﻿<Window
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="Translumo.MVVM.Views.SettingsView"
-        xmlns:mde="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
-        mc:Ignorable="d"
-        Title="{DynamicResource Str.Title.SettingWindow}" Height="450" Width="780"     
-        xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:system="clr-namespace:System;assembly=System.Runtime"
-        xmlns:viewModels="clr-namespace:Translumo.MVVM.ViewModels"
-        xmlns:views="clr-namespace:Translumo.MVVM.Views"
-        xmlns:common="clr-namespace:Translumo.MVVM.Common"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextElement.FontSize="13"
-        TextOptions.TextFormattingMode="Ideal"
-        TextOptions.TextRenderingMode="Auto"
-        Background="Transparent"
-        FontFamily="{DynamicResource MaterialDesignFont}"
-        WindowStyle="None"
-        ResizeMode="NoResize"
-        Name="wSettings" SourceInitialized="wSettings_SourceInitialized" Activated="wSettings_Activated" Deactivated="wSettings_Deactivated" MouseDown="wSettings_MouseDown">
+    x:Class="Translumo.MVVM.Views.SettingsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:common="clr-namespace:Translumo.MVVM.Common"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mde="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    xmlns:viewModels="clr-namespace:Translumo.MVVM.ViewModels"
+    xmlns:views="clr-namespace:Translumo.MVVM.Views"
+    xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes"
+    Name="wSettings"
+    Title="{DynamicResource Str.Title.SettingWindow}"
+    Width="800"
+    Height="550"
+    Activated="wSettings_Activated"
+    Background="Transparent"
+    Deactivated="wSettings_Deactivated"
+    FontFamily="{DynamicResource MaterialDesignFont}"
+    MouseDown="wSettings_MouseDown"
+    ResizeMode="CanMinimize"
+    SourceInitialized="wSettings_SourceInitialized"
+    TextElement.FontSize="13"
+    TextElement.FontWeight="Regular"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    mc:Ignorable="d">
     <Window.Resources>
         <DataTemplate DataType="{x:Type viewModels:AppearanceSettingsViewModel}">
             <views:AppearanceSettingsView />
@@ -35,59 +41,91 @@
         <DataTemplate DataType="{x:Type viewModels:OcrSettingsViewModel}">
             <views:OcrSettingsView />
         </DataTemplate>
-        <common:CaseConverter x:Key="CaseConverter" Case="Upper"></common:CaseConverter>
-        <common:BoolBrushConverter x:Key="HasUpdatesConverter" TrueBrush="{StaticResource WarningBrush}" FalseBrush="{StaticResource PrimaryHueLightBrush}"/>
+        <common:CaseConverter x:Key="CaseConverter" Case="Upper" />
+        <common:BoolBrushConverter
+            x:Key="HasUpdatesConverter"
+            FalseBrush="{StaticResource PrimaryHueLightBrush}"
+            TrueBrush="{StaticResource WarningBrush}" />
         <system:Boolean x:Key="ConfirmationClose">True</system:Boolean>
     </Window.Resources>
 
     <Border Background="{StaticResource SecondaryHueLightBrush}">
         <materialDesign:DialogHost CloseOnClickAway="{Binding DialogService.AllowCloseOnClickAway}" IsOpen="{Binding DialogService.IsOpen}">
             <materialDesign:DialogHost.DialogContent>
-                <views:SimpleDialogView/>
+                <views:SimpleDialogView />
             </materialDesign:DialogHost.DialogContent>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="230"></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="250" />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="50"></RowDefinition>
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Background="{StaticResource PrimaryHueDarkBrush}">
-                    <Image Source="../../Resources/Icons/logo_full.png" RenderOptions.BitmapScalingMode="HighQuality" Height="37" Margin="10,0,0,0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" FlowDirection="RightToLeft"  Margin="0,5,5,0">
-                    <Button Content="{wpf:PackIcon WindowClose}" Style="{StaticResource  SystemButton}" Command="{common:CloseAppCommand}" CommandParameter="{StaticResource ConfirmationClose}"></Button>
-                    <Button Content="{wpf:PackIcon WindowMinimize}" VerticalContentAlignment="Bottom" Style="{StaticResource  SystemButton}"  Margin="2,0,0,0" Command="{common:CloseWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"></Button>
-                </StackPanel>
-                <DockPanel Grid.Row="1" Grid.Column="0" Grid.RowSpan="2">
-                    <materialDesign:ColorZone Mode="PrimaryDark" >
-                        <mde:SideNavigation Name="SnMenu" Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Window}}}" NavigationItemSelectedCommand="{Binding NavigationItemSelectedCommand}"  
-                                        Items="{Binding Path=NavigationItems, Mode=OneTime}" Style="{DynamicResource MaterialSideNavigationBlock}" NavigationItemFeedback="{DynamicResource SecondaryHueLightBrush}" SelectionBackground="{DynamicResource MaterialDesignBackground}" SelectionForeground="{DynamicResource MaterialDesignBackground}" LabelForeground="#FFFAFAFA" IconForeground="{DynamicResource MaterialDesignDarkForeground}">
-                        </mde:SideNavigation>
-                    </materialDesign:ColorZone>
-                </DockPanel>
-                <DockPanel Grid.Row="2" Grid.Column="0" ZIndex="1000">
-                    <ListView DockPanel.Dock="Left" ItemsSource="{Binding AvailableLanguages}" SelectedValue="{Binding SystemConfiguration.ApplicationCulture}" SelectedValuePath="Name" ItemContainerStyle="{StaticResource OutlinedListViewItem}" Margin="5,0,0,0" >
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Label Content="{Binding TwoLetterISOLanguageName, Converter={StaticResource CaseConverter}}" Style="{StaticResource LightLabel}"/>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                        <ListView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal"></StackPanel>
-                            </ItemsPanelTemplate>
-                        </ListView.ItemsPanel>
-                    </ListView>
-                    <Button DockPanel.Dock="Right" Style="{StaticResource SystemAdditionalButton}" Command="{Binding AboutDialogOpenedCommand}" VerticalAlignment="Top" HorizontalAlignment="Right">
-                        <wpf:PackIcon Kind="Information" Style="{StaticResource SystemAdditionalIcon}" Foreground="{Binding HasUpdates, Mode=OneWay, Converter={StaticResource HasUpdatesConverter}}"></wpf:PackIcon>
-                    </Button>
-                </DockPanel>
+                <Grid Grid.Column="0" Background="{StaticResource PrimaryHueDarkBrush}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="68" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+                    <Image
+                        Grid.Row="0"
+                        Height="37"
+                        Margin="10,0,0,0"
+                        HorizontalAlignment="Left"
+                        RenderOptions.BitmapScalingMode="HighQuality"
+                        Source="../../Resources/Icons/logo_full.png" />
+                    <DockPanel Grid.Row="1">
+                        <materialDesign:ColorZone Mode="PrimaryDark">
+                            <mde:SideNavigation
+                                Name="SnMenu"
+                                Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                                IconForeground="{DynamicResource MaterialDesignDarkForeground}"
+                                Items="{Binding Path=NavigationItems, Mode=OneTime}"
+                                LabelForeground="#FFFAFAFA"
+                                NavigationItemFeedback="{DynamicResource SecondaryHueLightBrush}"
+                                NavigationItemSelectedCommand="{Binding NavigationItemSelectedCommand}"
+                                SelectionBackground="{DynamicResource MaterialDesignBackground}"
+                                SelectionForeground="{DynamicResource MaterialDesignBackground}"
+                                Style="{DynamicResource MaterialSideNavigationBlock}" />
+                        </materialDesign:ColorZone>
+                    </DockPanel>
+                    <DockPanel Grid.Row="2" ZIndex="1000">
+                        <ListView
+                            Margin="8,0,0,0"
+                            DockPanel.Dock="Left"
+                            ItemContainerStyle="{StaticResource OutlinedListViewItem}"
+                            ItemsSource="{Binding AvailableLanguages}"
+                            SelectedValue="{Binding SystemConfiguration.ApplicationCulture}"
+                            SelectedValuePath="Name">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding TwoLetterISOLanguageName, Converter={StaticResource CaseConverter}}" Style="{StaticResource LightLabel}" />
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                        </ListView>
+                        <Button
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Command="{Binding AboutDialogOpenedCommand}"
+                            DockPanel.Dock="Right"
+                            Style="{StaticResource SystemAdditionalButton}">
+                            <wpf:PackIcon
+                                Foreground="{Binding HasUpdates, Mode=OneWay, Converter={StaticResource HasUpdatesConverter}}"
+                                Kind="Information"
+                                Style="{StaticResource SystemAdditionalIcon}" />
+                        </Button>
+                    </DockPanel>
+                </Grid>
 
-                <ContentControl Content="{Binding SelectedViewModel}" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="20,1,5,5" />
+                <ContentControl
+                    Grid.Column="1"
+                    Margin="20"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch"
+                    Content="{Binding SelectedViewModel}" />
             </Grid>
         </materialDesign:DialogHost>
     </Border>
