@@ -38,6 +38,7 @@ namespace Translumo.OCR.WindowsOCR
             $env:TERM = 'xterm';
             $Host.UI.RawUI.WindowTitle = 'Installing OCR Language...';
             Write-Host 'Installing {nameTag} OCR Language Capability. Please wait...' -ForegroundColor Yellow;
+            Write-Host 'This can take up to 20 minutes. Please be patient.' -ForegroundColor Yellow;
 
             $cap = Get-WindowsCapability -Online | Where-Object {{ $_.Name -like 'Language.OCR~~~{nameTag}~*' }} | Select-Object -First 1;
 
