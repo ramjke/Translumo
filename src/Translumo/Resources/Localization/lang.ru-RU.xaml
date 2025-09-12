@@ -83,7 +83,7 @@
     <system:String x:Key="Str.OcrSettings.EasyOcrDesc2">Необходима установка дополнительных модулей (Python, PyTorch)</system:String>
 
     <!--  About window  -->
-    <system:String x:Key="Str.About.MainteinedBy">Разработка Алексей Вехов</system:String>
+    <system:String x:Key="Str.About.MaintainedBy">Создатель Алексей Вехов</system:String>
     <system:String x:Key="Str.About.DevelopedBy">Автор Данил Юшков</system:String>
     <system:String x:Key="Str.About.ProjectPage">Страница проекта</system:String>
     <system:String x:Key="Str.About.ReportIssue">Сообщить о проблеме</system:String>

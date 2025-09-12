@@ -38,6 +38,7 @@
             <Run Style="{StaticResource SecondaryHeaderRun}" Text="{Binding ApplicationVersion}" />
         </TextBlock>
         <Label
+            Margin="0,4,0,0"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
             Content="{DynamicResource Str.About.MaintainedBy}"
