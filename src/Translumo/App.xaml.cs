@@ -123,7 +123,7 @@ namespace Translumo
             services.AddSingleton<IControllerInputProvider, ControllerInputProvider>();
             services.AddSingleton<ObservablePipe<Keystroke>>(new ObservablePipe<Keystroke>(Application.Current.Dispatcher));
             services.AddSingleton<UpdateManager>();
-            services.AddSingleton<IReleasesClient, GithubApiClient>(provider => new GithubApiClient("Danily07", "Translumo"));
+            services.AddSingleton<IReleasesClient, GithubApiClient>(provider => new GithubApiClient("ramjke", "Translumo"));
             services.AddSingleton<ICapturerFactory, ScreenCapturerFactory>();
             services.AddSingleton<PythonEngineWrapper>();
 

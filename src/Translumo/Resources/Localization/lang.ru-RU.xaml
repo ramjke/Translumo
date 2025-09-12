@@ -8,7 +8,7 @@
     <system:String x:Key="Str.Password">Пароль</system:String>
     <system:String x:Key="Str.ExitConfirmation" xml:space="preserve">Хотите выйти из приложения?&#13;Можете использовать кнопку сворачивания для скрытия окна настроек (доступ к приложению останется через трей).</system:String>
     <system:String x:Key="Str.ExitConfirmationCaption">Подтверждение выхода</system:String>
-    <system:String x:Key="Str.NewVersion">Доступна новая версия Translumo. Пожалуйста перейдите на страницу проекта на Github, чтобы скачать.</system:String>
+    <system:String x:Key="Str.NewVersion">Доступна новая версия!</system:String>
 
     <!--  Notifications  -->
     <system:String x:Key="Str.Notification.CaptchaPass" xml:space="preserve">Пожалуйста пройдите капчу для использования сервиса&#13;Это окно может появиться для каждого задействованного прокси.</system:String>
@@ -83,7 +83,8 @@
     <system:String x:Key="Str.OcrSettings.EasyOcrDesc2">Необходима установка дополнительных модулей (Python, PyTorch)</system:String>
 
     <!--  About window  -->
-    <system:String x:Key="Str.About.DevelopedBy">Developed by Danil Iushkov</system:String>
+    <system:String x:Key="Str.About.MainteinedBy">Разработка Алексей Вехов</system:String>
+    <system:String x:Key="Str.About.DevelopedBy">Автор Данил Юшков</system:String>
     <system:String x:Key="Str.About.ProjectPage">Страница проекта</system:String>
     <system:String x:Key="Str.About.ReportIssue">Сообщить о проблеме</system:String>
 

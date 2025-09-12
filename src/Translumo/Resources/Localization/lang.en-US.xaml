@@ -8,7 +8,7 @@
     <system:String x:Key="Str.Password">Password</system:String>
     <system:String x:Key="Str.ExitConfirmation" xml:space="preserve">Do you want to close the application?&#13;You can use minimize button for hiding settings window (the app will still be available via tray icon).</system:String>
     <system:String x:Key="Str.ExitConfirmationCaption">Exit confirmation</system:String>
-    <system:String x:Key="Str.NewVersion">The new version of Translumo is already available. Please check Github page to download.</system:String>
+    <system:String x:Key="Str.NewVersion">New version available!</system:String>
 
     <!--  Notifications  -->
     <system:String x:Key="Str.Notification.CaptchaPass" xml:space="preserve">Please complete captcha on the website to use service.&#13;Also it may be required for each registered proxy.</system:String>
@@ -83,7 +83,8 @@
     <system:String x:Key="Str.OcrSettings.EasyOcrDesc2">Installation additional packages (Python, PyTorch) is required</system:String>
 
     <!--  About window  -->
-    <system:String x:Key="Str.About.DevelopedBy">Developed by Danil Iushkov</system:String>
+    <system:String x:Key="Str.About.MaintainedBy">Owner and Maintainer Aleksei Vekhov</system:String>
+    <system:String x:Key="Str.About.DevelopedBy">Author Danil Iushkov</system:String>
     <system:String x:Key="Str.About.ProjectPage">Project page</system:String>
     <system:String x:Key="Str.About.ReportIssue">Report an issue</system:String>
 

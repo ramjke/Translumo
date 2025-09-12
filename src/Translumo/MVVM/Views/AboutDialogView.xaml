@@ -1,34 +1,75 @@
-﻿<UserControl x:Class="Translumo.MVVM.Views.AboutDialogView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Translumo.MVVM.Views"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:controls="clr-namespace:Translumo.Controls"
-             xmlns:common="clr-namespace:Translumo.MVVM.Common"
-             mc:Ignorable="d" 
-             d:DesignHeight="335" d:DesignWidth="260" Width="260" Height="335">
+﻿<UserControl
+    x:Class="Translumo.MVVM.Views.AboutDialogView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:common="clr-namespace:Translumo.MVVM.Common"
+    xmlns:controls="clr-namespace:Translumo.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Translumo.MVVM.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="260"
+    Height="335"
+    d:DesignHeight="335"
+    d:DesignWidth="260"
+    mc:Ignorable="d">
     <UserControl.Resources>
-        <Style x:Key="ActionLinkExtendedButton" TargetType="controls:ExtendedButton" BasedOn="{StaticResource {x:Type controls:ExtendedButton}}">
-            <Setter Property="IconKind" Value="OpenInNew"/>
-            <Setter Property="Command" Value="{common:OpenLinkCommand}"/>
-            <Setter Property="Width" Value="250"/>
-            <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Style
+            x:Key="ActionLinkExtendedButton"
+            BasedOn="{StaticResource {x:Type controls:ExtendedButton}}"
+            TargetType="controls:ExtendedButton">
+            <Setter Property="IconKind" Value="OpenInNew" />
+            <Setter Property="Command" Value="{common:OpenLinkCommand}" />
+            <Setter Property="Width" Value="250" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
         </Style>
-        <common:VisibilityConverter x:Key="VisibilityConverter"/>
+        <common:VisibilityConverter x:Key="VisibilityConverter" />
     </UserControl.Resources>
     <DockPanel>
-        <Image Source="../../Resources/Icons/logo.png" DockPanel.Dock="Top" Height="90" RenderOptions.BitmapScalingMode="HighQuality" VerticalAlignment="Top" Margin="0,20,0,0"></Image>
-        <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Center">
-            <Run Text="{StaticResource ApplicationName}" Style="{StaticResource PrimaryHeaderRun}"></Run>
-            <Run Text="{Binding ApplicationVersion}" Style="{StaticResource SecondaryHeaderRun}"></Run>
+        <Image
+            Height="90"
+            Margin="0,20,0,0"
+            VerticalAlignment="Top"
+            DockPanel.Dock="Top"
+            RenderOptions.BitmapScalingMode="HighQuality"
+            Source="../../Resources/Icons/logo.png" />
+        <TextBlock HorizontalAlignment="Center" DockPanel.Dock="Top">
+            <Run Style="{StaticResource PrimaryHeaderRun}" Text="{StaticResource ApplicationName}" />
+            <Run Style="{StaticResource SecondaryHeaderRun}" Text="{Binding ApplicationVersion}" />
         </TextBlock>
-        <Label DockPanel.Dock="Top" Content="{DynamicResource Str.About.DevelopedBy}" HorizontalAlignment="Center" VerticalAlignment="Top" Style="{StaticResource SecondaryLabel}"></Label>
-        <TextBlock DockPanel.Dock="Top" Text="{DynamicResource Str.NewVersion}" Visibility="{Binding HasUpdates, Mode=OneWay, Converter={StaticResource VisibilityConverter}}" Style="{StaticResource AdditionalTextBlock}" Margin="0,6,0,0"/>
+        <Label
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Content="{DynamicResource Str.About.MaintainedBy}"
+            DockPanel.Dock="Top"
+            Style="{StaticResource SecondaryLabel}" />
+        <Label
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Content="{DynamicResource Str.About.DevelopedBy}"
+            DockPanel.Dock="Top"
+            Style="{StaticResource SecondaryLabel}" />
+        <TextBlock
+            Margin="0,6,0,0"
+            DockPanel.Dock="Top"
+            FontWeight="SemiBold"
+            Foreground="Green"
+            Style="{StaticResource AdditionalTextBlock}"
+            Text="{DynamicResource Str.NewVersion}"
+            Visibility="{Binding HasUpdates, Mode=OneWay, Converter={StaticResource VisibilityConverter}}" />
 
 
-        <controls:ExtendedButton DockPanel.Dock="Bottom" Style="{StaticResource ActionLinkExtendedButton}" Caption="{StaticResource Str.About.ReportIssue}" CommandParameter="https://github.com/Danily07/Translumo/issues/new" Margin="0,0,0,25" />
-        <controls:ExtendedButton DockPanel.Dock="Bottom" Style="{StaticResource ActionLinkExtendedButton}" Caption="{StaticResource Str.About.ProjectPage}" CommandParameter="https://github.com/Danily07/Translumo" Margin="0,0,0,6" />
+        <controls:ExtendedButton
+            Margin="0,0,0,25"
+            Caption="{StaticResource Str.About.ReportIssue}"
+            CommandParameter="https://github.com/ramjke/Translumo/issues/new"
+            DockPanel.Dock="Bottom"
+            Style="{StaticResource ActionLinkExtendedButton}" />
+        <controls:ExtendedButton
+            Margin="0,0,0,6"
+            Caption="{StaticResource Str.About.ProjectPage}"
+            CommandParameter="https://github.com/ramjke/Translumo"
+            DockPanel.Dock="Bottom"
+            Style="{StaticResource ActionLinkExtendedButton}" />
     </DockPanel>
 </UserControl>
