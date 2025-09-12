@@ -64,6 +64,7 @@
                         <RowDefinition Height="68" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="50" />
+                        <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
                     <Image
                         Grid.Row="0"
@@ -119,6 +120,27 @@
                                 Style="{StaticResource SystemAdditionalIcon}" />
                         </Button>
                     </DockPanel>
+                    <Button
+                        Grid.Row="3"
+                        Height="105"
+                        Padding="0"
+                        Background="White"
+                        BorderThickness="0,0,1,0"
+                        Click="OnLookupperLinkClick"
+                        Cursor="Hand">
+                        <StackPanel>
+                            <TextBlock
+                                Margin="12,8,0,0"
+                                FontSize="18"
+                                Text="{DynamicResource Str.Lookupper.ProjectNote}" />
+                            <Image
+                                Height="60"
+                                Margin="14,8,14,14"
+                                HorizontalAlignment="Left"
+                                RenderOptions.BitmapScalingMode="HighQuality"
+                                Source="../../Resources/Icons/lookupper.png" />
+                        </StackPanel>
+                    </Button>
                 </Grid>
 
                 <ContentControl

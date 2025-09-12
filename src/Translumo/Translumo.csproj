@@ -42,6 +42,7 @@
     <None Remove="Resources\Icons\logonew.png" />
     <None Remove="Resources\Icons\logo_full.png" />
     <None Remove="Resources\Icons\newLogo.png" />
+	<None Remove="Resources\Icons\lookupper.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -104,6 +105,9 @@
     <Resource Include="Resources\Icons\logo_full.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+	<Resource Include="Resources\Icons\lookupper.png">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Resource>
   </ItemGroup>
 
   <ItemGroup>

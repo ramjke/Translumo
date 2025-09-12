@@ -4,8 +4,10 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
+using Translumo.Infrastructure.Language;
 using Translumo.MVVM.ViewModels;
 using Translumo.Services;
+using Translumo.Utils;
 
 namespace Translumo.MVVM.Views
 {
@@ -102,6 +104,16 @@ namespace Translumo.MVVM.Views
                 // Set the first item as selected
                 sideNav.SelectedItem = (MaterialDesignExtensions.Model.INavigationItem)sideNav.Items[0];
             }
+        }
+
+        private void OnLookupperLinkClick(object sender, RoutedEventArgs e)
+        {
+            var destinationurl = LocalizationManager.GetValue($"Str.Lookupper.Url");
+            var sInfo = new System.Diagnostics.ProcessStartInfo(destinationurl)
+            {
+                UseShellExecute = true
+            };
+            System.Diagnostics.Process.Start(sInfo);
         }
     }
 }

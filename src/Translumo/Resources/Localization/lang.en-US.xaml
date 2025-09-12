@@ -142,5 +142,8 @@
     <system:String x:Key="Str.Button.ShowText">Show text example</system:String>
     <system:String x:Key="Str.Button.Apply">Apply</system:String>
 
+    <system:String x:Key="Str.Lookupper.ProjectNote">Main project I’m working on:</system:String>
+    <system:String x:Key="Str.Lookupper.Url">https://lookupper.com</system:String>
+
 
 </ResourceDictionary>

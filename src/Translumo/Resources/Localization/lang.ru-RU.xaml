@@ -142,5 +142,7 @@
     <system:String x:Key="Str.Button.ShowText">Показать пример текста</system:String>
     <system:String x:Key="Str.Button.Apply">Применить</system:String>
 
+    <system:String x:Key="Str.Lookupper.ProjectNote">Мой главный проект:</system:String>
+    <system:String x:Key="Str.Lookupper.Url">https://lookupper.ru</system:String>
 
 </ResourceDictionary>
