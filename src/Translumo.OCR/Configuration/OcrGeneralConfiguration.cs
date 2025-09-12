@@ -16,7 +16,6 @@ namespace Translumo.OCR.Configuration
         {
             OcrConfigurations = new OcrConfiguration[]
                 { new EasyOCRConfiguration(), new WindowsOCRConfiguration(), new TesseractOCRConfiguration() },
-            InstalledWinOcrLanguages = new List<Languages>()
         };
 
         public OcrConfiguration[] OcrConfigurations
@@ -34,20 +33,9 @@ namespace Translumo.OCR.Configuration
             }
         }
 
-        public List<Languages> InstalledWinOcrLanguages
-        {
-            get => _installedWinOcrLanguages;
-            set
-            {
-                _installedWinOcrLanguages = value;
-                OnPropertyChanged();
-            }
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         private OcrConfiguration[] _ocrConfigurations;
-        private List<Languages> _installedWinOcrLanguages;
 
         public TConfiguration GetConfiguration<TConfiguration>()
             where TConfiguration : OcrConfiguration
