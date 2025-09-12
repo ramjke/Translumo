@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using Translumo.Infrastructure;
 using Translumo.MVVM.Models;
 using Translumo.MVVM.ViewModels;
@@ -15,9 +15,23 @@ namespace Translumo.MVVM.Views
     /// </summary>
     public partial class ChatWindowView : Window
     {
+        [DllImport("user32.dll")]
+        private static extern bool SetWindowDisplayAffinity(IntPtr hwnd, uint affinity);
+
+        private const uint WDA_EXCLUDEFROMCAPTURE = 0x11;
+
         public ChatWindowView()
         {
             InitializeComponent();
+
+            // Delay setting display affinity until window handle is created
+            // Exclude ChatWindow to be captured in screenshot
+            // Requires build 10.0.19041
+            this.SourceInitialized += (s, e) =>
+            {
+                var hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
+                bool success = SetWindowDisplayAffinity(hwnd, WDA_EXCLUDEFROMCAPTURE);
+            };
         }
 
         private void ModelOnChatFirstItemsRemoved(object sender, ChatFirstItemsRemovedEventArgs e)
@@ -42,16 +56,16 @@ namespace Translumo.MVVM.Views
 
         private void AppendTextBlock(string text, TextTypes textType)
         {
-             if (string.IsNullOrEmpty(text))
+            if (string.IsNullOrEmpty(text))
                 return;
 
-             rtbChat.CaretPosition = rtbChat.CaretPosition.DocumentEnd;
+            rtbChat.CaretPosition = rtbChat.CaretPosition.DocumentEnd;
 
             var paragraph = new Paragraph { LineHeight = fontTextBlockInstance.LineHeight, TextAlignment = fontTextBlockInstance.TextAlignment};
             var run = GetRunInstance(textType).Clone(text);
             paragraph.Inlines.Add(run);
             rtbChat.Document.Blocks.Add(paragraph);
-            
+
             rtbChat.ScrollToEnd();
         }
 
@@ -84,16 +98,12 @@ namespace Translumo.MVVM.Views
 
         private Run GetRunInstance(TextTypes textType)
         {
-            switch (textType)
+            return textType switch
             {
-                case TextTypes.Info:
-                    return fontRunInfoInstance;
-
-                case TextTypes.Error:
-                    return fontRunErrorInstance;
-                default:
-                    return fontRunInstance;
-            }
+                TextTypes.Info => fontRunInfoInstance,
+                TextTypes.Error => fontRunErrorInstance,
+                _ => fontRunInstance,
+            };
         }
     }
 }

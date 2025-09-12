@@ -18,5 +18,5 @@ using System.Windows;
 [assembly: AssemblyProduct("Translumo")]
 [assembly: AssemblyTitle("Translumo")]
 [assembly: AssemblyCopyright("Aleksei Vekhov")]
-[assembly: TargetPlatform("Windows10.0.17763.0")]
-[assembly: SupportedOSPlatform("Windows10.0.17763.0")]
+[assembly: TargetPlatform("Windows10.0.19041.0")]
+[assembly: SupportedOSPlatform("Windows10.0.19041.0")]
