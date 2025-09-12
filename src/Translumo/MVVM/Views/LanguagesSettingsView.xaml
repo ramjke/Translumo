@@ -113,11 +113,9 @@
                     <Button
                         Margin="0,5,0,0"
                         HorizontalAlignment="Left"
-                        Background="{DynamicResource PrimaryHueMidBrush}"
                         Command="{Binding ProxySettingsClickedCommand}"
                         Content="{DynamicResource Str.Button.SettingProxy}"
-                        Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"
-                        Style="{StaticResource MaterialDesignFlatLightButton}" />
+                        Style="{StaticResource PrimaryButton}" />
                 </StackPanel>
             </GroupBox>
         </StackPanel>

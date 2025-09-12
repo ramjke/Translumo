@@ -1,0 +1,33 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+
+    <Style
+        x:Key="RoundedCheckBox"
+        BasedOn="{StaticResource MaterialDesignActionCheckBox}"
+        TargetType="CheckBox">
+
+        <!--  Default colors  -->
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="Background" Value="#F0F0F0" />
+        <!--  very light gray  -->
+
+        <!--  Rounded corners  -->
+        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="8" />
+
+        <Style.Triggers>
+            <!--  Checked state  -->
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="{DynamicResource PrimaryHueMidBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource PrimaryHueMidForegroundBrush}" />
+            </Trigger>
+
+            <!--  Hover state  -->
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource PrimaryHueMidBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource PrimaryHueMidForegroundBrush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

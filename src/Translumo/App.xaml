@@ -1,7 +1,8 @@
-﻿<Application x:Class="Translumo.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:system="clr-namespace:System;assembly=System.Runtime">
+﻿<Application
+    x:Class="Translumo.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -9,8 +10,8 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/Generic.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/MaterialDesignLightTheme.xaml" />
-                
-                <!-- primary colors -->
+
+                <!--  primary colors  -->
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
                         <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/materialdesigncolor.cyan.accent.xaml" />
@@ -23,7 +24,7 @@
                     <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="{StaticResource Accent400Foreground}" />
                 </ResourceDictionary>
 
-                <!-- accent color -->
+                <!--  accent color  -->
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
                         <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/materialdesigncolor.cyan.accent.xaml" />
@@ -36,21 +37,23 @@
                     <SolidColorBrush x:Key="SecondaryHueDarkForegroundBrush" Color="{StaticResource Accent400Foreground}" />
                 </ResourceDictionary>
 
-                <!-- other colors -->
+                <!--  other colors  -->
                 <ResourceDictionary>
                     <SolidColorBrush x:Key="ErrorBrush" Color="#f03a16" />
-                    <SolidColorBrush x:Key="HoverBackgroundBrush" Color="#ebf5f7"></SolidColorBrush>
-                    <SolidColorBrush x:Key="WarningBrush" Color="#ffdad6"></SolidColorBrush>
+                    <SolidColorBrush x:Key="HoverBackgroundBrush" Color="#ebf5f7" />
+                    <SolidColorBrush x:Key="WarningBrush" Color="#ffdad6" />
                 </ResourceDictionary>
 
-                <ResourceDictionary Source="/Themes/Label.xaml"></ResourceDictionary>
-                <ResourceDictionary Source="/Themes/TextBlock.xaml"></ResourceDictionary>
-                <ResourceDictionary Source="/Themes/Button.xaml"></ResourceDictionary>
-                <ResourceDictionary Source="/Themes/List.xaml"></ResourceDictionary>
-                <ResourceDictionary Source="/Themes/PackIcon.xaml"></ResourceDictionary>
-                <ResourceDictionary Source="/Themes/TextBox.xaml"></ResourceDictionary>
-                <ResourceDictionary Source="/Themes/ComboBox.xaml"></ResourceDictionary>
-                <ResourceDictionary Source="/Themes/Spinner.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/Themes/Label.xaml" />
+                <ResourceDictionary Source="/Themes/TextBlock.xaml" />
+                <ResourceDictionary Source="/Themes/Button.xaml" />
+                <ResourceDictionary Source="/Themes/List.xaml" />
+                <ResourceDictionary Source="/Themes/PackIcon.xaml" />
+                <ResourceDictionary Source="/Themes/TextBox.xaml" />
+                <ResourceDictionary Source="/Themes/ComboBox.xaml" />
+                <ResourceDictionary Source="/Themes/Spinner.xaml" />
+                <ResourceDictionary Source="/Themes/CheckBox.xaml" />
+                <ResourceDictionary Source="/Themes/ToggleButton.xaml" />
 
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
@@ -60,7 +63,7 @@
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
 
-            <Style TargetType="ToolTip"></Style>
+            <Style TargetType="ToolTip" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

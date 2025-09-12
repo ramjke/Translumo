@@ -1,44 +1,65 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MaterialDesignLabel}">
-        <Setter Property="FontSize" Value="15"/>
-        <Setter Property="HorizontalAlignment" Value="Stretch"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
+    <Style BasedOn="{StaticResource MaterialDesignLabel}" TargetType="{x:Type Label}">
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
-    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MaterialDesignLabel}" x:Key="PostscriptLabel">
-        <Setter Property="FontStyle" Value="Italic"/>
-        <Setter Property="FontSize" Value="14"></Setter>
+    <Style
+        x:Key="PostscriptLabel"
+        BasedOn="{StaticResource MaterialDesignLabel}"
+        TargetType="{x:Type Label}">
+        <Setter Property="FontStyle" Value="Italic" />
+        <Setter Property="FontSize" Value="14" />
     </Style>
 
-    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MaterialDesignLabel}" x:Key="SecondaryHeaderLabel">
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="FontWeight" Value="Bold"></Setter>
+    <Style
+        x:Key="SecondaryHeaderLabel"
+        BasedOn="{StaticResource MaterialDesignLabel}"
+        TargetType="{x:Type Label}">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontWeight" Value="Bold" />
     </Style>
 
-    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MaterialDesignLabel}" x:Key="HeaderLabel">
-        <Setter Property="FontSize" Value="17"/>
-        <Setter Property="FontWeight" Value="Bold"></Setter>
+    <Style
+        x:Key="HeaderLabel"
+        BasedOn="{StaticResource MaterialDesignLabel}"
+        TargetType="{x:Type Label}">
+        <Setter Property="FontSize" Value="17" />
+        <Setter Property="FontWeight" Value="Bold" />
     </Style>
 
-    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MaterialDesignLabel}" x:Key="SecondaryLabel">
-        <Setter Property="FontSize" Value="11"/>
+    <Style
+        x:Key="SecondaryLabel"
+        BasedOn="{StaticResource MaterialDesignLabel}"
+        TargetType="{x:Type Label}">
+        <Setter Property="FontSize" Value="14" />
     </Style>
 
-    <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}" x:Key="ControlCaptionLabel">
-        <Setter Property="Margin" Value="4, 0, 0, 0"></Setter>
+    <Style
+        x:Key="ControlCaptionLabel"
+        BasedOn="{StaticResource {x:Type Label}}"
+        TargetType="Label">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Margin" Value="4,0,0,0" />
     </Style>
 
-    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MaterialDesignLabel}" x:Key="PanelCaptionLabel">
-        <Setter Property="FontSize" Value="16"/>
-        <Setter Property="Foreground" Value="{StaticResource PrimaryHueDarkBrush}"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="FontWeight" Value="Bold"/>
+    <Style
+        x:Key="PanelCaptionLabel"
+        BasedOn="{StaticResource MaterialDesignLabel}"
+        TargetType="{x:Type Label}">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Foreground" Value="{StaticResource PrimaryHueDarkBrush}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontWeight" Value="Bold" />
     </Style>
 
-    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MaterialDesignLabel}" x:Key="LightLabel">
-        <Setter Property="Foreground" Value="{StaticResource PrimaryHueLightBrush}"/>
+    <Style
+        x:Key="LightLabel"
+        BasedOn="{StaticResource MaterialDesignLabel}"
+        TargetType="{x:Type Label}">
+        <Setter Property="Foreground" Value="{StaticResource PrimaryHueLightBrush}" />
     </Style>
 
 </ResourceDictionary>

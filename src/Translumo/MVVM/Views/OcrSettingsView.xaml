@@ -1,46 +1,77 @@
-﻿<UserControl x:Class="Translumo.MVVM.Views.OcrSettingsView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:common="clr-namespace:Translumo.MVVM.Common"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+﻿<UserControl
+    x:Class="Translumo.MVVM.Views.OcrSettingsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:common="clr-namespace:Translumo.MVVM.Common"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
     <UserControl.Resources>
-        <common:BoldFontConverter x:Key="boldFontConverter"/>
+        <common:BoldFontConverter x:Key="boldFontConverter" />
     </UserControl.Resources>
 
 
     <StackPanel HorizontalAlignment="Left">
         <StackPanel Orientation="Horizontal">
-            <CheckBox Style="{DynamicResource MaterialDesignActionCheckBox}" Content="{materialDesign:PackIcon Close}" IsChecked="{Binding TesseractOcrEnabled}"></CheckBox>
-            <Label Content="{DynamicResource Str.OcrSettings.TesseractOcr}" Style="{StaticResource ControlCaptionLabel}" FontWeight="{Binding TesseractOcrEnabled, Converter={StaticResource boldFontConverter}}"/>
+            <CheckBox
+                Margin="2,0,0,0"
+                Content="{materialDesign:PackIcon Close}"
+                IsChecked="{Binding TesseractOcrEnabled}"
+                Style="{StaticResource RoundedCheckBox}" />
+            <Label
+                Content="{DynamicResource Str.OcrSettings.TesseractOcr}"
+                FontWeight="{Binding TesseractOcrEnabled, Converter={StaticResource boldFontConverter}}"
+                Style="{StaticResource ControlCaptionLabel}" />
         </StackPanel>
         <StackPanel>
             <Label>
-                <TextBlock common:Inlines.Text="{DynamicResource Str.OcrSettings.TesseractOcrDesc}" Style="{StaticResource TextBlockBase}"/>
+                <TextBlock common:Inlines.Text="{DynamicResource Str.OcrSettings.TesseractOcrDesc}" Style="{StaticResource TextBlockBase}" />
             </Label>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-            <CheckBox Style="{DynamicResource MaterialDesignActionCheckBox}" Content="{materialDesign:PackIcon Close}" IsChecked="{Binding WindowsOcrEnabled}"></CheckBox>
-            <Label Content="{DynamicResource Str.OcrSettings.WindowsOcr}" Style="{StaticResource ControlCaptionLabel}" FontWeight="{Binding WindowsOcrEnabled, Converter={StaticResource boldFontConverter}}"/>
+        <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
+            <CheckBox
+                Margin="2,0,0,0"
+                Content="{materialDesign:PackIcon Close}"
+                IsChecked="{Binding WindowsOcrEnabled}"
+                Style="{StaticResource RoundedCheckBox}" />
+            <Label
+                Content="{DynamicResource Str.OcrSettings.WindowsOcr}"
+                FontWeight="{Binding WindowsOcrEnabled, Converter={StaticResource boldFontConverter}}"
+                Style="{StaticResource ControlCaptionLabel}" />
         </StackPanel>
         <StackPanel>
             <Label>
-                <TextBlock common:Inlines.Text="{DynamicResource Str.OcrSettings.WindowsOcrDesc}" Style="{StaticResource TextBlockBase}"/>
+                <TextBlock common:Inlines.Text="{DynamicResource Str.OcrSettings.WindowsOcrDesc}" Style="{StaticResource TextBlockBase}" />
             </Label>
-            <Label Content="{DynamicResource Str.OcrSettings.WindowsOcrDesc2}"  Style="{StaticResource SecondaryLabel}" Margin="0,-10,0,0" Foreground="{StaticResource SecondaryHueDarkBrush}"/>
+            <Label
+                Margin="0,-8,0,0"
+                Content="{DynamicResource Str.OcrSettings.WindowsOcrDesc2}"
+                Foreground="{StaticResource SecondaryHueDarkBrush}"
+                Style="{StaticResource SecondaryLabel}" />
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Margin="0,19,0,0">
-            <CheckBox Style="{DynamicResource MaterialDesignActionCheckBox}" Content="{materialDesign:PackIcon Close}" IsChecked="{Binding EasyOcrEnabled}"></CheckBox>
-            <Label Content="{DynamicResource Str.OcrSettings.EasyOcr}" Style="{StaticResource ControlCaptionLabel}" FontWeight="{Binding EasyOcrEnabled, Converter={StaticResource boldFontConverter}}"/>
+        <StackPanel Margin="0,19,0,0" Orientation="Horizontal">
+            <CheckBox
+                Margin="2,0,0,0"
+                Content="{materialDesign:PackIcon Close}"
+                IsChecked="{Binding EasyOcrEnabled}"
+                Style="{StaticResource RoundedCheckBox}" />
+            <Label
+                Content="{DynamicResource Str.OcrSettings.EasyOcr}"
+                FontWeight="{Binding EasyOcrEnabled, Converter={StaticResource boldFontConverter}}"
+                Style="{StaticResource ControlCaptionLabel}" />
         </StackPanel>
         <StackPanel>
             <Label>
-                <TextBlock common:Inlines.Text="{DynamicResource Str.OcrSettings.EasyOcrDesc}" Style="{StaticResource TextBlockBase}"/>
+                <TextBlock common:Inlines.Text="{DynamicResource Str.OcrSettings.EasyOcrDesc}" Style="{StaticResource TextBlockBase}" />
             </Label>
-            <Label Content="{DynamicResource Str.OcrSettings.EasyOcrDesc2}" Style="{StaticResource SecondaryLabel}" Margin="0,-10,0,0" Foreground="{StaticResource SecondaryHueDarkBrush}"/>
+            <Label
+                Margin="0,-8,0,0"
+                Content="{DynamicResource Str.OcrSettings.EasyOcrDesc2}"
+                Foreground="{StaticResource SecondaryHueDarkBrush}"
+                Style="{StaticResource SecondaryLabel}" />
         </StackPanel>
     </StackPanel>
 </UserControl>
