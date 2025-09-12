@@ -4,7 +4,7 @@ setlocal EnableDelayedExpansion
 :: Paths
 set "componentsPath=%~dp0ext_components"
 set "zipFile=%~dp0components.zip"
-set "downloadUrl=https://github.com/ramjke/Translumo/releases/download/v.0.8.5/_components_v.0.8.0_case_sensitive_fix.zip"
+set "downloadUrl=https://github.com/ramjke/Translumo/releases/download/v.0.8.5/_components_v.1.0.0.zip"
 
 set "targetPaths[0]=%~1python\"
 set "targetPaths[1]=%~1models\easyocr\"
