@@ -12,7 +12,7 @@ public class WindowsTTSEngine : ITTSEngine
     {
         _synthesizer = new SpeechSynthesizer();
         _synthesizer.SetOutputToDefaultAudioDevice();
-        _synthesizer.Rate = 1;
+        _synthesizer.Rate = 3;
 
         _voiceInfo = _synthesizer.GetInstalledVoices(new CultureInfo(languageCode)).FirstOrDefault()?.VoiceInfo;
     }
