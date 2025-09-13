@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Translumo.Infrastructure.Language;
-using Translumo.Infrastructure.Powershell;
 using Translumo.Infrastructure.Python;
-using Translumo.TTS;
-using Translumo.TTS.Engines;
 using Translumo.Utils;
 
 namespace Translumo.Dialog.Stages
@@ -35,7 +31,7 @@ namespace Translumo.Dialog.Stages
                 .AddNextFalse(
                     new DialogQuestionInteractionStage(
                             dialogService,
-                            string.Format(LocalizationManager.GetValue("Str.Stages.LangPackQuestion", true), languageCode))
+                            string.Format(LocalizationManager.GetValue("Str.Stages.OCRLangPackQuestion", true), languageCode))
                         .AddNextStage(
                             new ConditionalInteractionStage(
                                     dialogService,
@@ -59,19 +55,41 @@ namespace Translumo.Dialog.Stages
                         LocalizationManager.GetValue("Str.Stages.CheckLangPackError", true)));
         }
 
-        public static InteractionStage CreateWindowsTtsCheckingStages(DialogService dialogService, string languageCode, InteractionStage enableFlagStage, ILogger logger)
-        {
-            return new ConditionalInteractionStage(dialogService,
-                    () => OptionalFeaturesProvider.TtsLanguagePackIsInstalled(languageCode), LocalizationManager.GetValue("Str.Stages.CheckLangPack"))
-                .AddNextFalse(new DialogQuestionInteractionStage(dialogService, string.Format(LocalizationManager.GetValue("Str.Stages.LangPackQuestion", true), languageCode))
-                    .AddNextStage(new ConditionalInteractionStage(dialogService, async () => (await OptionalFeaturesProvider.TtsLanguagePackInstall(languageCode)).RestartIsNeeded, LocalizationManager.GetValue("Str.Stages.InstallationLangPack"))
-                        .AddNextFalse(new DialogInteractionStage(dialogService, LocalizationManager.GetValue("Str.Stages.LangPackInstalledTtsRestart", true))
-                            .AddNextStage(enableFlagStage))
-                        .AddNextStage(new DialogInteractionStage(dialogService, LocalizationManager.GetValue("Str.Stages.LangPackInstalledRestart"))
-                            .AddNextStage(enableFlagStage))
-                        .AddException(new ExceptionInteractionStage(dialogService, (ex) => logger.LogError(ex, "Language windows pack install error"), LocalizationManager.GetValue("Str.Stages.InstallationLangError")))))
+        public static InteractionStage CreateWindowsTtsCheckingStages(
+            DialogService dialogService,
+            string languageCode,
+            InteractionStage enableFlagStage,
+            ILogger logger)
+            {
+            return new ConditionalInteractionStage(
+                    dialogService,
+                    () => Task.FromResult(TTS.WindowsTTSHelper.IsLanguageTTSCapabilityInstalled(languageCode)),
+                    LocalizationManager.GetValue("Str.Stages.CheckLangPack"))
+                .AddNextFalse(
+                    new DialogQuestionInteractionStage(
+                        dialogService,
+                        string.Format(LocalizationManager.GetValue("Str.Stages.TTSLangPackQuestion", true), languageCode))
+                    .AddNextStage(
+                        new ConditionalInteractionStage(
+                                dialogService,
+                                async () => await TTS.WindowsTTSHelper.InstallTTSLanguageCapatibility(languageCode),
+                                LocalizationManager.GetValue("Str.Stages.InstallationLangPack"))
+                            .AddNextStage(
+                                new DialogInteractionStage(
+                                        dialogService,
+                                        LocalizationManager.GetValue("Str.Stages.LangPackInstalledRestart"))
+                                    .AddNextStage(enableFlagStage))
+                            .AddException(
+                                new ExceptionInteractionStage(
+                                    dialogService,
+                                    ex => logger.LogError(ex, "Language windows pack install error"),
+                                    LocalizationManager.GetValue("Str.Stages.InstallationLangError")))))
                 .AddNextStage(enableFlagStage)
-                .AddException(new ExceptionInteractionStage(dialogService, (ex) => logger.LogError(ex, "Checking language pack error"), LocalizationManager.GetValue("Str.Stages.CheckLangPackError", true)));
+                .AddException(
+                    new ExceptionInteractionStage(
+                        dialogService,
+                        ex => logger.LogError(ex, "Checking language pack error"),
+                        LocalizationManager.GetValue("Str.Stages.CheckLangPackError", true)));
         }
 
         public static InteractionStage CreateEasyOcrCheckingStages(DialogService dialogService, InteractionStage enableFlagStage, ILogger logger)
@@ -97,47 +115,47 @@ namespace Translumo.Dialog.Stages
                 .AddException(new ExceptionInteractionStage(dialogService, (ex) => logger.LogError(ex, "Easy OCR installation checking error"), LocalizationManager.GetValue("Str.Stages.PyModulesCheckError")));
         }
 
-        public static InteractionStage CreateSileroTtsCheckingStages(LanguageDescriptor languageDescriptor, DialogService dialogService, InteractionStage enableFlagStage, ILogger logger)
-        {
+        //public static InteractionStage CreateSileroTtsCheckingStages(LanguageDescriptor languageDescriptor, DialogService dialogService, InteractionStage enableFlagStage, ILogger logger)
+        //{
 
-            var warningMessage = string.Format(
-                LocalizationManager.GetValue("Str.Stages.TtsNotSupportLanguageTemplate", true),
-                LocalizationManager.GetValue("Str.LangSettings.TtsSystem", true),
-                //TTSEngines.SileroTTS.ToString(),
-                LocalizationManager.GetValue($"Str.Languages.{languageDescriptor.Language}", true));
+        //    var warningMessage = string.Format(
+        //        LocalizationManager.GetValue("Str.Stages.TtsNotSupportLanguageTemplate", true),
+        //        LocalizationManager.GetValue("Str.LangSettings.TtsSystem", true),
+        //        //TTSEngines.SileroTTS.ToString(),
+        //        LocalizationManager.GetValue($"Str.Languages.{languageDescriptor.Language}", true));
 
 
-            InteractionStage InstallPythonModuleStage(string moduleName) =>
-                new ActionInteractionStage(
-                    dialogService,
-                    () => PythonProvider.InstallModuleAsync(moduleName),
-                    string.Format(LocalizationManager.GetValue("Str.Stages.InstallationPyModuleTemplate"), moduleName))
-                    .AddException(new ExceptionInteractionStage(dialogService, (ex) => logger.LogError(ex, $"{moduleName} installation error"), "{0}"));
+        //    InteractionStage InstallPythonModuleStage(string moduleName) =>
+        //        new ActionInteractionStage(
+        //            dialogService,
+        //            () => PythonProvider.InstallModuleAsync(moduleName),
+        //            string.Format(LocalizationManager.GetValue("Str.Stages.InstallationPyModuleTemplate"), moduleName))
+        //            .AddException(new ExceptionInteractionStage(dialogService, (ex) => logger.LogError(ex, $"{moduleName} installation error"), "{0}"));
 
-            return new ConditionalInteractionStage(
-                dialogService,
-                () => Task.FromResult(SileroTTSEngine.IsLanguageSupported(languageDescriptor.Code)))
-                .AddNextFalse(new ExceptionInteractionStage(
-                    dialogService,
-                    _ => { return; },
-                    warningMessage)
-                { InputException = new NotSupportedException() })
-                .AddNextStage(new ConditionalInteractionStage(
-                    dialogService,
-                    async () =>
-                        await PythonProvider.ModuleIsInstalledAsync("numpy")
-                        && await PythonProvider.ModuleIsInstalledAsync("torch")
-                        && await PythonProvider.ModuleIsInstalledAsync("IPython"),
-                    LocalizationManager.GetValue("Str.Stages.CheckPyModules"))
-                    .AddNextFalse(
-                        new DialogQuestionInteractionStage(dialogService, LocalizationManager.GetValue("Str.Stages.PyModulesQuestion2", true))
-                            .AddNextStage(InstallPythonModuleStage("torch")
-                                .AddNextStage(InstallPythonModuleStage("numpy")
-                                    .AddNextStage(InstallPythonModuleStage("IPython")
-                                        .AddNextStage(new DialogInteractionStage(dialogService, LocalizationManager.GetValue("Str.Stages.PyModulesInstalled"))
-                                            .AddNextStage(enableFlagStage))))))
-                    .AddNextStage(enableFlagStage)
-                    .AddException(new ExceptionInteractionStage(dialogService, (ex) => logger.LogError(ex, "Silero TTS installation checking error"), LocalizationManager.GetValue("Str.Stages.PyModulesCheckError"))));
-        }
+        //    return new ConditionalInteractionStage(
+        //        dialogService,
+        //        () => Task.FromResult(SileroTTSEngine.IsLanguageSupported(languageDescriptor.Code)))
+        //        .AddNextFalse(new ExceptionInteractionStage(
+        //            dialogService,
+        //            _ => { return; },
+        //            warningMessage)
+        //        { InputException = new NotSupportedException() })
+        //        .AddNextStage(new ConditionalInteractionStage(
+        //            dialogService,
+        //            async () =>
+        //                await PythonProvider.ModuleIsInstalledAsync("numpy")
+        //                && await PythonProvider.ModuleIsInstalledAsync("torch")
+        //                && await PythonProvider.ModuleIsInstalledAsync("IPython"),
+        //            LocalizationManager.GetValue("Str.Stages.CheckPyModules"))
+        //            .AddNextFalse(
+        //                new DialogQuestionInteractionStage(dialogService, LocalizationManager.GetValue("Str.Stages.PyModulesQuestion2", true))
+        //                    .AddNextStage(InstallPythonModuleStage("torch")
+        //                        .AddNextStage(InstallPythonModuleStage("numpy")
+        //                            .AddNextStage(InstallPythonModuleStage("IPython")
+        //                                .AddNextStage(new DialogInteractionStage(dialogService, LocalizationManager.GetValue("Str.Stages.PyModulesInstalled"))
+        //                                    .AddNextStage(enableFlagStage))))))
+        //            .AddNextStage(enableFlagStage)
+        //            .AddException(new ExceptionInteractionStage(dialogService, (ex) => logger.LogError(ex, "Silero TTS installation checking error"), LocalizationManager.GetValue("Str.Stages.PyModulesCheckError"))));
+        //}
     }
 }

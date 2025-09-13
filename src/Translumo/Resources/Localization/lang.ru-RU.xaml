@@ -30,7 +30,7 @@
     <system:String x:Key="Str.LangSettings.SourceLang">Исходный язык</system:String>
     <system:String x:Key="Str.LangSettings.TranslationLang">Язык перевода</system:String>
     <system:String x:Key="Str.LangSettings.Translator">Переводчик</system:String>
-    <system:String x:Key="Str.LangSettings.TtsSystem">Синтез речи TTS (предварительная версия)</system:String>
+    <system:String x:Key="Str.LangSettings.TtsSystem">Синтез речи (TTS)</system:String>
 
     <!--  Hotkeys descriptions  -->
     <system:String x:Key="Str.Hotkeys.ChatVisibility">Показать/скрыть окно перевода</system:String>
@@ -127,7 +127,8 @@
     <system:String x:Key="Str.Stages.PyModulesInstalled">Необходимые модули успешно установлены</system:String>
     <system:String x:Key="Str.Stages.PyModulesCheckError">Не удалось получить доступ к Python для проверки модулей</system:String>
     <system:String x:Key="Str.Stages.CheckLangPack">Проверка установленных языковых пакетов...</system:String>
-    <system:String x:Key="Str.Stages.LangPackQuestion" xml:space="preserve">Языковой пакет '{0}' не установлен.&#13;Хотите установить сейчас?</system:String>
+    <system:String x:Key="Str.Stages.OCRLangPackQuestion" xml:space="preserve">Распознавание текста (OCR) для языка «{0}» не установлено в Windows.&#13;Хотите установить его сейчас?</system:String>
+    <system:String x:Key="Str.Stages.TTSLangPackQuestion" xml:space="preserve">Синтез речи (TTS) для языка «{0}» не установлен в Windows.&#13;Хотите установить его сейчас?</system:String>
     <system:String x:Key="Str.Stages.InstallationLangPack">Установка языкового пакета...</system:String>
     <system:String x:Key="Str.Stages.LangPackInstalledRestart">Языковой пакет успешно установлен. Пожалуйста, перезагрузите систему.</system:String>
     <system:String x:Key="Str.Stages.LangPackInstalledTtsRestart" xml:space="preserve">Языковой пакет успешно установлен.&#13;Если TTS не работает, попробуйте перезапустить приложение.</system:String>

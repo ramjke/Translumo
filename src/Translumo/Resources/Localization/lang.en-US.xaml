@@ -30,7 +30,7 @@
     <system:String x:Key="Str.LangSettings.SourceLang">Source language</system:String>
     <system:String x:Key="Str.LangSettings.TranslationLang">Translation language</system:String>
     <system:String x:Key="Str.LangSettings.Translator">Translator</system:String>
-    <system:String x:Key="Str.LangSettings.TtsSystem">Text to speech system (experimental feature)</system:String>
+    <system:String x:Key="Str.LangSettings.TtsSystem">Text to speech system</system:String>
 
     <!--  Hotkeys descriptions  -->
     <system:String x:Key="Str.Hotkeys.ChatVisibility">Show/hide translation window</system:String>
@@ -127,7 +127,8 @@
     <system:String x:Key="Str.Stages.PyModulesInstalled">Required modules are installed</system:String>
     <system:String x:Key="Str.Stages.PyModulesCheckError">Couldn't get access to Python for checking modules</system:String>
     <system:String x:Key="Str.Stages.CheckLangPack">Checking language pack installation...</system:String>
-    <system:String x:Key="Str.Stages.LangPackQuestion" xml:space="preserve">Language feature pack '{0}' is not installed.&#13;Do you want to install it now?</system:String>
+    <system:String x:Key="Str.Stages.OCRLangPackQuestion" xml:space="preserve">Text recognition (OCR) for the language '{0}' is not installed on Windows.&#13;Do you want to install it now?</system:String>
+    <system:String x:Key="Str.Stages.TTSLangPackQuestion" xml:space="preserve">Text-to-speech (TTS) for the language '{0}' is not installed on Windows.&#13;Do you want to install it now?</system:String>
     <system:String x:Key="Str.Stages.InstallationLangPack">Installation language pack...</system:String>
     <system:String x:Key="Str.Stages.LangPackInstalledRestart">Language pack has been installed. Please restart computer</system:String>
     <system:String x:Key="Str.Stages.LangPackInstalledTtsRestart" xml:space="preserve">Language pack has been installed.&#13;If TTS doesn't work, please try to restart the application.</system:String>
