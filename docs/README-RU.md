@@ -124,5 +124,7 @@ git clone https://github.com/ramjke/Translumo.git
 
 ## Альтернативные решения
 
-- [Lookupper](https://lookupper.ru) — экранный словарь и переводчик для изучения языков  
-- [ScreTran](https://github.com/PavlikBender/ScreTran) — простой экранный переводчик
+- [Lookupper](https://lookupper.ru) — экранный словарь и переводчик для изучения языков.
+- [ScreTran](https://github.com/PavlikBender/ScreTran) — простой экранный переводчик.
+- [ScreenTranslator](https://github.com/OneMoreGres/ScreenTranslator) — инструмент для захвата экрана, распознавания текста (OCR) и перевода.
+
