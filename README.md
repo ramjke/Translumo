@@ -133,5 +133,7 @@ A: Ensure the application path contains only Latin letters.
 
 ## Alternative Solutions
 
-- [Lookupper](https://lookupper.com) — on-screen dictionary and translator for language learning  
-- [ScreTran](https://github.com/PavlikBender/ScreTran) — simple screen translator
+- [Lookupper](https://lookupper.com) — on-screen dictionary and translator for language learning.
+- [ScreTran](https://github.com/PavlikBender/ScreTran) — simple screen translator.
+- [ScreenTranslator](https://github.com/OneMoreGres/ScreenTranslator) - screen capture, OCR and translation tool.
+
