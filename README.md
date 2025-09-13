@@ -11,6 +11,16 @@
 ## Project Status Update
 Translumo has a new maintainer. The project is no longer abandoned — development is active, improvements are ongoing, and contributions are welcome. Expect fresh updates, bug fixes, and new features as the project continues to grow.
 
+## Download Translumo
+
+**Direct download link to the latest version:**  
+[Translumo_1.0.0.zip](https://github.com/ramjke/Translumo/releases/download/v.1.0.0/Translumo_1.0.0.zip)  
+
+**Note:** This is a pre-release build. If no critical errors are reported in the next few days, this release will become the latest stable version.  
+
+After downloading, unzip the archive and run `Translumo.exe`.
+
+
 ## Main Features
 
 - **High text recognition precision**  
