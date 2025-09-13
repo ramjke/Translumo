@@ -91,7 +91,7 @@ namespace Translumo.MVVM.ViewModels
             }
             else
             {
-                StartTranslation();
+                StartTranslation(true);
             }
         }
 
@@ -116,6 +116,13 @@ namespace Translumo.MVVM.ViewModels
 
         private void HotKeysManagerOnOnceTranslateKeyPressed(object sender, EventArgs e)
         {
+            if (_dialogService.WindowIsOpened<SettingsViewModel>())
+            {
+                Model.AddChatItem(LocalizationManager.GetValue("Str.Chat.SettingsOpened"), TextTypes.Info);
+
+                return;
+            }
+
             var result = _dialogService.ShowWindowDialog<SelectionAreaWindow>(out var window);
             if (result.HasValue && result.Value)
             {
@@ -157,7 +164,7 @@ namespace Translumo.MVVM.ViewModels
             ChatWindowIsVisible = !ChatWindowIsVisible;
             if (ChatWindowIsVisible)
             {
-                StartTranslation();
+                StartTranslation(false);
             }
             else
             {
@@ -190,8 +197,18 @@ namespace Translumo.MVVM.ViewModels
             };
         }
 
-        private void StartTranslation()
+        private void StartTranslation(bool showWarning)
         {
+            if (_dialogService.WindowIsOpened<SettingsViewModel>())
+            {
+                if (showWarning)
+                {
+                    Model.AddChatItem(LocalizationManager.GetValue("Str.Chat.SettingsOpened"), TextTypes.Info);
+                }
+
+                return;
+            }
+
             Model.StartTranslation();
         }
 

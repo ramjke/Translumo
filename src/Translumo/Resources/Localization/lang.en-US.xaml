@@ -23,6 +23,7 @@
     <system:String x:Key="Str.Tray.Exit">Exit</system:String>
 
     <!--  Chat  -->
+    <system:String x:Key="Str.Chat.SettingsOpened">Close settings to start translation</system:String>
     <system:String x:Key="Str.Chat.WindowLocked">Translation window has been locked</system:String>
     <system:String x:Key="Str.Chat.WindowUnlocked">Translation window has been unlocked</system:String>
 
