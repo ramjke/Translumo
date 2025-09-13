@@ -20,7 +20,7 @@
     Deactivated="wSettings_Deactivated"
     FontFamily="{DynamicResource MaterialDesignFont}"
     MouseDown="wSettings_MouseDown"
-    ResizeMode="CanMinimize"
+    ResizeMode="NoResize"
     SourceInitialized="wSettings_SourceInitialized"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
