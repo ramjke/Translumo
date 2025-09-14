@@ -41,6 +41,7 @@
         <controls:TrayControl ChatOpeningCommand="{Binding ShowHideChatCommand}" SettingsOpeningCommand="{Binding ShowHideSettingsCommand}" />
         <RichTextBox
             x:Name="rtbChat"
+            Padding="10"
             Background="#03000000"
             BorderThickness="0,0,0,0"
             Focusable="false"
