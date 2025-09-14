@@ -4,7 +4,7 @@
 <p align="center">
   <img width="670" src="https://github.com/ramjke/Translumo/assets/29047281/8985049f-ea1c-428e-94be-042ece66cb54">
 </p>
-  <h2 align="center" style="border: 0">Продвинутый экранный переводчик для 🎮игр и 🎬субтитров</h2>
+  <h2 align="center" style="border: 0">Продвинутый экранный переводчик в реальном времени</h2>
 
 <p align="center"><a href="https://github.com/ramjke/Translumo"><strong>English</strong></a> | <strong>Русский</strong></a></p>
 
