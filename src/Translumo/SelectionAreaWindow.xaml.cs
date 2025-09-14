@@ -59,7 +59,7 @@ namespace Translumo
             selectionBox.Width = width;
             selectionBox.Height = height;
 
-            selectionBox.Fill = new SolidColorBrush(Color.FromRgb(191, 255, 40));
+            selectionBox.Fill = new SolidColorBrush(Color.FromRgb(255, 255, 255));
 
             // Make the drag selection box visible.
             selectionBox.Visibility = Visibility.Visible;
