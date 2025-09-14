@@ -122,6 +122,13 @@
                 Grid.ColumnSpan="2"
                 Margin="10,0,0,0"
                 Orientation="Vertical">
+                <StackPanel Margin="0,0,0,14" Orientation="Horizontal">
+                    <ToggleButton
+                        x:Name="ExcludeFromCaptueToggle"
+                        IsChecked="{Binding Model.ExcludeFromCaptue}"
+                        Style="{StaticResource PrimaryToggleButton}" />
+                    <Label Content="{DynamicResource Str.AppearanceSettings.ExcludeFromCaptue}" Style="{StaticResource ControlCaptionLabel}" />
+                </StackPanel>
                 <Label Content="{DynamicResource Str.AppearanceSettings.WindowOpacity}" />
                 <Slider
                     Name="slicderFontOpacity"

@@ -51,6 +51,7 @@
     <system:String x:Key="Str.AppearanceSettings.FontColor">Font color</system:String>
     <system:String x:Key="Str.AppearanceSettings.FontSize">Font size</system:String>
     <system:String x:Key="Str.AppearanceSettings.Bold">Bold</system:String>
+    <system:String x:Key="Str.AppearanceSettings.ExcludeFromCaptue">Exclude from capture</system:String>
     <system:String x:Key="Str.AppearanceSettings.LineSpacing">Line spacing</system:String>
     <system:String x:Key="Str.AppearanceSettings.WindowOpacity">Window opacity</system:String>
     <system:String x:Key="Str.AppearanceSettings.FontSizePanelCaption">Font size — change</system:String>

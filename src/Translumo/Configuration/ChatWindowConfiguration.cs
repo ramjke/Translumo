@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Media;
+using Translumo.MVVM.Models;
 using Translumo.Processing.Configuration;
 using Translumo.Utils;
 
@@ -7,6 +9,8 @@ namespace Translumo.Configuration
 {
     public class ChatWindowConfiguration : BindableBase
     {
+        public event EventHandler ExcludeFromCaptueChanged;
+
         public Color BackgroundColor
         {
             get => _backgroundColor; 
@@ -52,6 +56,17 @@ namespace Translumo.Configuration
             }
         }
 
+        public bool ExcludeFromCaptue
+        {
+            get => _excludeFromCaptue;
+            set
+            {
+                SetProperty(ref _excludeFromCaptue, value);
+                // Only raise the event if the property actually changed
+                ExcludeFromCaptueChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         public int LineSpacing
         {
             get => _lineSpacing;
@@ -87,6 +102,7 @@ namespace Translumo.Configuration
             BackgroundOpacity = 0.65f,
             FontSize = 15,
             FontBold = true,
+            ExcludeFromCaptue = true,
             LineSpacing = 14,
             TextAlignment = TextAlignment.Left
         };
@@ -96,6 +112,7 @@ namespace Translumo.Configuration
         private float _backgroundOpacity;
         private int _fontSize;
         private bool _fontBold;
+        private bool _excludeFromCaptue;
         private int _lineSpacing;
         private TextProcessingConfiguration _textProcessing = TextProcessingConfiguration.Default;
         private TextAlignment _textAlignment;

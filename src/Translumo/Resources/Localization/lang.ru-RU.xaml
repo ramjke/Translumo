@@ -51,6 +51,7 @@
     <system:String x:Key="Str.AppearanceSettings.FontColor">Цвет шрифта</system:String>
     <system:String x:Key="Str.AppearanceSettings.FontSize">Размер шрифта</system:String>
     <system:String x:Key="Str.AppearanceSettings.Bold">Жирный</system:String>
+    <system:String x:Key="Str.AppearanceSettings.ExcludeFromCaptue">Не захватывать окно перевода</system:String>
     <system:String x:Key="Str.AppearanceSettings.LineSpacing" xml:space="preserve">Межстрочный&#13;интервал</system:String>
     <system:String x:Key="Str.AppearanceSettings.WindowOpacity">Прозрачность окна</system:String>
     <system:String x:Key="Str.AppearanceSettings.FontSizePanelCaption">Цвет окна — изменить</system:String>

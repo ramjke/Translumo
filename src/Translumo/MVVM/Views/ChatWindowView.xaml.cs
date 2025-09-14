@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
+using Translumo.Configuration;
 using Translumo.Infrastructure;
 using Translumo.MVVM.Models;
 using Translumo.MVVM.ViewModels;
@@ -23,15 +25,6 @@ namespace Translumo.MVVM.Views
         public ChatWindowView()
         {
             InitializeComponent();
-
-            // Delay setting display affinity until window handle is created
-            // Exclude ChatWindow to be captured in screenshot
-            // Requires build 10.0.19041
-            this.SourceInitialized += (s, e) =>
-            {
-                var hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
-                bool success = SetWindowDisplayAffinity(hwnd, WDA_EXCLUDEFROMCAPTURE);
-            };
         }
 
         private void ModelOnChatFirstItemsRemoved(object sender, ChatFirstItemsRemovedEventArgs e)
@@ -94,6 +87,32 @@ namespace Translumo.MVVM.Views
 
             viewModel.Model.ChatItemAdded += ModelOnChatItemAdded;
             viewModel.Model.ChatFirstItemsRemoved += ModelOnChatFirstItemsRemoved;
+            viewModel.Model.Configuration.ExcludeFromCaptueChanged += Configuration_ExcludeFromCaptueChanged;
+
+            ExcludeFromCapture(viewModel.Model.Configuration.ExcludeFromCaptue);
+        }
+
+        private void Configuration_ExcludeFromCaptueChanged(object sender, EventArgs e)
+        {
+            if (sender is ChatWindowConfiguration config)
+            {
+                bool exclude = config.ExcludeFromCaptue;
+                ExcludeFromCapture(exclude);
+            }
+        }
+
+        // Delay setting display affinity until window handle is created
+        // Exclude ChatWindow to be captured in screenshot
+        // Requires build 10.0.19041
+        private void ExcludeFromCapture(bool exclude)
+        {
+            Debug.WriteLine(exclude);
+            var hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
+
+            if (exclude)
+                SetWindowDisplayAffinity(hwnd, WDA_EXCLUDEFROMCAPTURE);
+            else
+                SetWindowDisplayAffinity(hwnd, 0); // allow capture
         }
 
         private Run GetRunInstance(TextTypes textType)
