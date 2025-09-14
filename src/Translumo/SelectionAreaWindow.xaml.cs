@@ -1,9 +1,14 @@
-﻿using System;
+﻿using Lookupper.Services;
+using System;
+using System.Diagnostics;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using Windows.Graphics;
+using Windows.UI.WindowManagement;
 using Color = System.Windows.Media.Color;
 using Point = System.Windows.Point;
 
@@ -20,9 +25,22 @@ namespace Translumo
 
         private readonly bool _readonlyMode = false;
 
+        private RectInt32 _monitorRect = new RectInt32();
+        private readonly AppWindow _apw;
+
+        private const int SWP_NOZORDER = 0x0004;
+        private const int SWP_NOACTIVATE = 0x0010;
+
+        [DllImport("user32.dll")]
+        private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter,
+            int X, int Y, int cx, int cy, uint uFlags);
+
         public SelectionAreaWindow()
         {
             InitializeComponent();
+
+            // reposition whenever window is activated
+            this.Activated += (s, e) => MoveWindowToActiveMonitor();
         }
 
         public SelectionAreaWindow(RectangleF rectangle)
@@ -31,6 +49,52 @@ namespace Translumo
 
             this._readonlyMode = true;
             this.SelectedArea = rectangle;
+        }
+
+
+        /// <summary>
+        /// Moves the OverlayWindow to the monitor under the cursor.
+        /// </summary>
+        /// 
+        private void MoveWindowToActiveMonitor()
+        {
+            var cursorPos = Utils.Win32Helper.GetCursorPosition();
+            Debug.WriteLine($"Cursor pos: {cursorPos.X},{cursorPos.Y}");
+            var monitorRect = MonitorService.Instance.GetMonitorFromPoint(
+                new MonitorService.POINT { X = (int)cursorPos.X, Y = (int)cursorPos.Y });
+
+            int width = monitorRect.Right - monitorRect.Left - 1;
+            int height = monitorRect.Bottom - monitorRect.Top - 1;
+
+            if (_monitorRect == default ||
+                _monitorRect.X != monitorRect.Left || _monitorRect.Y != monitorRect.Top ||
+                _monitorRect.Width != width || _monitorRect.Height != height)
+            {
+                Debug.WriteLine($"Reposition Overlay window to new monitor: {monitorRect.Left},{monitorRect.Top},{width},{height}");
+
+                // Use Win32 API to move/resize instantly, bypassing WPF's restore animation
+                var hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
+                SetWindowPos(hwnd, IntPtr.Zero,
+                    monitorRect.Left, monitorRect.Top,
+                    width, height,
+                    SWP_NOZORDER | SWP_NOACTIVATE);
+
+                _monitorRect = new RectInt32
+                {
+                    X = monitorRect.Left,
+                    Y = monitorRect.Top,
+                    Width = width,
+                    Height = height
+                };
+            }
+        }
+        private void MoveWindow(RectInt32 rect)
+        {
+            Debug.WriteLine($"X={rect.X}, Y={rect.Y}, Width={rect.Width}, Height={rect.Height}");
+            this.Left = rect.X;
+            this.Top = rect.Y;
+            this.Width = rect.Width;
+            this.Height = rect.Height;
         }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
@@ -133,7 +197,7 @@ namespace Translumo
 
         private void Window_Activated(object sender, EventArgs e)
         {
-            this.Topmost = true;
+            //this.Topmost = true;
         }
 
         private void SelectionAreaWindow_OnLoaded(object sender, RoutedEventArgs e)
