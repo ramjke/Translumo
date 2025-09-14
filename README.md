@@ -4,7 +4,7 @@
 <p align="center">
   <img width="670" src="https://github.com/ramjke/Translumo/assets/29047281/8985049f-ea1c-428e-94be-042ece66cb54">
 </p>
-  <h2 align="center" style="border: 0">Advanced Real-Time Screen Translator for Games 🎮</h2>
+  <h2 align="center" style="border: 0">Advanced Real-Time Screen Translator</h2>
 
 <p align="center"><strong>English</strong> | <a href="docs/README-RU.md"><strong>Русский</strong></a></p>
 
