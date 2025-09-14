@@ -106,7 +106,6 @@ namespace Translumo.MVVM.Views
         // Requires build 10.0.19041
         private void ExcludeFromCapture(bool exclude)
         {
-            Debug.WriteLine(exclude);
             var hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
 
             if (exclude)

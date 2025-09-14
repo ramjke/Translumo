@@ -74,7 +74,7 @@ namespace Translumo.HotKeys
 
             _dictHotKeyToCalBackProc.Add(Id, this);
 
-            Debug.Print(result.ToString() + ", " + Id + ", " + virtualKeyCode);
+            // Debug.Print(result.ToString() + ", " + Id + ", " + virtualKeyCode);
             Registered = result;
 
             return result;
