@@ -25,5 +25,19 @@ namespace Translumo.Infrastructure.Language
         Belarusian = 17,
         Persian = 18,
         Indonesian = 19,
+        Bulgarian = 20,
+        Czech = 21,
+        Danish = 22,
+        Estonian = 23,
+        Finnish = 24,
+        Hungarian = 25,
+        Lithuanian = 26,
+        Latvian = 27,
+        Dutch = 28,
+        Romanian = 29,
+        Slovak = 30,
+        Slovenian = 31,
+        Swedish = 32,
+        Ukrainian = 33
     }
 }

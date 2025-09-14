@@ -55,7 +55,21 @@ namespace Translumo.Infrastructure.Language
                 new LanguageDescriptor() { Language = Languages.Polish, Code = "pl-PL", IsoCode = "pl", TranslationOnly = true },
                 new LanguageDescriptor() { Language = Languages.Belarusian, Code = "be-BY", IsoCode = "be", TranslationOnly = true },
                 new LanguageDescriptor() { Language = Languages.Persian, Code = "fa-IR", IsoCode = "fa", TranslationOnly = true, Asian = true },
-                new LanguageDescriptor() { Language = Languages.Indonesian, Code = "id-ID", IsoCode = "id", TranslationOnly = true }
+                new LanguageDescriptor() { Language = Languages.Indonesian, Code = "id-ID", IsoCode = "id", TranslationOnly = true },
+                new LanguageDescriptor() { Language = Languages.Bulgarian, Code = "bg-BG", IsoCode = "bg", TranslationOnly = true },
+                new LanguageDescriptor() { Language = Languages.Czech, Code = "cs-CZ", IsoCode = "cs", TranslationOnly = true },
+                new LanguageDescriptor() { Language = Languages.Danish, Code = "da-DK", IsoCode = "da", TranslationOnly = true },
+                new LanguageDescriptor() { Language = Languages.Estonian, Code = "et-EE", IsoCode = "et", TranslationOnly = true },
+                new LanguageDescriptor() { Language = Languages.Finnish, Code = "fi-FI", IsoCode = "fi", TranslationOnly = true },
+                new LanguageDescriptor() { Language = Languages.Hungarian, Code = "hu-HU", IsoCode = "hu", TranslationOnly = true },
+                new LanguageDescriptor() { Language = Languages.Lithuanian, Code = "lt-LT", IsoCode = "lt", TranslationOnly = true },
+                new LanguageDescriptor() { Language = Languages.Latvian, Code = "lv-LV", IsoCode = "lv", TranslationOnly = true },
+                new LanguageDescriptor() { Language = Languages.Dutch, Code = "nl-NL", IsoCode = "nl", TranslationOnly = true },
+                new LanguageDescriptor() { Language = Languages.Romanian, Code = "ro-RO", IsoCode = "ro", TranslationOnly = true },
+                new LanguageDescriptor() { Language = Languages.Slovak, Code = "sk-SK", IsoCode = "sk", TranslationOnly = true },
+                new LanguageDescriptor() { Language = Languages.Slovenian, Code = "sl-SI", IsoCode = "sl", TranslationOnly = true },
+                new LanguageDescriptor() { Language = Languages.Swedish, Code = "sv-SE", IsoCode = "sv", TranslationOnly = true },
+                new LanguageDescriptor() { Language = Languages.Ukrainian, Code = "uk-UA", IsoCode = "uk", TranslationOnly = true },
             };
         }
     }

@@ -21,7 +21,7 @@ namespace Translumo.Translation.Deepl
         
         private readonly HashSet<Languages> _unsupportedLanguages = new(new[]
         {
-            Languages.Vietnamese, Languages.Thai, Languages.Arabic, Languages.Belarusian, Languages.Persian
+            Languages.Vietnamese, Languages.Thai, Languages.Belarusian, Languages.Persian
         });
 
         public DeepLTranslator(TranslationConfiguration translationConfiguration, LanguageService languageService, ILogger logger)

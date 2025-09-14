@@ -116,6 +116,20 @@
     <system:String x:Key="Str.Languages.Belarusian">Belarusian</system:String>
     <system:String x:Key="Str.Languages.Persian">Persian</system:String>
     <system:String x:Key="Str.Languages.Indonesian">Indonesian</system:String>
+    <system:String x:Key="Str.Languages.Bulgarian">Bulgarian</system:String>
+    <system:String x:Key="Str.Languages.Czech">Czech</system:String>
+    <system:String x:Key="Str.Languages.Danish">Danish</system:String>
+    <system:String x:Key="Str.Languages.Estonian">Estonian</system:String>
+    <system:String x:Key="Str.Languages.Finnish">Finnish</system:String>
+    <system:String x:Key="Str.Languages.Hungarian">Hungarian</system:String>
+    <system:String x:Key="Str.Languages.Lithuanian">Lithuanian</system:String>
+    <system:String x:Key="Str.Languages.Latvian">Latvian</system:String>
+    <system:String x:Key="Str.Languages.Dutch">Dutch</system:String>
+    <system:String x:Key="Str.Languages.Romanian">Romanian</system:String>
+    <system:String x:Key="Str.Languages.Slovak">Slovak</system:String>
+    <system:String x:Key="Str.Languages.Slovenian">Slovenian</system:String>
+    <system:String x:Key="Str.Languages.Swedish">Swedish</system:String>
+    <system:String x:Key="Str.Languages.Ukrainian">Ukrainian</system:String>
 
     <!--  Dialog stages  -->
     <system:String x:Key="Str.Stages.CheckPyModules">Checking installed modules...</system:String>

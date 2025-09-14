@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.Toolkit.Mvvm.Input;
 using OpenCvSharp;
 using Serilog.Core;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Translumo.Dialog;
 using Translumo.Dialog.Stages;
 using Translumo.Infrastructure.Language;
@@ -26,6 +27,7 @@ namespace Translumo.MVVM.ViewModels
     public sealed class LanguagesSettingsViewModel : BindableBase, IAdditionalPanelController, IDisposable
     {
         public event EventHandler<bool> PanelStateIsChanged;
+
 
         public IList<DisplayLanguage> AvailableLanguages { get; set; }
         public IList<DisplayLanguage> AvailableTranslationLanguages { get; set; }
@@ -100,10 +102,14 @@ namespace Translumo.MVVM.ViewModels
             var languages = languageService.GetAll(true)
                 .Select(lang => (lang.TranslationOnly, new DisplayLanguage(lang, GetLanguageDisplayName(lang))))
                 .ToArray();
-            this.AvailableLanguages = languages.Where(lang => !lang.TranslationOnly)
+            this.AvailableLanguages = languages
+                .Where(lang => !lang.TranslationOnly)
+                .OrderBy(lang => lang.Item2.DisplayName)
                 .Select(lang => lang.Item2)
                 .ToList();
+
             this.AvailableTranslationLanguages = languages
+                .OrderBy(lang => lang.Item2.DisplayName)
                 .Select(lang => lang.Item2)
                 .ToList();
 
@@ -225,7 +231,7 @@ namespace Translumo.MVVM.ViewModels
         private string GetLanguageDisplayName(LanguageDescriptor languageDescriptor)
         {
             return LocalizationManager.GetValue($"Str.Languages.{languageDescriptor.Language}", false,
-                OnLocalizedValueChanged, this);
+               OnLocalizedValueChanged, this);
         }
 
         private void OnLocalizedValueChanged(string key, string oldValue)
