@@ -14,7 +14,7 @@
 ## Скачать Translumo
 
 **Прямая ссылка для скачивания последней версии:**  
-[Translumo_1.0.1.zip](https://github.com/ramjke/Translumo/releases/download/v.1.0.1/Translumo_1.0.1.zip)  
+[Translumo_1.0.2.zip](https://github.com/ramjke/Translumo/releases/download/v.1.0.2/Translumo_1.0.2.zip)  
 После скачивания распакуйте архив и запустите `Translumo.exe`.
 
 Версия 1.0.x включает множество изменений и улучшений по сравнению с версиями 0.9.x. Полный список обновлений смотрите на [странице релизов](https://github.com/ramjke/Translumo/releases).
