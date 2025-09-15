@@ -64,14 +64,14 @@ Version 1.0.x includes many changes and improvements compared to versions 0.9.x.
 4. Define the capture area: press **Alt+Q** and select an area on the screen
 5. Run translation (press **~**)
 
-## Usage Tips
+### Recommended OCR Engines
 
-- Keep Windows OCR turned on — it’s the fastest and most effective for primary text detection with minimal performance impact.
+- It is recommended to use **WindowsOCR** only.
 
-### Recommended Combinations of OCR Engines
-- **Tesseract + Windows OCR + EasyOCR** — advanced mode with highest precision
-- **Tesseract + Windows OCR** — lower system impact; suitable for simple text backgrounds and common fonts
-- **Windows OCR + EasyOCR** — for specific complex cases; disabling Tesseract can reduce text noise
+Tesseract is old, slow, and produces many errors.  
+EasyOCR is even slower, requires significant resources (including a specific GPU), and often leads to bugs.  
+
+It’s probably better to remove all other OCR engines and keep only WindowsOCR, but they are still included in Translumo for historical reasons.
 
 ### Select Minimum Capture Area
 Reducing the capture area decreases the chance of picking up random letters from the background. Larger frames take longer to process.
