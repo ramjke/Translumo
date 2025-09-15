@@ -63,8 +63,7 @@ namespace Translumo.Translation
                     var backupContainer = GetContainer(false, container);
                     if (backupContainer == null)
                     {
-                        Logger.LogError(ex, $"Translation attempts were exceeded. Source text: '{sourceText}'");
-                        throw new TranslationException("Failed to to translate text. Attempts were attempts exceeded");
+                        throw;
                     }
 
                     if (backupContainer == container)
@@ -77,7 +76,7 @@ namespace Translumo.Translation
                 catch (Exception ex)
                 {
                     container.MarkContainerIsUsed(false);
-                    throw new InvalidOperationException($"Unexpected translation error '{ex.Message}'", ex);
+                    throw;
                 }
             }
         }

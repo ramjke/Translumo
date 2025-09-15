@@ -11,7 +11,7 @@ namespace Translumo.Utils.Http
     {
         public CookieContainer Cookies { get; set;}
         public string? Referer { get; set; }
-        public bool ThrowExceptions { get; set; }
+        public bool ThrowExceptions { get; set; } = true;
         public IDictionary<string, string> OptionalHeaders { get; set; }
 
         public string? UserAgent { get; set; } = "User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko";

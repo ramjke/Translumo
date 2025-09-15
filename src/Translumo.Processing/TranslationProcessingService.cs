@@ -262,9 +262,9 @@ namespace Translumo.Processing
                     _capturer = null;
                     CapturerEnsureInitialized();
                 }
-                catch (TranslationException)
+                catch (TranslationException ex)
                 {
-                    _chatTextMediator.SendText("Text translation is failed", false);
+                    _chatTextMediator.SendText(ex.Message, false);
                 }
                 catch (AggregateException ex) when (ex.InnerException is TextDetectionException innerEx)
                 {
@@ -273,7 +273,7 @@ namespace Translumo.Processing
                 }
                 catch (Exception ex)
                 {
-                    _chatTextMediator.SendText($"Unknown error: {ex.Message}", false);
+                    _chatTextMediator.SendText($"{_translator.GetType().Name} failed: {ex.Message}. Try to change translator, use a proxy or switch VPN location.", false);
                     _logger.LogError(ex, $"Processing iteration failed due to unknown error");
                 }
             }
@@ -323,7 +323,7 @@ namespace Translumo.Processing
             }
             catch (Exception ex)
             {
-                _chatTextMediator.SendText($"Unknown error: {ex.Message}", false);
+                _chatTextMediator.SendText($"{_translator.GetType().Name} failed: {ex.Message}. Try to change translator, use a proxy or switch VPN location.", false);
                 _logger.LogError(ex, $"Processing iteration failed due to unknown error");
             }
         }
