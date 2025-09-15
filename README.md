@@ -14,7 +14,7 @@ Translumo has a new maintainer. The project is no longer abandoned — developme
 ## Download Translumo
 
 **Direct download link to the latest version:**  
-[Translumo_1.0.1.zip](https://github.com/ramjke/Translumo/releases/download/v.1.0.1/Translumo_1.0.1.zip)   
+[Translumo_1.0.2.zip](https://github.com/ramjke/Translumo/releases/download/v.1.0.2/Translumo_1.0.2.zip)   
 After downloading, unzip the archive and run `Translumo.exe`.
 
 Version 1.0.x includes many changes and improvements compared to versions 0.9.x. You can view the full list of updates on the [Releases page](https://github.com/ramjke/Translumo/releases). 
