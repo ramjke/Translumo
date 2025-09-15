@@ -34,13 +34,13 @@ Version 1.0.x includes many changes and improvements compared to versions 0.9.x.
 - **Low latency**  
   Several optimizations reduce system impact and minimize latency between text appearance and translation.
 
-- **Integrated modern OCR engines**: Tesseract 5.2, Windows OCR, EasyOCR
+- **Integrated modern OCR engines**: Windows OCR (recommended), Tesseract 5.2 (legacy), EasyOCR (legacy)
 
-- **Available translators**: Google Translate, Yandex Translate, Naver Papago, DeepL
+- **Available translators**: DeepL (recommended), Google Translate, Yandex Translate, Naver Papago.
 
-- **Supported recognition languages**: English, Russian, Japanese, Chinese (Simplified), Korean
+- **Supported recognition languages**: English, Russian, Japanese, Chinese (Simplified), Korean.
 
-- **Supported translation languages**: English, Russian, Japanese, Chinese (Simplified), Korean, French, Spanish, German, Portuguese, Italian, Vietnamese, Thai, Turkish, Arabic, Greek, Brazilian Portuguese, Polish, Belarusian, Persian, Indonesian
+- **Supported translation languages**: English, Russian, Japanese, Chinese (Simplified), Korean, French, Spanish, German, Portuguese, Italian, Vietnamese, Thai, Turkish, Arabic, Greek, Brazilian Portuguese, Polish, Belarusian, Persian, Indonesian, Bulgarian, Czech, Danish, Estonian, Finnish, Hungarian, Lithuanian, Latvian, Dutch, Romanian, Slovak, Slovenian, Swedish, Ukrainian.
 
 ## System Requirements
 
@@ -82,19 +82,10 @@ Some translators may block clients sending many requests. Configure personal or 
 ### Use Borderless or Windowed Modes in Games (Not Fullscreen)
 These modes are required for correct translation overlay display. If your game does not support them, use tools like [Borderless Gaming](https://github.com/Codeusa/Borderless-Gaming).
 
-### Install the Application on an SSD
-Reduces cold launch time with the EasyOCR engine as large models are loaded into RAM.
-
 ## FAQ
 
 **Q: I get "Failed to capture screen" or nothing happens after translation starts**  
 A: Ensure the target window is active. Restart Translumo or reopen the target window if needed.
-
-**Q: I get "Text translation failed" after successful translation**  
-A: Translation service may have temporarily blocked requests from your IP. Change translator or configure a proxy list.
-
-**Q: Can't enable Windows OCR**  
-A: Run the application as Administrator. Translumo checks installed Windows language packs via PowerShell.
 
 **Q: Borderless/windowed mode is set, but the translation window is under the game**  
 A: With the game running and focused, press the hotkey (**Alt+T** by default) to hide and show the translation window.
