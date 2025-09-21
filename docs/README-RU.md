@@ -8,8 +8,14 @@
 
 <p align="center"><a href="https://github.com/ramjke/Translumo"><strong>English</strong></a> | <strong>Русский</strong></a></p>
 
-## Статус проекта
-У Translumo появился новый мейнтейнер. Разработка ведется активно, внедряются улучшения, и любые вклады приветствуются. Ожидайте новую версию совсем скоро.
+## Родственный проект
+У проекта есть родственный проект — **[Lookupper](https://lookupper.ru)**. Lookupper — это экранный словарь для изучения языков. Он похож на Translumo, но создан для другой цели. Lookupper нужен, чтобы учить язык с помощью игр и другого контента, вместо того чтобы всю жизнь зависеть от переводчиков.
+
+Lookupper — это мой коммерческий проект с бесплатной версией. Но если решите приобрести Pro-версию, то поддержите разработку как Lookupper, так и Translumo.
+
+<a href="https://lookupper.ru">
+<img width="300" alt="Lookupper" src="https://github.com/user-attachments/assets/ef2f83b3-e15f-4bd3-826e-858266f36c93" />
+</a>
 
 ## Скачать Translumo
 
