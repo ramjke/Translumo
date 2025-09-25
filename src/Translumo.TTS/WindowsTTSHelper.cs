@@ -95,6 +95,42 @@ namespace Translumo.TTS
             };
 
             return process;  // Return the process after completion
-        }       
+        } 
+
+        public static List<VoiceInfo> GetAvailableVoicesForLanguage(string languageTag)
+        {
+            using var synth = new SpeechSynthesizer();
+            var result = new List<VoiceInfo>();
+            
+            try
+            {
+                var voices = synth.GetInstalledVoices(new CultureInfo(languageTag));
+                if (voices.Count > 0)
+                {
+                    result.AddRange(voices.Select(v => v.VoiceInfo));
+                    return result;
+                }
+            }
+            catch
+            {
+                
+            }
+
+            try
+            {
+                var shortTag = languageTag.Split('-')[0];
+                var voices = synth.GetInstalledVoices(new CultureInfo(shortTag));
+                if (voices.Count > 0)
+                {
+                    result.AddRange(voices.Select(v => v.VoiceInfo));
+                }
+            }
+            catch
+            {
+
+            }
+
+            return result;
+        }      
     }
 }
