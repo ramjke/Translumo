@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.Speech.Synthesis;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Translumo.Dialog;
@@ -35,6 +36,36 @@ namespace Translumo.MVVM.ViewModels
         public TranslationConfiguration Model { get; set; }
 
         public TtsConfiguration TtsSettings { get; set; }
+
+        private ObservableCollection<VoiceInfo> _availableVoices;
+        public ObservableCollection<VoiceInfo> AvailableVoices
+        {
+            get => _availableVoices;
+            set => SetProperty(ref _availableVoices, value);
+        }
+
+        private VoiceInfo _selectedVoice;
+        public VoiceInfo SelectedVoice
+        {
+            get => _selectedVoice;
+            set
+            {
+                SetProperty(ref _selectedVoice, value);
+                if (value != null)
+                {
+                    Action updateVoiceAction = () =>
+                    {
+                        TtsSettings.SelectedVoiceName = value.Name;
+                    };
+                    
+                    _ = ReconfigureTts(TtsSettings.TtsLanguage, TtsSettings.TtsSystem, updateVoiceAction);
+                }
+            }
+        }
+
+        public bool IsTtsWindowsSelected => TtsSettings.TtsSystem == TTSEngines.WindowsTTS;
+
+        public bool IsTtsEnabled => TtsSettings.TtsSystem != TTSEngines.None;
 
 
         public ObservableCollection<ProxyCardItem> ProxyCollection
@@ -117,11 +148,80 @@ namespace Translumo.MVVM.ViewModels
             this.TtsSettings = ttsConfiguration;
             this.TtsSettings.TtsLanguage = this.Model.TranslateToLang;
 
+            this.AvailableVoices = new ObservableCollection<VoiceInfo>();
+            
+            if (this.TtsSettings.TtsSystem == TTSEngines.WindowsTTS)
+            {
+                var languageCode = languageService.GetLanguageDescriptor(this.TtsSettings.TtsLanguage).Code;
+                LoadAvailableVoices(languageCode);
+            }
 
             this._languageService = languageService;
             this._dialogService = dialogService;
             this._ocrConfiguration = ocrConfiguration;
             this._logger = logger;
+        }
+
+        private void LoadAvailableVoices(string languageCode)
+        {
+            try
+            {
+                var voices = GetAvailableVoicesForLanguage(languageCode);
+                AvailableVoices = new ObservableCollection<VoiceInfo>(voices);
+                
+                if (!string.IsNullOrEmpty(TtsSettings.SelectedVoiceName))
+                {
+                    _selectedVoice = AvailableVoices.FirstOrDefault(v => 
+                        v.Name.Equals(TtsSettings.SelectedVoiceName, StringComparison.OrdinalIgnoreCase));
+                }
+                
+                if (_selectedVoice == null && AvailableVoices.Count > 0)
+                {
+                    _selectedVoice = AvailableVoices[0];
+                    TtsSettings.SelectedVoiceName = _selectedVoice.Name;
+                }
+                
+                OnPropertyChanged(nameof(SelectedVoice));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Load available voices error");
+                AvailableVoices = new ObservableCollection<VoiceInfo>();
+            }
+        }
+
+        private List<VoiceInfo> GetAvailableVoicesForLanguage(string languageTag)
+        {
+            using var synth = new SpeechSynthesizer();
+            var result = new List<VoiceInfo>();
+            
+            try
+            {
+                var voices = synth.GetInstalledVoices(new CultureInfo(languageTag));
+                if (voices.Count > 0)
+                {
+                    result.AddRange(voices.Select(v => v.VoiceInfo));
+                    return result;
+                }
+            }
+            catch
+            {
+            }
+
+            try
+            {
+                var shortTag = languageTag.Split('-')[0];
+                var voices = synth.GetInstalledVoices(new CultureInfo(shortTag));
+                if (voices.Count > 0)
+                {
+                    result.AddRange(voices.Select(v => v.VoiceInfo));
+                }
+            }
+            catch
+            {
+            }
+
+            return result;
         }
 
         private void OnProxySettingsClicked()
@@ -181,17 +281,43 @@ namespace Translumo.MVVM.ViewModels
             {
                 this.TtsSettings.TtsLanguage = language;
                 this.Model.TranslateToLang = language;
+                
+                if (TtsSettings.TtsSystem == TTSEngines.WindowsTTS)
+                {
+                    var langCode = _languageService.GetLanguageDescriptor(language).Code;
+                    LoadAvailableVoices(langCode);
+                }
             };
 
             await this.ReconfigureTts(language, TtsSettings.TtsSystem, changeLanguageAction);
             OnPropertyChanged(nameof(TranslateToLang));
+            OnPropertyChanged(nameof(IsTtsWindowsSelected));
+            OnPropertyChanged(nameof(IsTtsEnabled));
         }
 
         private async Task ChangeTtsSystem(TTSEngines engine)
         {
-            Action changeTtsEngineAction = () => this.TtsSettings.TtsSystem = engine;
+            Action changeTtsEngineAction = () => 
+            {
+                this.TtsSettings.TtsSystem = engine;
+                
+                if (engine == TTSEngines.WindowsTTS)
+                {
+                    var langCode = _languageService.GetLanguageDescriptor(TtsSettings.TtsLanguage).Code;
+                    LoadAvailableVoices(langCode);
+                }
+                else
+                {
+                    AvailableVoices = new ObservableCollection<VoiceInfo>();
+                    _selectedVoice = null;
+                    OnPropertyChanged(nameof(SelectedVoice));
+                }
+            };
+            
             await this.ReconfigureTts(TtsSettings.TtsLanguage, engine, changeTtsEngineAction);
             OnPropertyChanged(nameof(TtsSystem));
+            OnPropertyChanged(nameof(IsTtsWindowsSelected));
+            OnPropertyChanged(nameof(IsTtsEnabled));
         }
 
         private async Task ReconfigureTts(Languages language, TTSEngines engine, Action changeParameter)

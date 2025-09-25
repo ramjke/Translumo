@@ -8,13 +8,23 @@ public class WindowsTTSEngine : ITTSEngine
     private readonly VoiceInfo _voiceInfo;
     private readonly SpeechSynthesizer _synthesizer;
 
-    public WindowsTTSEngine(string languageCode)
+    public WindowsTTSEngine(string languageCode, string voiceName = null)
     {
         _synthesizer = new SpeechSynthesizer();
         _synthesizer.SetOutputToDefaultAudioDevice();
         _synthesizer.Rate = 3;
 
-        _voiceInfo = _synthesizer.GetInstalledVoices(new CultureInfo(languageCode)).FirstOrDefault()?.VoiceInfo;
+        // Get all available voices
+        var availableVoices = _synthesizer.GetInstalledVoices(new CultureInfo(languageCode));
+        
+        if (!string.IsNullOrEmpty(voiceName))
+        {
+            _voiceInfo = availableVoices
+                .FirstOrDefault(v => v.VoiceInfo.Name.Equals(voiceName, StringComparison.OrdinalIgnoreCase))
+                ?.VoiceInfo;
+        }
+        
+        _voiceInfo ??= availableVoices.FirstOrDefault()?.VoiceInfo;
     }
 
     public void SpeechText(string text)

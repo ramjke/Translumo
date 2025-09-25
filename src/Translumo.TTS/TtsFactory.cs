@@ -22,7 +22,9 @@ namespace Translumo.TTS
             ttsConfiguration.TtsSystem switch
             {
                 TTSEngines.None => new NoneTTSEngine(),
-                TTSEngines.WindowsTTS => new WindowsTTSEngine(GetLangCode(ttsConfiguration)),
+                TTSEngines.WindowsTTS => new WindowsTTSEngine(
+                    GetLangCode(ttsConfiguration), 
+                    ttsConfiguration.SelectedVoiceName),
                 //TTSEngines.SileroTTS => new SileroTTSEngine(_pythonEngine, GetLangCode(ttsConfiguration)),
                 _ => throw new NotSupportedException()
             };
