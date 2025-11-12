@@ -1,0 +1,166 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <!--  Generic  -->
+    <system:String x:Key="Str.Login">代理用户名</system:String>
+    <system:String x:Key="Str.Password">代理密码</system:String>
+    <system:String x:Key="Str.ExitConfirmation" xml:space="preserve">确定要退出Translumo吗?&#13;您可以点击最小化按钮，程序将在后台运行 (可通过系统托盘里的图标使用Translumo)。</system:String>
+    <system:String x:Key="Str.ExitConfirmationCaption">退出确认</system:String>
+    <system:String x:Key="Str.NewVersion">Translumo更新啦!</system:String>
+
+    <!--  Notifications  -->
+    <system:String x:Key="Str.Notification.CaptchaPass" xml:space="preserve">请在网站上完成验证码以使用该服务。&#13;另外，每个已注册的代理可能都需要完成一次验证码。</system:String>
+
+    <!--  Titles  -->
+    <system:String x:Key="Str.Title.SettingWindow" xml:space="preserve">Translumo设置</system:String>
+    <system:String x:Key="Str.Title.BrowserWindow" xml:space="preserve">Translumo游览器</system:String>
+
+    <!--  Tray  -->
+    <system:String x:Key="Str.Tray.ShowHideSettings">打开/关闭 设置</system:String>
+    <system:String x:Key="Str.Tray.ShowHideTranslation">显示/隐藏 翻译墙</system:String>
+    <system:String x:Key="Str.Tray.Exit">退出</system:String>
+
+    <!--  Chat  -->
+    <system:String x:Key="Str.Chat.SettingsOpened">关闭设置窗口才能开始翻译</system:String>
+    <system:String x:Key="Str.Chat.WindowLocked">翻译墙已锁定（不可调整位置、大小）</system:String>
+    <system:String x:Key="Str.Chat.WindowUnlocked">翻译墙已解锁</system:String>
+
+    <!--  Language settings  -->
+    <system:String x:Key="Str.LangSettings.SourceLang">源语言（您想要翻译的语言）</system:String>
+    <system:String x:Key="Str.LangSettings.TranslationLang">目标语言（您想要看到的语言）</system:String>
+    <system:String x:Key="Str.LangSettings.Translator">翻译源</system:String>
+    <system:String x:Key="Str.LangSettings.TtsSystem">朗读源</system:String>
+
+    <!--  Hotkeys descriptions  -->
+    <system:String x:Key="Str.Hotkeys.ChatVisibility">显示/隐藏 翻译墙</system:String>
+    <system:String x:Key="Str.Hotkeys.SettingsVisibility">打开/关闭 设置</system:String>
+    <system:String x:Key="Str.Hotkeys.SelectArea">选择翻译区域</system:String>
+    <system:String x:Key="Str.Hotkeys.OnOffTranslation">开启/关闭 翻译</system:String>
+    <system:String x:Key="Str.Hotkeys.ShowSelectArea">显示已选择的翻译区域</system:String>
+    <system:String x:Key="Str.Hotkeys.OnceTranslate">选择翻译区域（一次性）</system:String>
+    <system:String x:Key="Str.Hotkeys.WindowChangeStyle">锁定/解除锁定 翻译墙位置</system:String>
+    <system:String x:Key="Str.Hotkeys.SettingsShowHelp">请按 '{0}' 打开设置页面</system:String>
+    <system:String x:Key="Str.Hotkeys.SelectAreaHelp">请按 '{0}' 选择翻译区域</system:String>
+    <system:String x:Key="Str.Hotkeys.OnTranslationHelp">请按 '{0}' 开始翻译</system:String>
+    <system:String x:Key="Str.Hotkeys.GeneralHelp">要控制本应用，请使用托盘中的右键菜单，或以下快捷键：</system:String>
+
+    <!--  Appearance settings  -->
+    <system:String x:Key="Str.AppearanceSettings.WindowColor">翻译墙背景色</system:String>
+    <system:String x:Key="Str.AppearanceSettings.FontColor">文字颜色</system:String>
+    <system:String x:Key="Str.AppearanceSettings.FontSize">文字大小</system:String>
+    <system:String x:Key="Str.AppearanceSettings.Bold">加粗</system:String>
+    <system:String x:Key="Str.AppearanceSettings.ExcludeFromCaptue">排除翻译墙</system:String>
+    <system:String x:Key="Str.AppearanceSettings.LineSpacing">行间距</system:String>
+    <system:String x:Key="Str.AppearanceSettings.WindowOpacity">翻译墙背景透明度</system:String>
+    <system:String x:Key="Str.AppearanceSettings.FontSizePanelCaption">字体大小 — 改变</system:String>
+    <system:String x:Key="Str.AppearanceSettings.FontColorPanelCaption">字体颜色 — 改变</system:String>
+    <system:String x:Key="Str.AppearanceSettings.KeepFormatting">保留翻译文本原始格式</system:String>
+    <system:String x:Key="Str.AppearanceSettings.Left">左对齐</system:String>
+    <system:String x:Key="Str.AppearanceSettings.Center">居中</system:String>
+    <system:String x:Key="Str.AppearanceSettings.Right">右对齐</system:String>
+    <system:String x:Key="Str.AppearanceSettings.Justify">两端对齐</system:String>
+    <system:String x:Key="Str.AppearanceSettings.AutoClearTexts">自动清屏</system:String>
+    <system:String x:Key="Str.AppearanceSettings.AutoClearTexts2">消失时间</system:String>
+    <system:String x:Key="Str.AppearanceSettings.Ms">ms</system:String>
+
+
+    <!--  Proxy settings  -->
+    <system:String x:Key="Str.ProxySettings.Proxy">代理</system:String>
+    <system:String x:Key="Str.ProxySettings.IpAddress">IP地址</system:String>
+    <system:String x:Key="Str.ProxySettings.Port">端口</system:String>
+    <system:String x:Key="Str.ProxySettings.Note" xml:space="preserve">使用 IPv4 代理可以避免因大量并发请求而被服务器封禁，&#13;配置多个代理后Translumo会自动分配它们的使用频率。</system:String>
+    <system:String x:Key="Str.ProxySettings.Caption">代理列表</system:String>
+
+
+    <!--  OCR settings  -->
+    <system:String x:Key="Str.OcrSettings.TesseractOcr">Tesseract OCR</system:String>
+    <system:String x:Key="Str.OcrSettings.WindowsOcr">Windows OCR</system:String>
+    <system:String x:Key="Str.OcrSettings.EasyOcr">EasyOCR</system:String>
+    <system:String x:Key="Str.OcrSettings.TesseractOcrDesc" xml:space="preserve">Tesseract 5.0，采用LSTM mode。它是早期最流行的开源OCR（图文识别）解决方案之一。&#13;&#13;能够识别纯色背景排版、字体不复杂的简单文本。&#13;&#13;&lt;Bold&gt;性能影响:&lt;/Bold&gt; 低</system:String>
+    <system:String x:Key="Str.OcrSettings.WindowsOcrDesc" xml:space="preserve">微软原生OCR解决方案。能够处理比Tesseract更复杂的背景。&#13;&#13;&lt;Bold&gt;性能影响:&lt;/Bold&gt; 中</system:String>
+    <system:String x:Key="Str.OcrSettings.WindowsOcrDesc2">可能需要安装其他语言包。</system:String>
+    <system:String x:Key="Str.OcrSettings.EasyOcrDesc" xml:space="preserve">Jaided AI出品的最先进的开源OCR解决方案。&#13;&#13;即使在识别复杂的背景以及花哨的字体时，也能实现高精度的文本识别。&#13;&#13;&lt;Bold&gt;性能影响:&lt;/Bold&gt; 高</system:String>
+    <system:String x:Key="Str.OcrSettings.EasyOcrDesc2">需要安装（Python、PyTorch）其他软件包。</system:String>
+
+    <!--  About window  -->
+    <system:String x:Key="Str.About.MaintainedBy">共同维护者：Aleksei Vekhov</system:String>
+    <system:String x:Key="Str.About.DevelopedBy">开发者：Danil Iushkov</system:String>
+    <system:String x:Key="Str.About.ProjectPage">项目主页</system:String>
+    <system:String x:Key="Str.About.ReportIssue">意见与反馈</system:String>
+
+    <!--  Navigation menu  -->
+    <system:String x:Key="Str.Navigation.Languages">语言</system:String>
+    <system:String x:Key="Str.Navigation.Appearance">翻译墙</system:String>
+    <system:String x:Key="Str.Navigation.Ocr">文字识别器</system:String>
+    <system:String x:Key="Str.Navigation.HotKeys">快捷键</system:String>
+
+    <!--  Languages  -->
+    <system:String x:Key="Str.Languages.English">英文</system:String>
+    <system:String x:Key="Str.Languages.Russian">俄文</system:String>
+    <system:String x:Key="Str.Languages.Japanese">日文</system:String>
+    <system:String x:Key="Str.Languages.Korean">韩文</system:String>
+    <system:String x:Key="Str.Languages.Chinese">中文 (简体)</system:String>
+    <system:String x:Key="Str.Languages.Italian">意大利文</system:String>
+    <system:String x:Key="Str.Languages.French">法文</system:String>
+    <system:String x:Key="Str.Languages.German">德文</system:String>
+    <system:String x:Key="Str.Languages.Spanish">西班牙文</system:String>
+    <system:String x:Key="Str.Languages.Portuguese">葡萄牙文</system:String>
+    <system:String x:Key="Str.Languages.Vietnamese">越南文</system:String>
+    <system:String x:Key="Str.Languages.Turkish">土耳其文</system:String>
+    <system:String x:Key="Str.Languages.Thai">泰文</system:String>
+    <system:String x:Key="Str.Languages.Arabic">阿拉伯文</system:String>
+    <system:String x:Key="Str.Languages.Greek">希腊文</system:String>
+    <system:String x:Key="Str.Languages.PortugueseBrazil">葡萄牙文 (巴西)</system:String>
+    <system:String x:Key="Str.Languages.Polish">波兰文</system:String>
+    <system:String x:Key="Str.Languages.Belarusian">白俄罗斯文</system:String>
+    <system:String x:Key="Str.Languages.Persian">波斯文</system:String>
+    <system:String x:Key="Str.Languages.Indonesian">印尼文</system:String>
+    <system:String x:Key="Str.Languages.Bulgarian">保加利亚文</system:String>
+    <system:String x:Key="Str.Languages.Czech">捷克文</system:String>
+    <system:String x:Key="Str.Languages.Danish">丹麦文</system:String>
+    <system:String x:Key="Str.Languages.Estonian">爱沙尼亚文</system:String>
+    <system:String x:Key="Str.Languages.Finnish">芬兰文</system:String>
+    <system:String x:Key="Str.Languages.Hungarian">匈牙利文</system:String>
+    <system:String x:Key="Str.Languages.Lithuanian">立陶宛文</system:String>
+    <system:String x:Key="Str.Languages.Latvian">拉脱维亚文</system:String>
+    <system:String x:Key="Str.Languages.Dutch">荷兰文</system:String>
+    <system:String x:Key="Str.Languages.Romanian">罗马尼亚文</system:String>
+    <system:String x:Key="Str.Languages.Slovak">斯洛伐克文</system:String>
+    <system:String x:Key="Str.Languages.Slovenian">斯洛文尼亚文</system:String>
+    <system:String x:Key="Str.Languages.Swedish">瑞典文</system:String>
+    <system:String x:Key="Str.Languages.Ukrainian">乌克兰文</system:String>
+
+    <!--  Dialog stages  -->
+    <system:String x:Key="Str.Stages.CheckPyModules">正在检查已安装的模块...</system:String>
+    <system:String x:Key="Str.Stages.PyModulesQuestion" xml:space="preserve">所需的Python模块尚未安装。是否现在安装？&#13;此选项仅适用于NVIDIA核心的显卡！</system:String>
+    <system:String x:Key="Str.Stages.PyModulesQuestion2" xml:space="preserve">所需模块将占用约5GB的磁盘空间。&#13;安装过程可能需要几分钟到一小时。&#13;是否继续？</system:String>
+    <system:String x:Key="Str.Stages.InstallationPyModule1">(1/3) 正在安装模块 “pytorch”...</system:String>
+    <system:String x:Key="Str.Stages.InstallationPyModule2">(2/3) 正在安装模块 “easyocr”...</system:String>
+    <system:String x:Key="Str.Stages.InstallationPyModule3">(3/3) 正在安装模块 “pillow”...</system:String>
+    <system:String x:Key="Str.Stages.InstallationPyModuleTemplate">正在安装模块 “{0}”...</system:String>
+    <system:String x:Key="Str.Stages.PyModulesInstalled">所需模块已安装</system:String>
+    <system:String x:Key="Str.Stages.PyModulesCheckError">无法访问 Python 来检查模块</system:String>
+    <system:String x:Key="Str.Stages.CheckLangPack">正在检查语言包安装情况...</system:String>
+    <system:String x:Key="Str.Stages.OCRLangPackQuestion" xml:space="preserve">Windows尚未安装语言 “{0}” 的图文识别 (OCR) 支持。&#13;是否现在安装？</system:String>
+    <system:String x:Key="Str.Stages.TTSLangPackQuestion" xml:space="preserve">Windows尚未安装语言 “{0}” 的语音朗读 (TTS) 支持。&#13;是否现在安装？</system:String>
+    <system:String x:Key="Str.Stages.InstallationLangPack">正在安装语言包...</system:String>
+    <system:String x:Key="Str.Stages.LangPackInstalledRestart">语言包已安装，请重新启动计算机。</system:String>
+    <system:String x:Key="Str.Stages.LangPackInstalledTtsRestart" xml:space="preserve">语言包已安装。&#13;如果语音合成功能无法使用，请尝试重新启动应用程序。</system:String>
+    <system:String x:Key="Str.Stages.InstallationLangError">安装语言包失败：‘{0}’</system:String>
+    <system:String x:Key="Str.Stages.CheckLangPackError" xml:space="preserve">检查Windows功能选项时，发生意外错误。&#13; 请退出Translumo，再次管理员身份运行Translumo尝试。</system:String>
+    <system:String x:Key="Str.Stages.SwitchLanguage">正在切换语言...</system:String>
+    <system:String x:Key="Str.Stages.SwitchLanguageError">切换语言失败：‘{0}’</system:String>
+    <system:String x:Key="Str.Stages.TtsNotSupportLanguageTemplate">{0} “{1}” 不支持 “{2}” 语言。</system:String>
+
+    <!--  Buttons  -->
+    <system:String x:Key="Str.Button.SettingProxy">配置代理</system:String>
+    <system:String x:Key="Str.Button.ShowText">示例文本</system:String>
+    <system:String x:Key="Str.Button.Apply">接受</system:String>
+
+    <system:String x:Key="Str.Lookupper.ProjectNote">我的项目首页:</system:String>
+    <system:String x:Key="Str.Lookupper.Url">https://lookupper.com</system:String>
+
+
+</ResourceDictionary>

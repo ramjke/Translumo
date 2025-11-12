@@ -22,7 +22,8 @@ namespace Translumo.Utils
         public static IEnumerable<CultureInfo> AvailableLocalizations = new[]
         {
             new CultureInfo("en-US"), 
-            new CultureInfo("ru-RU")
+            new CultureInfo("ru-RU"),
+            new CultureInfo("zh-CN")
         };
 
         private static readonly IDictionary<string, CallbackContext> ChangedValueCallbacks;

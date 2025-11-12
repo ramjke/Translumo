@@ -58,6 +58,7 @@
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
                         <ResourceDictionary Source="Resources/Localization/lang.en-US.xaml" />
+                        <ResourceDictionary Source="Resources/Localization/lang.zh-CN.xaml" />
                     </ResourceDictionary.MergedDictionaries>
                     <system:String x:Key="ApplicationName">Translumo</system:String>
                 </ResourceDictionary>
