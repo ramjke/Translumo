@@ -97,6 +97,20 @@
                     Content="{DynamicResource Str.LangSettings.TtsSystem}"
                     Style="{StaticResource ControlCaptionLabel}" />
             </StackPanel>
+            <StackPanel Orientation="Horizontal" Visibility="{Binding IsTtsWindowsSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <ComboBox 
+                    ItemsSource="{Binding AvailableVoices}"
+                    SelectedItem="{Binding SelectedVoice, Mode=TwoWay}"
+                    DisplayMemberPath="Name"
+                    Width="130"
+                    FontSize="14"
+                    Style="{DynamicResource MaterialDesignComboBox}"/>
+                <Label
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Stretch"
+                    Content="Voices"
+                    Style="{StaticResource ControlCaptionLabel}" />
+            </StackPanel>
             <GroupBox Margin="0,20,0,0" Style="{StaticResource MaterialDesignGroupBox}">
                 <GroupBox.Header>
                     <Label
