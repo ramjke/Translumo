@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.Extensions.Logging;
 using Translumo.Infrastructure.Dispatching;
 using Translumo.Infrastructure.Language;
@@ -7,6 +7,9 @@ using Translumo.Translation.Deepl;
 using Translumo.Translation.Google;
 using Translumo.Translation.Papago;
 using Translumo.Translation.Yandex;
+using Translumo.Translation.Deepseek;
+using Translumo.Translation.Gemini;
+using Translumo.Translation.Openrouter;
 
 namespace Translumo.Translation
 {
@@ -35,6 +38,12 @@ namespace Translumo.Translation
                     return new PapagoTranslator(translatorConfiguration, _languageService, _logger);
                 case Translators.Google:
                     return new GoogleTranslator(translatorConfiguration, _languageService, _logger);
+                case Translators.Deepseek:
+                    return new DeepseekTranslator(translatorConfiguration, _languageService, _logger);
+                case Translators.Gemini:
+                    return new GeminiTranslator(translatorConfiguration, _languageService, _logger);
+                case Translators.Openrouter:
+                    return new OpenrouterTranslator(translatorConfiguration, _languageService, _logger);
                 default:
                     throw new NotSupportedException();
             }

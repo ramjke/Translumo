@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using Microsoft.Toolkit.Mvvm.Input;
 using OpenCvSharp;
 using Serilog.Core;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
-using System.Speech.Synthesis;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Translumo.Dialog;
@@ -17,10 +17,12 @@ using Translumo.MVVM.Common;
 using Translumo.MVVM.Models;
 using Translumo.OCR.Configuration;
 using Translumo.OCR.WindowsOCR;
+using Translumo.Translation;
 using Translumo.Translation.Configuration;
 using Translumo.TTS;
 using Translumo.Utils;
 using Translumo.Utils.Extensions;
+using Translumo.Utils.Http;
 using RelayCommand = Microsoft.Toolkit.Mvvm.Input.RelayCommand;
 
 namespace Translumo.MVVM.ViewModels
@@ -37,35 +39,99 @@ namespace Translumo.MVVM.ViewModels
 
         public TtsConfiguration TtsSettings { get; set; }
 
-        private ObservableCollection<VoiceInfo> _availableVoices;
-        public ObservableCollection<VoiceInfo> AvailableVoices
-        {
-            get => _availableVoices;
-            set => SetProperty(ref _availableVoices, value);
-        }
+        public bool IsApiKeyRequired => SelectedTranslator == Translators.Deepseek || SelectedTranslator == Translators.Gemini || SelectedTranslator == Translators.Openrouter;
 
-        private VoiceInfo _selectedVoice;
-        public VoiceInfo SelectedVoice
+        public bool IsOpenrouterSelected => SelectedTranslator == Translators.Openrouter;
+
+        public string OpenrouterModel
         {
-            get => _selectedVoice;
+            get => Model.OpenrouterModel;
             set
             {
-                SetProperty(ref _selectedVoice, value);
-                if (value != null)
-                {
-                    Action updateVoiceAction = () =>
-                    {
-                        TtsSettings.SelectedVoiceName = value.Name;
-                    };
-                    
-                    _ = ReconfigureTts(TtsSettings.TtsLanguage, TtsSettings.TtsSystem, updateVoiceAction);
-                }
+                Model.OpenrouterModel = value;
+                OnPropertyChanged(nameof(OpenrouterModel));
             }
         }
 
-        public bool IsTtsWindowsSelected => TtsSettings.TtsSystem == TTSEngines.WindowsTTS;
+        public Translators SelectedTranslator
+        {
+            get => Model.Translator;
+            set
+            {
+                Model.Translator = value;
+                OnPropertyChanged(nameof(SelectedTranslator));
+                OnPropertyChanged(nameof(SelectedTranslatorIndex));
+                OnPropertyChanged(nameof(IsApiKeyRequired));
+                OnPropertyChanged(nameof(IsOpenrouterSelected));
+                OnPropertyChanged(nameof(CurrentApiKey));
+                OnPropertyChanged(nameof(CurrentApiKeyName));
+            }
+        }
 
-        public bool IsTtsEnabled => TtsSettings.TtsSystem != TTSEngines.None;
+        public int SelectedTranslatorIndex
+        {
+            get => (int)SelectedTranslator;
+            set => SelectedTranslator = (Translators)value;
+        }
+
+        public string CurrentApiKeyName
+        {
+            get => SelectedTranslator switch
+            {
+                Translators.Deepseek => "Deepseek API Key",
+                Translators.Gemini => "Gemini API Key",
+                Translators.Openrouter => "OpenRouter API Key",
+                _ => string.Empty
+            };
+        }
+
+        public string CurrentApiKey
+        {
+            get
+            {
+                return SelectedTranslator switch
+                {
+                    Translators.Deepseek => Model.DeepseekApiKey,
+                    Translators.Gemini => Model.GeminiApiKey,
+                    Translators.Openrouter => Model.OpenrouterApiKey,
+                    _ => string.Empty
+                };
+            }
+            set
+            {
+                switch (SelectedTranslator)
+                {
+                    case Translators.Deepseek: Model.DeepseekApiKey = value; break;
+                    case Translators.Gemini: Model.GeminiApiKey = value; break;
+                    case Translators.Openrouter: Model.OpenrouterApiKey = value; break;
+                }
+                OnPropertyChanged(nameof(CurrentApiKey));
+            }
+        }
+
+        public string ApiKeyValidationStatus
+        {
+            get => _apiKeyValidationStatus;
+            set => SetProperty(ref _apiKeyValidationStatus, value);
+        }
+
+        public bool IsValidating
+        {
+            get => _isValidating;
+            set => SetProperty(ref _isValidating, value);
+        }
+
+        public string OpenrouterModelValidationStatus
+        {
+            get => _openrouterModelValidationStatus;
+            set => SetProperty(ref _openrouterModelValidationStatus, value);
+        }
+
+        public bool IsValidatingModel
+        {
+            get => _isValidatingModel;
+            set => SetProperty(ref _isValidatingModel, value);
+        }
 
 
         public ObservableCollection<ProxyCardItem> ProxyCollection
@@ -117,9 +183,15 @@ namespace Translumo.MVVM.ViewModels
         public ICommand ProxyItemDeletedCommand => new RelayCommand<ProxyCardItem>(OnProxyItemDeletedCommand);
         public ICommand ProxyItemAddCommand => new RelayCommand(OnProxyItemAddCommand);
         public ICommand ProxySettingsSubmitCommand => new RelayCommand<bool>(OnProxySettingsSubmit);
+        public ICommand ValidateApiKeyCommand => new AsyncRelayCommand(OnValidateApiKeyAsync);
+        public ICommand ValidateOpenrouterModelCommand => new AsyncRelayCommand(OnValidateOpenrouterModelAsync);
 
         private ObservableCollection<ProxyCardItem> _proxyCollection;
         private bool _proxySettingsIsOpened;
+        private string _apiKeyValidationStatus;
+        private bool _isValidating;
+        private string _openrouterModelValidationStatus;
+        private bool _isValidatingModel;
 
         private readonly DialogService _dialogService;
         private readonly OcrGeneralConfiguration _ocrConfiguration;
@@ -148,80 +220,11 @@ namespace Translumo.MVVM.ViewModels
             this.TtsSettings = ttsConfiguration;
             this.TtsSettings.TtsLanguage = this.Model.TranslateToLang;
 
-            this.AvailableVoices = new ObservableCollection<VoiceInfo>();
-            
-            if (this.TtsSettings.TtsSystem == TTSEngines.WindowsTTS)
-            {
-                var languageCode = languageService.GetLanguageDescriptor(this.TtsSettings.TtsLanguage).Code;
-                LoadAvailableVoices(languageCode);
-            }
 
             this._languageService = languageService;
             this._dialogService = dialogService;
             this._ocrConfiguration = ocrConfiguration;
             this._logger = logger;
-        }
-
-        private void LoadAvailableVoices(string languageCode)
-        {
-            try
-            {
-                var voices = GetAvailableVoicesForLanguage(languageCode);
-                AvailableVoices = new ObservableCollection<VoiceInfo>(voices);
-                
-                if (!string.IsNullOrEmpty(TtsSettings.SelectedVoiceName))
-                {
-                    _selectedVoice = AvailableVoices.FirstOrDefault(v => 
-                        v.Name.Equals(TtsSettings.SelectedVoiceName, StringComparison.OrdinalIgnoreCase));
-                }
-                
-                if (_selectedVoice == null && AvailableVoices.Count > 0)
-                {
-                    _selectedVoice = AvailableVoices[0];
-                    TtsSettings.SelectedVoiceName = _selectedVoice.Name;
-                }
-                
-                OnPropertyChanged(nameof(SelectedVoice));
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Load available voices error");
-                AvailableVoices = new ObservableCollection<VoiceInfo>();
-            }
-        }
-
-        private List<VoiceInfo> GetAvailableVoicesForLanguage(string languageTag)
-        {
-            using var synth = new SpeechSynthesizer();
-            var result = new List<VoiceInfo>();
-            
-            try
-            {
-                var voices = synth.GetInstalledVoices(new CultureInfo(languageTag));
-                if (voices.Count > 0)
-                {
-                    result.AddRange(voices.Select(v => v.VoiceInfo));
-                    return result;
-                }
-            }
-            catch
-            {
-            }
-
-            try
-            {
-                var shortTag = languageTag.Split('-')[0];
-                var voices = synth.GetInstalledVoices(new CultureInfo(shortTag));
-                if (voices.Count > 0)
-                {
-                    result.AddRange(voices.Select(v => v.VoiceInfo));
-                }
-            }
-            catch
-            {
-            }
-
-            return result;
         }
 
         private void OnProxySettingsClicked()
@@ -250,6 +253,226 @@ namespace Translumo.MVVM.ViewModels
             }
 
             ProxySettingsIsOpened = false;
+        }
+
+        private async Task OnValidateApiKeyAsync()
+        {
+            if (string.IsNullOrWhiteSpace(CurrentApiKey))
+            {
+                ApiKeyValidationStatus = "✗ API Key is empty.";
+                await _dialogService.ShowDialogAsync(SimpleDialogViewModel.Create(
+                    "API Key cannot be empty. Please enter a valid key.",
+                    SimpleDialogTypes.Error, "Validation Failed"));
+                return;
+            }
+
+            IsValidating = true;
+            ApiKeyValidationStatus = "⏳ Validating...";
+
+            try
+            {
+                bool isValid = false;
+                string errorMessage = null;
+
+                switch (SelectedTranslator)
+                {
+                    case Translators.Deepseek:
+                        (isValid, errorMessage) = await ValidateDeepseekKeyAsync(CurrentApiKey);
+                        break;
+                    case Translators.Gemini:
+                        (isValid, errorMessage) = await ValidateGeminiKeyAsync(CurrentApiKey);
+                        break;
+                    case Translators.Openrouter:
+                        (isValid, errorMessage) = await ValidateOpenrouterKeyAsync(CurrentApiKey);
+                        break;
+                }
+
+                if (isValid)
+                {
+                    ApiKeyValidationStatus = "✓ Valid";
+                    await _dialogService.ShowDialogAsync(SimpleDialogViewModel.Create(
+                        $"{CurrentApiKeyName} is valid and ready to use!",
+                        SimpleDialogTypes.Info, "Validation Successful"));
+                }
+                else
+                {
+                    ApiKeyValidationStatus = "✗ Invalid";
+                    await _dialogService.ShowDialogAsync(SimpleDialogViewModel.Create(
+                        $"{CurrentApiKeyName} validation failed: {errorMessage}",
+                        SimpleDialogTypes.Error, "Validation Failed"));
+                }
+            }
+            catch (Exception ex)
+            {
+                ApiKeyValidationStatus = "✗ Error";
+                _logger.LogError(ex, "API Key validation failed");
+                await _dialogService.ShowDialogAsync(SimpleDialogViewModel.Create(
+                    $"Validation error: {ex.Message}",
+                    SimpleDialogTypes.Error, "Validation Error"));
+            }
+            finally
+            {
+                IsValidating = false;
+            }
+        }
+
+        private async Task<(bool isValid, string error)> ValidateDeepseekKeyAsync(string apiKey)
+        {
+            var reader = new HttpReader();
+            reader.ContentType = "application/json";
+            reader.Accept = "application/json";
+            reader.ThrowExceptions = false;
+            reader.OptionalHeaders.Add("Authorization", $"Bearer {apiKey}");
+
+            var payload = new
+            {
+                model = "deepseek-chat",
+                messages = new[] { new { role = "user", content = "Hi" } },
+                max_tokens = 5
+            };
+
+            var response = await reader.RequestWebDataAsync(
+                "https://api.deepseek.com/chat/completions",
+                HttpMethods.POST, JsonSerializer.Serialize(payload));
+
+            if (response.IsSuccessful)
+                return (true, null);
+
+            return (false, response.Body ?? "Unable to reach Deepseek API. Check your key and network.");
+        }
+
+        private async Task<(bool isValid, string error)> ValidateGeminiKeyAsync(string apiKey)
+        {
+            var reader = new HttpReader();
+            reader.ContentType = "application/json";
+            reader.Accept = "application/json";
+            reader.ThrowExceptions = false;
+
+            // Use the models list endpoint — lightweight and proves the key works
+            var response = await reader.RequestWebDataAsync(
+                $"https://generativelanguage.googleapis.com/v1beta/models?key={apiKey}",
+                HttpMethods.GET);
+
+            if (response.IsSuccessful)
+                return (true, null);
+
+            return (false, response.Body ?? "Unable to reach Gemini API. Check your key and network.");
+        }
+
+        private async Task<(bool isValid, string error)> ValidateOpenrouterKeyAsync(string apiKey)
+        {
+            var reader = new HttpReader();
+            reader.ContentType = "application/json";
+            reader.Accept = "application/json";
+            reader.ThrowExceptions = false;
+            reader.OptionalHeaders.Add("Authorization", $"Bearer {apiKey}");
+
+            // Use the auth/key endpoint to check credits/validity
+            var response = await reader.RequestWebDataAsync(
+                "https://openrouter.ai/api/v1/auth/key",
+                HttpMethods.GET);
+
+            if (response.IsSuccessful)
+                return (true, null);
+
+            return (false, response.Body ?? "Unable to reach OpenRouter API. Check your key and network.");
+        }
+
+        private async Task OnValidateOpenrouterModelAsync()
+        {
+            var modelName = OpenrouterModel;
+            if (string.IsNullOrWhiteSpace(modelName))
+            {
+                OpenrouterModelValidationStatus = "✗ Model name is empty.";
+                await _dialogService.ShowDialogAsync(SimpleDialogViewModel.Create(
+                    "Model name cannot be empty. Please enter a valid OpenRouter model identifier.",
+                    SimpleDialogTypes.Error, "Validation Failed"));
+                return;
+            }
+
+            var apiKey = Model.OpenrouterApiKey;
+            if (string.IsNullOrWhiteSpace(apiKey))
+            {
+                OpenrouterModelValidationStatus = "✗ API Key is required.";
+                await _dialogService.ShowDialogAsync(SimpleDialogViewModel.Create(
+                    "OpenRouter API Key is required to validate the model. Please enter your API Key first.",
+                    SimpleDialogTypes.Error, "Validation Failed"));
+                return;
+            }
+
+            IsValidatingModel = true;
+            OpenrouterModelValidationStatus = "⏳ Validating model...";
+
+            try
+            {
+                var (isValid, errorMessage) = await ValidateOpenrouterModelRequestAsync(apiKey, modelName);
+
+                if (isValid)
+                {
+                    OpenrouterModelValidationStatus = "✓ Model is valid";
+                    await _dialogService.ShowDialogAsync(SimpleDialogViewModel.Create(
+                        $"Model '{modelName}' is valid and accessible with your API key!",
+                        SimpleDialogTypes.Info, "Model Validation Successful"));
+                }
+                else
+                {
+                    OpenrouterModelValidationStatus = "✗ Invalid model";
+                    await _dialogService.ShowDialogAsync(SimpleDialogViewModel.Create(
+                        $"Model validation failed: {errorMessage}",
+                        SimpleDialogTypes.Error, "Model Validation Failed"));
+                }
+            }
+            catch (Exception ex)
+            {
+                OpenrouterModelValidationStatus = "✗ Error";
+                _logger.LogError(ex, "OpenRouter model validation failed");
+                await _dialogService.ShowDialogAsync(SimpleDialogViewModel.Create(
+                    $"Validation error: {ex.Message}",
+                    SimpleDialogTypes.Error, "Validation Error"));
+            }
+            finally
+            {
+                IsValidatingModel = false;
+            }
+        }
+
+        private async Task<(bool isValid, string error)> ValidateOpenrouterModelRequestAsync(string apiKey, string modelName)
+        {
+            var reader = new HttpReader();
+            reader.ContentType = "application/json";
+            reader.Accept = "application/json";
+            reader.ThrowExceptions = false;
+            reader.OptionalHeaders.Add("Authorization", $"Bearer {apiKey}");
+
+            var payload = new
+            {
+                model = modelName,
+                messages = new[] { new { role = "user", content = "Hi" } },
+                max_tokens = 1
+            };
+
+            var response = await reader.RequestWebDataAsync(
+                "https://openrouter.ai/api/v1/chat/completions",
+                HttpMethods.POST, JsonSerializer.Serialize(payload));
+
+            if (response.IsSuccessful)
+                return (true, null);
+
+            // Try to extract a meaningful error message from the response body
+            try
+            {
+                using var doc = JsonDocument.Parse(response.Body);
+                if (doc.RootElement.TryGetProperty("error", out var errorElement))
+                {
+                    var message = errorElement.TryGetProperty("message", out var msgElement)
+                        ? msgElement.GetString()
+                        : response.Body;
+                    return (false, message);
+                }
+            }
+            catch { /* Ignore parse failures, fall through to generic message */ }
+
+            return (false, response.Body ?? "Unable to validate model. Check your API key, model name, and network.");
         }
 
         private async Task ChangeSourceLanguage(Languages language)
@@ -281,43 +504,17 @@ namespace Translumo.MVVM.ViewModels
             {
                 this.TtsSettings.TtsLanguage = language;
                 this.Model.TranslateToLang = language;
-                
-                if (TtsSettings.TtsSystem == TTSEngines.WindowsTTS)
-                {
-                    var langCode = _languageService.GetLanguageDescriptor(language).Code;
-                    LoadAvailableVoices(langCode);
-                }
             };
 
             await this.ReconfigureTts(language, TtsSettings.TtsSystem, changeLanguageAction);
             OnPropertyChanged(nameof(TranslateToLang));
-            OnPropertyChanged(nameof(IsTtsWindowsSelected));
-            OnPropertyChanged(nameof(IsTtsEnabled));
         }
 
         private async Task ChangeTtsSystem(TTSEngines engine)
         {
-            Action changeTtsEngineAction = () => 
-            {
-                this.TtsSettings.TtsSystem = engine;
-                
-                if (engine == TTSEngines.WindowsTTS)
-                {
-                    var langCode = _languageService.GetLanguageDescriptor(TtsSettings.TtsLanguage).Code;
-                    LoadAvailableVoices(langCode);
-                }
-                else
-                {
-                    AvailableVoices = new ObservableCollection<VoiceInfo>();
-                    _selectedVoice = null;
-                    OnPropertyChanged(nameof(SelectedVoice));
-                }
-            };
-            
+            Action changeTtsEngineAction = () => this.TtsSettings.TtsSystem = engine;
             await this.ReconfigureTts(TtsSettings.TtsLanguage, engine, changeTtsEngineAction);
             OnPropertyChanged(nameof(TtsSystem));
-            OnPropertyChanged(nameof(IsTtsWindowsSelected));
-            OnPropertyChanged(nameof(IsTtsEnabled));
         }
 
         private async Task ReconfigureTts(Languages language, TTSEngines engine, Action changeParameter)

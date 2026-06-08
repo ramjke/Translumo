@@ -1,4 +1,4 @@
-﻿<UserControl
+<UserControl
     x:Class="Translumo.MVVM.Views.LanguagesSettingsView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -71,12 +71,14 @@
                     Content="{DynamicResource Str.LangSettings.TranslationLang}"
                     Style="{StaticResource ControlCaptionLabel}" />
             </StackPanel>
+
+            <!-- Translator ComboBox Selection -->
             <StackPanel Orientation="Horizontal">
                 <ComboBox
                     Width="130"
                     FontSize="14"
                     ItemsSource="{Binding Source={StaticResource dataFromEnum}}"
-                    SelectedItem="{Binding Path=Model.Translator}"
+                    SelectedItem="{Binding Path=SelectedTranslator}"
                     Style="{DynamicResource MaterialDesignComboBox}" />
                 <Label
                     Margin="10,0,0,0"
@@ -84,6 +86,86 @@
                     Content="{DynamicResource Str.LangSettings.Translator}"
                     Style="{StaticResource ControlCaptionLabel}" />
             </StackPanel>
+
+            <!-- Translator Slider (compact alternative for narrow spaces) -->
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                <Slider
+                    Width="200"
+                    Minimum="0" Maximum="6"
+                    TickPlacement="BottomRight"
+                    TickFrequency="1"
+                    IsSnapToTickEnabled="True"
+                    Value="{Binding Path=SelectedTranslatorIndex}" />
+                <TextBlock
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="12"
+                    Foreground="Gray"
+                    Text="{Binding Path=SelectedTranslator, StringFormat='Selected: {0}'}" />
+            </StackPanel>
+
+            <!-- API Key Input (visible only for AI translators: Deepseek, Gemini, Openrouter) -->
+            <StackPanel
+                Visibility="{Binding Path=IsApiKeyRequired, Converter={StaticResource BooleanToVisibilityConverter}}"
+                Margin="0,0,0,5">
+                <TextBlock
+                    FontSize="12"
+                    FontWeight="SemiBold"
+                    Foreground="{StaticResource PrimaryHueMidBrush}"
+                    Text="{Binding Path=CurrentApiKeyName}" />
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                    <TextBox
+                        Width="250"
+                        FontSize="13"
+                        Text="{Binding Path=CurrentApiKey, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button
+                        Margin="10,0,0,0"
+                        Padding="8,2"
+                        Height="28"
+                        Content="Validate Key"
+                        Command="{Binding ValidateApiKeyCommand}"
+                        Style="{StaticResource PrimaryButton}" />
+                </StackPanel>
+                <TextBlock
+                    Margin="0,4,0,0"
+                    FontSize="11"
+                    Text="{Binding Path=ApiKeyValidationStatus}" />
+            </StackPanel>
+
+            <!-- OpenRouter Model Input (visible only when OpenRouter is selected) -->
+            <StackPanel
+                Visibility="{Binding Path=IsOpenrouterSelected, Converter={StaticResource BooleanToVisibilityConverter}}"
+                Margin="0,0,0,5">
+                <TextBlock
+                    FontSize="12"
+                    FontWeight="SemiBold"
+                    Foreground="{StaticResource PrimaryHueMidBrush}"
+                    Text="OpenRouter Model" />
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                    <TextBox
+                        Width="250"
+                        HorizontalAlignment="Left"
+                        FontSize="13"
+                        Text="{Binding Path=OpenrouterModel, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button
+                        Margin="10,0,0,0"
+                        Padding="8,2"
+                        Height="28"
+                        Content="Validate Model"
+                        Command="{Binding ValidateOpenrouterModelCommand}"
+                        Style="{StaticResource PrimaryButton}" />
+                </StackPanel>
+                <TextBlock
+                    Margin="0,4,0,0"
+                    FontSize="11"
+                    Text="{Binding Path=OpenrouterModelValidationStatus}" />
+                <TextBlock
+                    Margin="0,2,0,0"
+                    FontSize="10"
+                    Foreground="Gray"
+                    Text="e.g. nvidia/nemotron-3.5-content-safety:free" />
+            </StackPanel>
+
             <StackPanel Orientation="Horizontal">
                 <ComboBox
                     Width="130"
@@ -95,20 +177,6 @@
                     Margin="10,0,0,0"
                     HorizontalAlignment="Stretch"
                     Content="{DynamicResource Str.LangSettings.TtsSystem}"
-                    Style="{StaticResource ControlCaptionLabel}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Visibility="{Binding IsTtsWindowsSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <ComboBox 
-                    ItemsSource="{Binding AvailableVoices}"
-                    SelectedItem="{Binding SelectedVoice, Mode=TwoWay}"
-                    DisplayMemberPath="Name"
-                    Width="130"
-                    FontSize="14"
-                    Style="{DynamicResource MaterialDesignComboBox}"/>
-                <Label
-                    Margin="10,0,0,0"
-                    HorizontalAlignment="Stretch"
-                    Content="Voices"
                     Style="{StaticResource ControlCaptionLabel}" />
             </StackPanel>
             <GroupBox Margin="0,20,0,0" Style="{StaticResource MaterialDesignGroupBox}">
