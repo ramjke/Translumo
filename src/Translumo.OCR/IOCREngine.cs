@@ -1,4 +1,4 @@
-﻿using Translumo.Infrastructure.Language;
+using Translumo.Infrastructure.Language;
 
 namespace Translumo.OCR
 {

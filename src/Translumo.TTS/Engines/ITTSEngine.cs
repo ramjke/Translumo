@@ -1,4 +1,4 @@
-﻿namespace Translumo.TTS.Engines;
+namespace Translumo.TTS.Engines;
 
 public interface ITTSEngine: IDisposable
 {

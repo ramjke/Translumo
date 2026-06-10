@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -55,11 +55,14 @@ namespace Translumo.MVVM.ViewModels
         private bool _colorPickerIsOpened;
         private Color _selectedColor;
 
+        public SystemConfiguration SystemConfig { get; }
+
         private readonly ChatUITextMediator _chatMediator;
-        public AppearanceSettingsViewModel(ChatWindowConfiguration model, ChatUITextMediator chatMediator)
+        public AppearanceSettingsViewModel(ChatWindowConfiguration model, ChatUITextMediator chatMediator, SystemConfiguration systemConfig)
         {
             this.Model = model;
             this._chatMediator = chatMediator;
+            this.SystemConfig = systemConfig;
             this.AvailableAlignments = Enum.GetValues<TextAlignment>()
                 .Select(alignment => new DisplayAlignment(alignment, GetDisplayAlignmentText(alignment)))
                 .ToList();

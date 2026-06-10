@@ -1,4 +1,4 @@
-﻿using Translumo.MVVM.Common;
+using Translumo.MVVM.Common;
 using Translumo.MVVM.ViewModels;
 
 namespace Translumo.Dialog.Stages

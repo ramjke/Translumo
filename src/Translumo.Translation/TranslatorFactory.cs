@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.Extensions.Logging;
 using Translumo.Infrastructure.Dispatching;
 using Translumo.Infrastructure.Language;
@@ -7,6 +7,8 @@ using Translumo.Translation.Deepl;
 using Translumo.Translation.Google;
 using Translumo.Translation.Papago;
 using Translumo.Translation.Yandex;
+using Translumo.Translation.LibreTranslate;
+using Translumo.Translation.Ai;
 
 namespace Translumo.Translation
 {
@@ -35,6 +37,10 @@ namespace Translumo.Translation
                     return new PapagoTranslator(translatorConfiguration, _languageService, _logger);
                 case Translators.Google:
                     return new GoogleTranslator(translatorConfiguration, _languageService, _logger);
+                case Translators.LibreTranslate:
+                    return new LibreTranslateTranslator(translatorConfiguration, _languageService, _logger);
+                case Translators.AiTranslator:
+                    return new AiTranslator(translatorConfiguration, _languageService, _logger);
                 default:
                     throw new NotSupportedException();
             }

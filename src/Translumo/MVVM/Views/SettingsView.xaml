@@ -1,4 +1,4 @@
-﻿<Window
+<Window
     x:Class="Translumo.MVVM.Views.SettingsView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -20,7 +20,7 @@
     Deactivated="wSettings_Deactivated"
     FontFamily="{DynamicResource MaterialDesignFont}"
     MouseDown="wSettings_MouseDown"
-    ResizeMode="NoResize"
+    ResizeMode="CanResize"
     SourceInitialized="wSettings_SourceInitialized"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
@@ -49,7 +49,7 @@
         <system:Boolean x:Key="ConfirmationClose">True</system:Boolean>
     </Window.Resources>
 
-    <Border Background="{StaticResource SecondaryHueLightBrush}">
+    <Border Background="{DynamicResource MaterialDesignPaper}">
         <materialDesign:DialogHost CloseOnClickAway="{Binding DialogService.AllowCloseOnClickAway}" IsOpen="{Binding DialogService.IsOpen}">
             <materialDesign:DialogHost.DialogContent>
                 <views:SimpleDialogView />

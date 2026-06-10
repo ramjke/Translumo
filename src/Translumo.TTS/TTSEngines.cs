@@ -1,4 +1,4 @@
-﻿namespace Translumo.TTS
+namespace Translumo.TTS
 {
     public enum TTSEngines
     {

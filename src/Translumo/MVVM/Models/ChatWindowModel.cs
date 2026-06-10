@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using Translumo.Configuration;
 using Translumo.Infrastructure;
@@ -15,8 +15,8 @@ namespace Translumo.MVVM.Models
         public event EventHandler<ChatItemAddedEventArgs> ChatItemAdded;
         public event EventHandler<ChatFirstItemsRemovedEventArgs> ChatFirstItemsRemoved;
 
-        private const int CHAT_MAX_ITEMS = 50;
-        private const int CHAT_ITEMS_BUFFER = 20;
+        private const int CHAT_MAX_ITEMS = 500;
+        private const int CHAT_ITEMS_BUFFER = 50;
 
         private int _chatItemsCount;
 

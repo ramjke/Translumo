@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Translumo.Infrastructure;
 
 namespace Translumo.Services

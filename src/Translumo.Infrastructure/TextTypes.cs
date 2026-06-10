@@ -1,4 +1,4 @@
-﻿namespace Translumo.Infrastructure
+namespace Translumo.Infrastructure
 {
     public enum TextTypes : byte
     {

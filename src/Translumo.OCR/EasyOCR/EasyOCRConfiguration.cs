@@ -1,4 +1,4 @@
-﻿
+
 using Translumo.OCR.Configuration;
 
 namespace Translumo.OCR.EasyOCR

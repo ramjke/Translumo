@@ -1,4 +1,4 @@
-﻿<Application
+<Application
     x:Class="Translumo.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -58,7 +58,6 @@
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
                         <ResourceDictionary Source="Resources/Localization/lang.en-US.xaml" />
-                        <ResourceDictionary Source="Resources/Localization/lang.zh-CN.xaml" />
                     </ResourceDictionary.MergedDictionaries>
                     <system:String x:Key="ApplicationName">Translumo</system:String>
                 </ResourceDictionary>

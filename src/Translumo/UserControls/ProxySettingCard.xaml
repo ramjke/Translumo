@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Translumo.Controls.ProxySettingCard"
+<UserControl x:Class="Translumo.Controls.ProxySettingCard"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -28,6 +28,8 @@
                 <RowDefinition Height="7"></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
+                <RowDefinition Height="7"></RowDefinition>
+                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
             <DockPanel LastChildFill="True" Grid.Column="0" Grid.ColumnSpan="3">
@@ -36,9 +38,9 @@
                 <Label Style="{StaticResource SecondaryLabel}" Content="{StaticResource Str.ProxySettings.Port}"/>
             </DockPanel>
             
-            <xctk:MaskedTextBox Name="TbIpAddress"  Grid.Column="0" Grid.Row="1" Style="{DynamicResource MaterialDesignTextBox}" Mask="099\.099\.099\.099\" ValueDataType="s:String" InsertKeyMode="Overwrite" TextChanged="TbIpAddress_TextChanged"></xctk:MaskedTextBox>
+            <TextBox Name="TbIpAddress" Grid.Column="0" Grid.Row="1" Style="{DynamicResource MaterialDesignTextBox}" TextChanged="TbIpAddress_TextChanged" PreviewTextInput="TbIpAddress_PreviewTextInput" DataObject.Pasting="TbIpAddress_Pasting"></TextBox>
             <Label Grid.Column="1" Grid.Row="1" Style="{StaticResource SecondaryLabel}">:</Label>
-            <xctk:MaskedTextBox Name="TbPort" Grid.Column="2" Grid.Row="1" Style="{DynamicResource MaterialDesignTextBox}" Mask="09999" ValueDataType="s:String" TextChanged="TbPort_TextChanged"></xctk:MaskedTextBox>
+            <TextBox Name="TbPort" Grid.Column="2" Grid.Row="1" Style="{DynamicResource MaterialDesignTextBox}" TextChanged="TbPort_TextChanged" PreviewTextInput="TbPort_PreviewTextInput" DataObject.Pasting="TbPort_Pasting"></TextBox>
             <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Content=""></Label>
             <DockPanel LastChildFill="True" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3">
                 <Label Style="{StaticResource SecondaryLabel}" Content="{StaticResource Str.Login}"/>
@@ -48,6 +50,23 @@
             <TextBox Name="TbLogin" Grid.Column="0" Grid.Row="4" Style="{DynamicResource MaterialDesignTextBox}" TextChanged="TbLogin_TextChanged"/>
             <Label Grid.Column="1" Grid.Row="4" Content=":" Style="{StaticResource SecondaryLabel}"></Label>
             <TextBox Name="TbPassword" Grid.Column="2" Grid.Row="4" Style="{DynamicResource MaterialDesignTextBox}" TextChanged="TbPassword_TextChanged"></TextBox>
+            <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="0,5,0,0">
+                <Button
+                    Command="{Binding TestProxyCommand}"
+                    Content="Test"
+                    IsEnabled="{Binding CanTest}"
+                    Style="{StaticResource PrimaryButton}"
+                    Height="24"
+                    Padding="10,0,10,0"
+                    FontSize="11" />
+                <TextBlock
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="11"
+                    FontWeight="SemiBold"
+                    Foreground="{Binding TestStatusColor}"
+                    Text="{Binding TestStatus}" />
+            </StackPanel>
             <Canvas Grid.Column="2" Grid.Row="0" HorizontalAlignment="Right" >
                 <Button Name="BtnRemove" Content="{materialDesign:PackIcon DeleteOutline}" Visibility="Hidden" Command="{Binding DeleteCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}">
                     <Button.Style>

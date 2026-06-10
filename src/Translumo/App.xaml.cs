@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Core;
@@ -93,6 +93,11 @@ namespace Translumo
 
             var configurationStorage = _serviceProvider.GetService<ConfigurationStorage>();
             configurationStorage.SaveConfiguration();
+
+            if (_serviceProvider is IDisposable disposableProvider)
+            {
+                disposableProvider.Dispose();
+            }
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -139,6 +144,7 @@ namespace Translumo
             services.AddSingleton<ScreenCaptureConfiguration>();
             services.AddSingleton<DialogService>();
             services.AddSingleton<LanguageService>();
+            services.AddSingleton<LibreTranslateManager>();
             services.AddSingleton<TextDetectionProvider>();
             services.AddSingleton<IActionDispatcher, InteractionActionDispatcher>();
             services.AddSingleton<TextValidityPredictor>();

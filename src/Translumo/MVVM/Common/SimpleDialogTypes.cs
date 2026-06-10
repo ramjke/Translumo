@@ -1,4 +1,4 @@
-﻿namespace Translumo.MVVM.Common
+namespace Translumo.MVVM.Common
 {
     public enum SimpleDialogTypes : byte
     {

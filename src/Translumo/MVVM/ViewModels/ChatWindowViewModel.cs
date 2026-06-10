@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -58,8 +58,14 @@ namespace Translumo.MVVM.ViewModels
             hotKeysManager.ShowSelectionAreaKeyPressed += HotKeysManagerOnShowSelectionAreaKeyPressed;
             hotKeysManager.OnceTranslateKeyPressed += HotKeysManagerOnOnceTranslateKeyPressed;
             hotKeysManager.WindowStyleChangeKeyPressed += HotKeysManagerOnWindowStyleChangeKeyPressed;
+            hotKeysManager.ClearChatKeyPressed += HotKeysManagerOnClearChatKeyPressed;
             chatTextMediator.TextRaised += ChatTextMediatorOnTextRaised;
             chatTextMediator.ClearTextsRaised += ChatTextMediatorOnClearTextsRaised;
+        }
+
+        private void HotKeysManagerOnClearChatKeyPressed(object sender, EventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(() => Model.ClearAllChatItems());
         }
 
         private void HotKeysManagerOnSettingVisibilityKeyPressed(object sender, EventArgs e)
@@ -224,6 +230,7 @@ namespace Translumo.MVVM.ViewModels
             Model.AddChatItem(GetHotKeyHelpText(nameof(configuration.SettingVisibilityKey), "Str.Hotkeys.SettingsShowHelp"), TextTypes.Info);
             Model.AddChatItem(GetHotKeyHelpText(nameof(configuration.SelectAreaKey), "Str.Hotkeys.SelectAreaHelp"), TextTypes.Info);
             Model.AddChatItem(GetHotKeyHelpText(nameof(configuration.TranslationStateKey), "Str.Hotkeys.OnTranslationHelp"), TextTypes.Info);
+            Model.AddChatItem(GetHotKeyHelpText(nameof(configuration.ClearChatKey), "Str.Hotkeys.ClearChatHelp"), TextTypes.Info);
         }
     }
 }

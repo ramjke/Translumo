@@ -1,25 +1,33 @@
-﻿<UserControl x:Class="Translumo.MVVM.Views.SimpleDialogView"
+<UserControl x:Class="Translumo.MVVM.Views.SimpleDialogView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="400" Width="400" Height="200">
+             d:DesignHeight="200" d:DesignWidth="400" Width="500" MinHeight="150" MaxHeight="450">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
-    <DockPanel>
-        <StackPanel DockPanel.Dock="Top" Height="40" Orientation="Horizontal" Background="{StaticResource PrimaryHueDarkBrush}">
-            <Image Source="{Binding IconSource}"  Height="28" Width="28" Margin="7,0,0,0"></Image>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0" Height="40" Orientation="Horizontal" Background="{StaticResource PrimaryHueDarkBrush}">
+            <Image Source="{Binding IconSource}" Height="28" Width="28" Margin="7,0,0,0"></Image>
             <Label VerticalAlignment="Center" Style="{StaticResource HeaderLabel}" Foreground="{StaticResource PrimaryHueLightBrush}" Margin="5,0,0,0" Content="{Binding Caption, Mode=OneWay}"/>
         </StackPanel>
-        <DockPanel Margin="13,8,13,13" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <TextBlock DockPanel.Dock="Top" Style="{DynamicResource MaterialDesignTextBlock}" FontSize="15" Text="{Binding TextContent, Mode=OneWay}" TextWrapping="Wrap" MaxHeight="105"/>
-            <StackPanel DockPanel.Dock="Bottom" Height="30" VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Visibility="{Binding CancelAllowed, Converter={StaticResource BooleanToVisibilityConverter}}" Style="{DynamicResource MaterialDesignFlatDarkButton}" Content="Cancel" Width="90" Margin="0,0,50,0" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" CommandParameter="{x:Static MessageBoxResult.Cancel}"/>
-                <Button Style="{DynamicResource MaterialDesignFlatMidBgButton}" Content="OK" Width="90" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" CommandParameter="{x:Static MessageBoxResult.OK}"/>
-            </StackPanel>
-        </DockPanel>
-    </DockPanel>
+        
+        <ScrollViewer Grid.Row="1" Margin="13,8,13,8" VerticalScrollBarVisibility="Auto">
+            <TextBox Style="{DynamicResource MaterialDesignTextBox}" Margin="0,0,15,0" FontSize="15" Text="{Binding TextContent, Mode=OneWay}" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True" BorderThickness="0" Background="Transparent" />
+        </ScrollViewer>
+        
+        <StackPanel Grid.Row="2" Height="40" VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
+            <Button Visibility="{Binding CancelAllowed, Converter={StaticResource BooleanToVisibilityConverter}}" Style="{DynamicResource MaterialDesignFlatDarkButton}" Content="Cancel" Width="90" Margin="0,0,50,0" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" CommandParameter="{x:Static MessageBoxResult.Cancel}"/>
+            <Button Style="{DynamicResource MaterialDesignFlatMidBgButton}" Content="OK" Width="90" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" CommandParameter="{x:Static MessageBoxResult.OK}"/>
+        </StackPanel>
+    </Grid>
 </UserControl>

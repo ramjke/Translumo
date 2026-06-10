@@ -1,4 +1,4 @@
-﻿using System.Net;
+using System.Net;
 
 namespace Translumo.Translation.Configuration
 {
@@ -14,10 +14,11 @@ namespace Translumo.Translation.Configuration
 
         public WebProxy ToWebProxy()
         {
-            var proxy = new WebProxy(IpAddress, Port)
+            var proxy = new WebProxy(IpAddress, Port);
+            if (!string.IsNullOrEmpty(IpAddress) && !string.IsNullOrEmpty(Login))
             {
-                Credentials = new NetworkCredential(Login, Password)
-            };
+                proxy.Credentials = new NetworkCredential(Login, Password);
+            }
 
             return proxy;
         }

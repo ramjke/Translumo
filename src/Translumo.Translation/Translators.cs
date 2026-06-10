@@ -1,4 +1,4 @@
-﻿
+
 namespace Translumo.Translation
 {
     public enum Translators : byte
@@ -9,6 +9,10 @@ namespace Translumo.Translation
 
         Google = 2,
 
-        Papago = 3
+        Papago = 3,
+
+        LibreTranslate = 4,
+
+        AiTranslator = 5
     }
 }

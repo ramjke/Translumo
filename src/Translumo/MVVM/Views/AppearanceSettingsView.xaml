@@ -1,4 +1,4 @@
-﻿<UserControl
+<UserControl
     x:Class="Translumo.MVVM.Views.AppearanceSettingsView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -158,6 +158,7 @@
                 <ToggleButton IsChecked="{Binding Model.TextProcessing.KeepFormatting}" Style="{StaticResource PrimaryToggleButton}" />
                 <Label Content="{DynamicResource Str.AppearanceSettings.KeepFormatting}" Style="{StaticResource ControlCaptionLabel}" />
             </StackPanel>
+            <!--  Dark Theme Control has been removed  -->
             <StackPanel
                 Grid.Row="4"
                 Grid.Column="1"
