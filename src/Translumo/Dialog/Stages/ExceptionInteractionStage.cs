@@ -11,11 +11,11 @@ namespace Translumo.Dialog.Stages
 
         private readonly Action<Exception> _stageAction;
         private readonly string _errorMessage;
-        public ExceptionInteractionStage(DialogService dialogService, Action<Exception> stageAction, string errorMessage) 
+        public ExceptionInteractionStage(DialogService dialogService, Action<Exception> stageAction, string errorMessage)
             : base(dialogService, null)
         {
-            this._stageAction = stageAction;
-            this._errorMessage = errorMessage;
+            _stageAction = stageAction;
+            _errorMessage = errorMessage;
 
         }
 
@@ -23,7 +23,7 @@ namespace Translumo.Dialog.Stages
         {
             _stageAction?.Invoke(InputException);
 
-            await DialogService.ShowDialogAsync(SimpleDialogViewModel.Create(string.Format(_errorMessage, InputException.Message), 
+            await DialogService.ShowDialogAsync(SimpleDialogViewModel.Create(string.Format(_errorMessage, InputException.Message),
                 SimpleDialogTypes.Error));
 
             return NextStage;

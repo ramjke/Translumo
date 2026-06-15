@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Translumo.Translation.Exceptions
 {
@@ -11,7 +11,7 @@ namespace Translumo.Translation.Exceptions
         public TranslationException(string message, Exception innerException) : base(message, innerException)
         {
         }
-        
+
         public TranslationException() : base()
         {
         }

@@ -1,4 +1,4 @@
-﻿using SharpDX.XInput;
+using SharpDX.XInput;
 
 namespace Translumo.MVVM.Common
 {

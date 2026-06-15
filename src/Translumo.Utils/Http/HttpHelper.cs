@@ -7,7 +7,7 @@ namespace Translumo.Utils.Http
     public static class HttpHelper
     {
         public static string BuildFormData<TEntity>(TEntity bodyEntity)
-            where TEntity: class
+            where TEntity : class
         {
             var result = new StringBuilder();
             foreach (var propertyInfo in typeof(TEntity).GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance))

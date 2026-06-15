@@ -50,7 +50,7 @@ namespace Translumo.Controls
                 GamepadHotKey = new GamepadKeyCombination() { Key = GamepadKeyCode.None };
             }
 
-            HotKey = new KeyCombination { Key = key, Modifier = e.KeyboardDevice.Modifiers};
+            HotKey = new KeyCombination { Key = key, Modifier = e.KeyboardDevice.Modifiers };
             e.Handled = true;
             _pressedKey = (int)e.Key > 115 ? null : e.GetActualKey();
         }

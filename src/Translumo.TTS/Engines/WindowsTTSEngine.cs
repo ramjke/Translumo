@@ -16,14 +16,14 @@ public class WindowsTTSEngine : ITTSEngine
 
         // Get all available voices
         var availableVoices = _synthesizer.GetInstalledVoices(new CultureInfo(languageCode));
-        
+
         if (!string.IsNullOrEmpty(voiceName))
         {
             _voiceInfo = availableVoices
                 .FirstOrDefault(v => v.VoiceInfo.Name.Equals(voiceName, StringComparison.OrdinalIgnoreCase))
                 ?.VoiceInfo;
         }
-        
+
         _voiceInfo ??= availableVoices.FirstOrDefault()?.VoiceInfo;
     }
 

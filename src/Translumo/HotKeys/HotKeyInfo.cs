@@ -1,4 +1,4 @@
-﻿using System.Windows.Input;
+using System.Windows.Input;
 
 namespace Translumo.HotKeys
 {
@@ -38,6 +38,17 @@ namespace Translumo.HotKeys
             }
 
             return KeyModifier.ToString() + "+" + keyStr;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 17;
+                hash = hash * 23 + Key.GetHashCode();
+                hash = hash * 23 + KeyModifier.GetHashCode();
+                return hash;
+            }
         }
     }
 }

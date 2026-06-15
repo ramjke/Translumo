@@ -1,4 +1,4 @@
-﻿namespace Translumo.Processing.TextProcessing
+namespace Translumo.Processing.TextProcessing
 {
     public class InputTextPrediction
     {

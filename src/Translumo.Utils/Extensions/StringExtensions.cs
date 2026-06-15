@@ -59,11 +59,11 @@ namespace Translumo.Utils.Extensions
                 }
 
                 for (var i = 0; i < (string1.Length - 1); i++)
-                { 
+                {
                     bigrams1.Add(string1.Substring(i, 2));
                 }
                 for (int i = 0; i < (string2.Length - 1); i++)
-                {   
+                {
                     bigrams2.Add(string2.Substring(i, 2));
                 }
 
@@ -72,7 +72,7 @@ namespace Translumo.Utils.Extensions
                 {
                     intersection += bigrams1.Contains(bi2) ? 1 : 0;
                 }
-                
+
                 int total = bigrams1.Count + bigrams2.Count;
                 double dice = (intersection * 2) / (double)total;
 

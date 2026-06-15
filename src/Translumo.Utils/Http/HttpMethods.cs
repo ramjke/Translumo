@@ -1,4 +1,4 @@
-﻿namespace Translumo.Utils.Http
+namespace Translumo.Utils.Http
 {
     public enum HttpMethods : int
     {

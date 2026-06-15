@@ -22,7 +22,7 @@ namespace Translumo.Update
         {
             this.Owner = owner;
             this.Repository = repository;
-            this._reader = new HttpReader();
+            _reader = new HttpReader();
             _reader.Accept = "application/vnd.github+json";
         }
 

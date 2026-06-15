@@ -1,4 +1,4 @@
-﻿namespace Translumo.Infrastructure.Constants
+namespace Translumo.Infrastructure.Constants
 {
     public static class DispatcherActions
     {

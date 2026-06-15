@@ -25,7 +25,7 @@ namespace Translumo.Translation.Deepl
                 this.Id = id;
                 this.Jsonrpc = "2.0";
                 this.Method = "LMT_handle_jobs";
-                
+
                 var regexResult = RegexStorage.DeeplSentenceRegex.Matches(sentence);
                 var jobs = new List<Job>(regexResult.Count);
                 for (int i = 0; i < regexResult.Count; i++)
@@ -41,7 +41,7 @@ namespace Translumo.Translation.Deepl
 
             public sealed class Parameters
             {
-                private static Regex sentenceRegex = new Regex("[i]", RegexOptions.Compiled);
+                private static readonly Regex sentenceRegex = new Regex("[i]", RegexOptions.Compiled);
 
                 [JsonPropertyName("jobs")]
                 public List<Job> Jobs { get; set; }
@@ -105,7 +105,7 @@ namespace Translumo.Translation.Deepl
                 [JsonPropertyName("preferred_num_beams")]
                 public long PreferredNumBeams { get; set; }
 
-                [JsonIgnore] 
+                [JsonIgnore]
                 public bool NewLineFollows { get; set; }
 
                 public Job(string sentence, string contextBefore, string contextAfter)
@@ -142,7 +142,7 @@ namespace Translumo.Translation.Deepl
                 {
                     SourceLangComputed = sourceLanguage;
                     TargetLang = targetLanguage;
-                    UserPreferredLangs = new[] {sourceLanguage, targetLanguage};
+                    UserPreferredLangs = new[] { sourceLanguage, targetLanguage };
                 }
             }
 

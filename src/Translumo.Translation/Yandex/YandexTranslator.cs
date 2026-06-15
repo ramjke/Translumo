@@ -17,14 +17,14 @@ namespace Translumo.Translation.Yandex
         private readonly IActionDispatcher _actionDispatcher;
 
         private readonly AutoResetEvent _sync;
-        
-        public YandexTranslator(TranslationConfiguration translationConfiguration, LanguageService languageService, 
+
+        public YandexTranslator(TranslationConfiguration translationConfiguration, LanguageService languageService,
             IActionDispatcher actionDispatcher, ILogger logger) : base(translationConfiguration, languageService, logger)
         {
-            this._actionDispatcher = actionDispatcher;
-            this._sync = new AutoResetEvent(true);
+            _actionDispatcher = actionDispatcher;
+            _sync = new AutoResetEvent(true);
         }
-        
+
         protected override async Task<string> TranslateTextInternal(YandexContainer container, string sourceText)
         {
             var sourceLangCode = SourceLangDescriptor.IsoCode;
@@ -74,7 +74,8 @@ namespace Translumo.Translation.Yandex
                 .DispatchActionAsync<BrowseSiteDispatchArg, BrowseSiteDispatchResult>(DispatcherActions.PASS_SITE,
                     new BrowseSiteDispatchArg()
                     {
-                        SourceUrl = container.Reader.YandexRuUrl, TargetUrl = container.Reader.YandexRuUrl,
+                        SourceUrl = container.Reader.YandexRuUrl,
+                        TargetUrl = container.Reader.YandexRuUrl,
                         Proxy = container.Proxy?.ToWebProxy()
                     }).ConfigureAwait(false);
 

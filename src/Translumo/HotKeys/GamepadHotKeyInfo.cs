@@ -1,4 +1,4 @@
-﻿using SharpDX.XInput;
+using SharpDX.XInput;
 
 namespace Translumo.HotKeys
 {
@@ -29,6 +29,16 @@ namespace Translumo.HotKeys
         public override string ToString()
         {
             return Key.ToString();
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 17;
+                hash = hash * 23 + Key.GetHashCode();
+                return hash;
+            }
         }
     }
 }

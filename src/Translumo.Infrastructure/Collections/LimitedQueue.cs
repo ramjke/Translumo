@@ -10,7 +10,7 @@ namespace Translumo.Infrastructure.Collections
             get => _capacity;
             set
             {
-                this._capacity = value;
+                _capacity = value;
                 Dequeue(Count - _capacity);
             }
         }

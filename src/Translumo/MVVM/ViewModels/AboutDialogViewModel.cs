@@ -1,4 +1,4 @@
-﻿using Translumo.Infrastructure.Constants;
+using Translumo.Infrastructure.Constants;
 
 namespace Translumo.MVVM.ViewModels
 {

@@ -6,11 +6,11 @@ namespace Translumo.Infrastructure.Language
 {
     public class LanguageService
     {
-        private IDictionary<Languages, LanguageDescriptor> _langDescriptors;
+        private readonly IDictionary<Languages, LanguageDescriptor> _langDescriptors;
 
         public LanguageService(LanguageDescriptorFactory langFactory)
         {
-            this._langDescriptors = langFactory.GetAll().ToDictionary(lang => lang.Language, lang => lang);                
+            _langDescriptors = langFactory.GetAll().ToDictionary(lang => lang.Language, lang => lang);
         }
 
         public LanguageDescriptor GetLanguageDescriptor(Languages language)

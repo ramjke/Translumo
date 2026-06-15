@@ -22,7 +22,7 @@ namespace Translumo.Infrastructure.Constants
         static RegexStorage()
         {
             var punctuation = Regex.Escape(";:?!.-");
-            
+
             MultipleSpacesRegex = new Regex(@"\s{2,}", RegexOptions.Compiled);
             StartDotRegex = new Regex(@"^\.{3,}", RegexOptions.Compiled);
             EndDotRegex = new Regex(@"\.{3,}$", RegexOptions.Compiled);

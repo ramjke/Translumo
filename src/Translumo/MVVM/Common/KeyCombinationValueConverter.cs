@@ -12,7 +12,7 @@ namespace Translumo.MVVM.Common
         {
             var hotKeyInfo = value as HotKeyInfo;
 
-            return new KeyCombination{Key = hotKeyInfo.Key, Modifier = (ModifierKeys) hotKeyInfo.KeyModifier };
+            return new KeyCombination { Key = hotKeyInfo.Key, Modifier = (ModifierKeys)hotKeyInfo.KeyModifier };
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

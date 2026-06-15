@@ -1,4 +1,4 @@
-﻿namespace Translumo.TTS.Engines;
+namespace Translumo.TTS.Engines;
 
 public class NoneTTSEngine : ITTSEngine
 {

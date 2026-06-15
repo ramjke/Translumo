@@ -41,9 +41,9 @@ namespace Translumo.Processing
         private ITTSEngine _ttsEngine;
         private IEnumerable<IOCREngine> _engines;
         private ITranslator _translator;
-        private TranslationConfiguration _translationConfiguration;
-        private OcrGeneralConfiguration _ocrGeneralConfiguration;
-        private TextProcessingConfiguration _textProcessingConfiguration;
+        private readonly TranslationConfiguration _translationConfiguration;
+        private readonly OcrGeneralConfiguration _ocrGeneralConfiguration;
+        private readonly TextProcessingConfiguration _textProcessingConfiguration;
 
         private CancellationTokenSource _ctSource;
         private IScreenCapturer _capturer;
@@ -52,10 +52,10 @@ namespace Translumo.Processing
         private long _lastTranslatedTextTicks;
 
         private const float MIN_SCORE_THRESHOLD = 2.1f;
-        
+
         public TranslationProcessingService(ICapturerFactory capturerFactory, IChatTextMediator chatTextMediator, OcrEnginesFactory ocrEnginesFactory,
             TranslatorFactory translationFactory, TtsFactory ttsFactory, TtsConfiguration ttsConfiguration,
-            TextDetectionProvider textProvider, TranslationConfiguration translationConfiguration, OcrGeneralConfiguration ocrConfiguration, 
+            TextDetectionProvider textProvider, TranslationConfiguration translationConfiguration, OcrGeneralConfiguration ocrConfiguration,
             TextResultCacheService textResultCacheService, TextProcessingConfiguration textConfiguration, ILogger<TranslationProcessingService> logger)
         {
             _logger = logger;
@@ -236,7 +236,7 @@ namespace Translumo.Processing
                             continue;
                         }
 
-                        if (_textResultCacheService.IsCached(bestDetected.Text, bestDetected.ValidityScore, sequentialText, 
+                        if (_textResultCacheService.IsCached(bestDetected.Text, bestDetected.ValidityScore, sequentialText,
                                 bestDetected.Language.Asian, out iterationId))
                         {
                             sequentialText = false;
@@ -257,7 +257,7 @@ namespace Translumo.Processing
                     }
 
                     _logger.LogError(ex, $"Screen capture failed (code: {ex.ErrorCode})");
-                    
+
                     _capturer.Dispose();
                     _capturer = null;
                     CapturerEnsureInitialized();

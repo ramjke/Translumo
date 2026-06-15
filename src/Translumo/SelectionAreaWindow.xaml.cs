@@ -29,7 +29,7 @@ namespace Translumo
         {
             InitializeComponent();
 
-            this._readonlyMode = true;
+            _readonlyMode = true;
             this.SelectedArea = rectangle;
         }
 

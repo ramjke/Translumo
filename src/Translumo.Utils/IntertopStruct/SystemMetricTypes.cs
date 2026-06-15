@@ -1,4 +1,4 @@
-﻿namespace Translumo.Utils.IntertopStruct
+namespace Translumo.Utils.IntertopStruct
 {
     public enum SystemMetricTypes : int
     {

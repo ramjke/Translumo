@@ -54,8 +54,8 @@ namespace Translumo.MVVM.Views
             InitializeComponent();
 
             this.SessionId = sessionId;
-            this.Browser.NavigationCompleted += BrowserOnNavigationCompleted;
-            this.Browser.CoreWebView2InitializationCompleted += BrowserOnCoreWebView2InitializationCompleted;
+            Browser.NavigationCompleted += BrowserOnNavigationCompleted;
+            Browser.CoreWebView2InitializationCompleted += BrowserOnCoreWebView2InitializationCompleted;
             this.Loaded += OnLoaded;
         }
 
@@ -74,7 +74,7 @@ namespace Translumo.MVVM.Views
                     args.Response.Password = credential.Password;
                 };
             }
-            
+
             Browser.Source = new Uri(SourcePageUrl);
         }
 

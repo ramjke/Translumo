@@ -47,9 +47,9 @@ namespace Translumo.Infrastructure.Collections
                 throw new ArgumentException($"Invalid capacity");
             }
 
-            this._capacity = capacity;
-            this._dictionary = new Dictionary<TKey, TValue>(equalityComparer);
-            this._backupDictionary = new Dictionary<TKey, TValue>(equalityComparer);
+            _capacity = capacity;
+            _dictionary = new Dictionary<TKey, TValue>(equalityComparer);
+            _backupDictionary = new Dictionary<TKey, TValue>(equalityComparer);
         }
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
@@ -81,7 +81,7 @@ namespace Translumo.Infrastructure.Collections
         public bool Remove(KeyValuePair<TKey, TValue> item)
         {
             _backupDictionary.Remove(item);
-            
+
             return _dictionary.Remove(item);
         }
 

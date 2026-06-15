@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Translumo.Infrastructure.Exceptions
 {
@@ -6,7 +6,7 @@ namespace Translumo.Infrastructure.Exceptions
     {
         public OptionalFeatureAccessException(string message) : base(message)
         {
-            
+
         }
 
         public OptionalFeatureAccessException(string message, Exception innerException) : base(message, innerException)

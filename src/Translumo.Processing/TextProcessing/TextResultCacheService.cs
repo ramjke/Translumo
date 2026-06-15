@@ -58,7 +58,7 @@ namespace Translumo.Processing.TextProcessing
                 {
                     return true;
                 }
-                
+
                 _cachedTextsCurrentIteration.Add(new KeyValuePair<string, float>(text, score));
 
                 return HasBetterSimilarText(text, score, isAsianLanguage) && !isSequentialText;
@@ -71,7 +71,7 @@ namespace Translumo.Processing.TextProcessing
 
         public bool IsTranslatedCached(string text, Guid iterationId)
         {
-            var hasSimilarity = _cachedTranslated.Any(cached => 
+            var hasSimilarity = _cachedTranslated.Any(cached =>
                 cached.Item2 == iterationId && cached.Item1.GetJaroSimilarity(text) > TRANSLATED_SIMILARITY_THRESHOLD);
             if (!hasSimilarity)
             {

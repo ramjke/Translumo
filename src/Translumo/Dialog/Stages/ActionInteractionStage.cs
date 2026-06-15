@@ -9,7 +9,7 @@ namespace Translumo.Dialog.Stages
 
         public ActionInteractionStage(DialogService dialogService, Func<Task> actionStage, string stageName = null) : base(dialogService, stageName)
         {
-            this._actionStage = actionStage;
+            _actionStage = actionStage;
         }
 
         protected override async Task<InteractionStage> ExecuteInner()

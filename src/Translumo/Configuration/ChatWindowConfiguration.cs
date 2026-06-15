@@ -13,7 +13,7 @@ namespace Translumo.Configuration
 
         public Color BackgroundColor
         {
-            get => _backgroundColor; 
+            get => _backgroundColor;
             set
             {
                 SetProperty(ref _backgroundColor, value);

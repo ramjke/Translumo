@@ -8,7 +8,7 @@ namespace Translumo.Services
     public class ChatUITextMediator : IChatTextMediator
     {
         public event EventHandler<TranslatedEventArgs> TextRaised;
-        public event EventHandler ClearTextsRaised; 
+        public event EventHandler ClearTextsRaised;
 
         public void SendText(string text, bool successful)
         {

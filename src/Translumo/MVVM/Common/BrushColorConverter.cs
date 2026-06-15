@@ -10,13 +10,13 @@ namespace Translumo.MVVM.Common
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var brush = (SolidColorBrush)value;
-            
+
             return brush.Color;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var color = (Color) value;
+            var color = (Color)value;
 
             return new SolidColorBrush(color);
         }

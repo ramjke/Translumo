@@ -37,7 +37,7 @@ namespace Translumo.Processing.TextProcessing
         private readonly ILogger _logger;
         private readonly ManualResetEvent _sync = new ManualResetEvent(false);
 
-        private IReadOnlyDictionary<string, string> _replacers = new Dictionary<string, string>()
+        private readonly IReadOnlyDictionary<string, string> _replacers = new Dictionary<string, string>()
         {
             { "，", "," },
             { " 、", "," },
@@ -78,14 +78,14 @@ namespace Translumo.Processing.TextProcessing
             { "９", "9" },
         };
 
-        public TextValidityPredictor(IPredictor<InputTextPrediction, OutputTextPrediction> validityPredictor, LanguageService languageService, 
+        public TextValidityPredictor(IPredictor<InputTextPrediction, OutputTextPrediction> validityPredictor, LanguageService languageService,
             ILogger<TextValidityPredictor> logger)
         {
-            this._validityPredictor = validityPredictor;
-            this._languageService = languageService;
-            this._logger = logger;
+            _validityPredictor = validityPredictor;
+            _languageService = languageService;
+            _logger = logger;
         }
-        
+
         public float Predict(string[] textLines, out string validatedText)
         {
             const int PREDICT_ATTEMPTS = 3;

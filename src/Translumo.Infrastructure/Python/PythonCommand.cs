@@ -8,7 +8,7 @@ using Translumo.Infrastructure.Constants;
 
 namespace Translumo.Infrastructure.Python
 {
-    public struct PythonCommandResult 
+    public struct PythonCommandResult
     {
         public string Output { get; init; }
 
@@ -22,8 +22,8 @@ namespace Translumo.Infrastructure.Python
         public CancellationToken Token { get; set; }
 
         private readonly Process _process;
-        private StringBuilder _outputBuffer = new StringBuilder();
-        private StringBuilder _errorOutputBuffer = new StringBuilder();
+        private readonly StringBuilder _outputBuffer = new StringBuilder();
+        private readonly StringBuilder _errorOutputBuffer = new StringBuilder();
 
         protected PythonCommand(ProcessStartInfo pythonStartInfo)
         {
@@ -32,7 +32,7 @@ namespace Translumo.Infrastructure.Python
                 throw new FileNotFoundException("Embedded Python is not found");
             }
 
-            this._process = Process.Start(pythonStartInfo);
+            _process = Process.Start(pythonStartInfo);
         }
 
         public static PythonCommand CreatePip(string command, CancellationToken token)
@@ -59,17 +59,17 @@ namespace Translumo.Infrastructure.Python
             _process.BeginErrorReadLine();
             await _process.WaitForExitAsync(Token);
             bool hasErrors = _process.ExitCode != 0;
-            
+
             //using (StreamReader reader = (hasErrors ? _process.StandardError : _process.StandardOutput))
             //{
             //    string output = await reader.ReadToEndAsync();
 
-                return new PythonCommandResult()
-                {
-                    HasError = hasErrors,
-                    ErrorOutput = _errorOutputBuffer.ToString(),
-                    Output = _outputBuffer.ToString()
-                };
+            return new PythonCommandResult()
+            {
+                HasError = hasErrors,
+                ErrorOutput = _errorOutputBuffer.ToString(),
+                Output = _outputBuffer.ToString()
+            };
             //}
         }
 

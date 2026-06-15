@@ -12,7 +12,7 @@ namespace Translumo.Translation.Papago
         public static string GetGuid()
         {
             var datetimeMs = GetTimeMs();
-            
+
             return RegexStorage.GuidGenerationRegex.Replace("xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx", match =>
             {
                 double rand = _randomizer.NextDouble();
@@ -22,7 +22,7 @@ namespace Translumo.Translation.Papago
                 return (match.Value == "x" ? t : 3 & t | 8).ToString("x");
             });
         }
-        
+
         public static long GetTimestamp()
         {
             return GetTimeMs() - _randomizer.Next(500, 1500);

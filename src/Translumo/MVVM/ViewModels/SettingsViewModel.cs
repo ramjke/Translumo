@@ -40,7 +40,7 @@ namespace Translumo.MVVM.ViewModels
         private object _selectedViewModel;
         private bool _additionalPanelOpened;
 
-        public SettingsViewModel(DialogService dialogService, AppearanceSettingsViewModel appearanceVm, OcrSettingsViewModel ocrVm, 
+        public SettingsViewModel(DialogService dialogService, AppearanceSettingsViewModel appearanceVm, OcrSettingsViewModel ocrVm,
             LanguagesSettingsViewModel languagesVm, HotkeysSettingsViewModel hotkeysVm, SystemConfiguration systemConfiguration, ILogger<SettingsViewModel> logger)
         {
             this.NavigationItems = new ObservableCollection<BaseNavigationItem>();
@@ -70,10 +70,10 @@ namespace Translumo.MVVM.ViewModels
         {
             AdditionPanelOpened = e;
         }
-        
+
         private void AddNavigationItem(string label, PackIconKind icon, object viewModel)
         {
-            NavigationItems.Add(new FirstLevelNavigationItem(){ Label = label, Icon = icon, IsSelectable = true, NavigationItemSelectedCallback = item => viewModel });
+            NavigationItems.Add(new FirstLevelNavigationItem() { Label = label, Icon = icon, IsSelectable = true, NavigationItemSelectedCallback = item => viewModel });
         }
 
         private void OnNavigationItemSelected(INavigationItem navigationItem)
@@ -92,7 +92,7 @@ namespace Translumo.MVVM.ViewModels
 
         private async void OnAboutDialogOpened()
         {
-            await DialogService.ShowDialogAsync(new AboutDialogViewModel() {HasUpdates = HasUpdates});
+            await DialogService.ShowDialogAsync(new AboutDialogViewModel() { HasUpdates = HasUpdates });
         }
 
         public void Dispose()

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -15,7 +15,7 @@ namespace Translumo.OCR.Configuration
         public static OcrGeneralConfiguration Default => new OcrGeneralConfiguration()
         {
             OcrConfigurations = new OcrConfiguration[]
-                { new EasyOCRConfiguration(), new WindowsOCRConfiguration(), new TesseractOCRConfiguration() },
+                { new EasyOCRConfiguration() { Enabled = false }, new WindowsOCRConfiguration() { Enabled = true }, new TesseractOCRConfiguration() { Enabled = false } },
         };
 
         public OcrConfiguration[] OcrConfigurations
@@ -40,7 +40,7 @@ namespace Translumo.OCR.Configuration
         public TConfiguration GetConfiguration<TConfiguration>()
             where TConfiguration : OcrConfiguration
         {
-            return (TConfiguration) OcrConfigurations.FirstOrDefault(conf => conf.GetType() == typeof(TConfiguration));
+            return (TConfiguration)OcrConfigurations.FirstOrDefault(conf => conf.GetType() == typeof(TConfiguration));
         }
 
         private void OcrConfigurationOnPropertyChanged(object sender, PropertyChangedEventArgs e)

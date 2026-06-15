@@ -51,7 +51,7 @@ namespace Translumo.Translation.Papago
             {
                 throw new HttpRequestException($"Invalid http response: '{response.Body}'");
             }
-            
+
             var jsChunkName = ExtractHomeJsChunk(response.Body);
             if (string.IsNullOrEmpty(jsChunkName))
             {

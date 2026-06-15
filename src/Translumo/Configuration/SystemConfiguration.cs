@@ -1,5 +1,7 @@
-﻿using System.Globalization;
+using System;
+using System.Globalization;
 using Translumo.Utils;
+using MaterialDesignThemes.Wpf;
 
 namespace Translumo.Configuration
 {

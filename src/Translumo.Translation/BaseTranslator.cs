@@ -24,8 +24,8 @@ namespace Translumo.Translation
 
         protected BaseTranslator(TranslationConfiguration translationConfiguration, LanguageService languageService, ILogger logger)
         {
-            this.TranslationConfiguration = translationConfiguration;
-            this.Logger = logger;
+            TranslationConfiguration = translationConfiguration;
+            Logger = logger;
             SourceLangDescriptor = languageService.GetLanguageDescriptor(translationConfiguration.TranslateFromLang);
             TargetLangDescriptor = languageService.GetLanguageDescriptor(translationConfiguration.TranslateToLang);
         }
@@ -59,7 +59,7 @@ namespace Translumo.Translation
                     {
                         Logger.LogWarning($"Translation container is blocked until {container.BlockedUntilUtc.Value.ToLocalTime()} ({container.Proxy})");
                     }
-                    
+
                     var backupContainer = GetContainer(false, container);
                     if (backupContainer == null)
                     {
@@ -87,7 +87,7 @@ namespace Translumo.Translation
         protected virtual TContainer GetContainer(bool usePrimary, TContainer lastUsedContainer = null)
         {
             var targetContainer = Containers.Where(container => !container.IsBlocked)
-                .MinBy(container => container == lastUsedContainer ? DateTime.MaxValue :  container.LastTimeUsedUtc);
+                .MinBy(container => container == lastUsedContainer ? DateTime.MaxValue : container.LastTimeUsedUtc);
 
             if (targetContainer == null && usePrimary)
             {

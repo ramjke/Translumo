@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -24,8 +24,8 @@ namespace Translumo.MVVM.ViewModels
 
         public HotkeysSettingsViewModel(HotKeysServiceManager hotKeysServiceManager)
         {
-            this._configuration = hotKeysServiceManager.Configuration;
-            this._serviceManager = hotKeysServiceManager;
+            _configuration = hotKeysServiceManager.Configuration;
+            _serviceManager = hotKeysServiceManager;
 
             var defaultGamepadHotKey = new GamepadHotKeyInfo(GamepadKeyCode.None);
             Model = new List<HotKeyModel>(new[]
@@ -57,7 +57,11 @@ namespace Translumo.MVVM.ViewModels
                 new HotKeyModel(_configuration.WindowStyleChangeKey,
                     hotKeysServiceManager.GamepadHotkeysEnabled ? _configuration.WindowStyleChangeGamepadKey : defaultGamepadHotKey,
                     nameof(_configuration.WindowStyleChangeKey), nameof(_configuration.WindowStyleChangeGamepadKey),
-                    LocalizationManager.GetValue("Str.Hotkeys.WindowChangeStyle", false, OnLocalizedValueChanged, this))
+                    LocalizationManager.GetValue("Str.Hotkeys.WindowChangeStyle", false, OnLocalizedValueChanged, this)),
+                new HotKeyModel(_configuration.ClearChatKey,
+                    hotKeysServiceManager.GamepadHotkeysEnabled ? _configuration.ClearChatGamepadKey : defaultGamepadHotKey,
+                    nameof(_configuration.ClearChatKey), nameof(_configuration.ClearChatGamepadKey),
+                    LocalizationManager.GetValue("Str.Hotkeys.ClearChat", false, OnLocalizedValueChanged, this))
             });
 
             Model.ForEach(m => m.PropertyChanged += OnPropertyChanged);

@@ -30,10 +30,10 @@ namespace Translumo.Dialog
 
         private bool _allowCloseOnClickAway;
         private bool _isOpen;
-        private ConcurrentDictionary<Type, Window> _openedWindows = new ConcurrentDictionary<Type, Window>();
+        private readonly ConcurrentDictionary<Type, Window> _openedWindows = new ConcurrentDictionary<Type, Window>();
 
         public async Task<MessageBoxResult?> ShowDialogAsync<TViewModel>(TViewModel dialogViewModel)
-            where TViewModel: class
+            where TViewModel : class
         {
             var view = await GetViewByViewModel<UserControl>(dialogViewModel);
             if (view == null)
@@ -55,7 +55,7 @@ namespace Translumo.Dialog
             {
                 AllowCloseOnClickAway = true;
             }
-            
+
             object dialogResult = await Application.Current.Dispatcher.Invoke(() => DialogHost.Show(view));
 
             return (MessageBoxResult?)dialogResult;
@@ -80,7 +80,7 @@ namespace Translumo.Dialog
         }
 
         public bool? ShowWindowDialog<TView>(out TView windowView, object param = null)
-            where TView: Window
+            where TView : Window
         {
             if (_openedWindows.ContainsKey(typeof(TView)))
             {
@@ -88,7 +88,7 @@ namespace Translumo.Dialog
                 return null;
             }
 
-            windowView = param != null ? (TView) Activator.CreateInstance(typeof(TView), param) : Activator.CreateInstance<TView>();
+            windowView = param != null ? (TView)Activator.CreateInstance(typeof(TView), param) : Activator.CreateInstance<TView>();
             _openedWindows[typeof(TView)] = windowView;
 
             try
@@ -141,7 +141,7 @@ namespace Translumo.Dialog
         }
 
         private async Task<TView> GetViewByViewModel<TView>(object viewModel)
-            where TView: FrameworkElement
+            where TView : FrameworkElement
         {
             Type viewModelType = viewModel.GetType();
             string viewTypeName = _viewModelReplaceRegex.Replace(viewModelType.Name, string.Empty);
@@ -150,7 +150,7 @@ namespace Translumo.Dialog
             {
                 throw new ArgumentException($"View for ViewModel '{viewModelType.Name}' is not found");
             }
-            
+
             return await Application.Current.Dispatcher.InvokeAsync(() =>
             {
                 var view = Activator.CreateInstance(viewType) as TView;

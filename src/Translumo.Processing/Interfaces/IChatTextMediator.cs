@@ -1,4 +1,4 @@
-﻿using Translumo.Infrastructure;
+using Translumo.Infrastructure;
 
 namespace Translumo.Processing.Interfaces
 {

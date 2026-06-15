@@ -12,7 +12,7 @@ namespace Translumo.Services
 {
     public static class WebBrowserProvider
     {
-        private static ConcurrentDictionary<Guid, ManualResetEvent> _browserSessions = new();
+        private static readonly ConcurrentDictionary<Guid, ManualResetEvent> _browserSessions = new();
 
         public static async Task<WebPageInfo> BrowsePageAsync(string sourceUrl, string targetUrl, CancellationToken cancellationToken,
             WebProxy proxy = null, string notificationDescription = null)

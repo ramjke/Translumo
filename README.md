@@ -8,6 +8,53 @@
 
 <p align="center"><strong>English</strong> | <a href="docs/README-RU.md"><strong>Русский</strong></a></p>
 
+---
+
+# 🚀 Version 1.5 Update: What's New & Fixed?
+
+This version of **Translumo** has been updated to Version 1.5, focusing heavily on ONNX offline translation stability, CPU optimization, and ease of use.
+
+## ✨ New Features & UI Enhancements
+1. **ONNX Language Setup Guide**: Added a built-in, step-by-step UI guide inside the Settings menu to help users easily install and configure new language models for the ONNX Opus-MT translation engine.
+
+## 🛠️ Major Bug Fixes & CPU Optimizations
+1. **ONNX CPU Spiking Resolved**: Fixed a severe issue where ONNX would aggressively consume 100% of all CPU cores. By enforcing `IntraOpNumThreads=1` and `InterOpNumThreads=1`, ONNX now runs stably on a single thread, greatly reducing system load and eliminating CPU spiking during gameplay.
+2. **Infinite Loop & Garbage Text Fix**: Resolved a critical greedy-search decoding bug where the `bad_words_ids` (specifically the pad token `54795`) were not suppressed. This ensures the decoder properly terminates and produces clean text.
+3. **Language Switch Detection**: Fixed a bug where ONNX model sessions were not properly disposed when users switched language pairs (e.g., from `en-id` to `ja-id`), preventing stale translations.
+4. **Resilient Model Downloads**: Improved the model downloader by using `.tmp` files and atomic renaming. This prevents corrupted `.onnx` files if the application is closed or internet drops during a download.
+
+---
+
+# 🚀 Version 1.4 Update: What's New & Fixed?
+
+This version of **Translumo** has been heavily upgraded to Version 1.4, bringing powerful new translation engines and critical crash fixes for offline usage.
+
+## ✨ New Features
+1. **NVIDIA NIM Integration**: Added support for NVIDIA NIM (NVIDIA Inference Microservices) as a translation engine, allowing blazing fast translations using NVIDIA's optimized AI containers.
+2. **NVIDIA Riva Support**: Integrated NVIDIA Riva for advanced AI-driven workflows.
+3. **ONNX Offline Translation (Opus-MT)**: Integrated completely offline translation capabilities using ONNX CPU/NPU execution for HuggingFace `opus-mt` models. The system automatically downloads the required models and dynamically patches Rust tokenizer incompatibilities on the fly!
+
+## 🛠️ Major Bug Fixes & Stability Improvements
+1. **ONNX Tokenizer Rust Incompatibility Fix**: Resolved a critical JSON parsing crash (`Tokenizers.DotNet.TokenizerException`) when loading HuggingFace models by implementing an on-the-fly JSON patcher that removes incompatible JS `normalizer` blocks without breaking the JSON structure.
+2. **Configuration Save Crash (Gamepad Hotkey)**: Fixed a major bug that caused the application to Force Close when exiting. The issue was traced to an unimplemented `GetHashCode()` method in `GamepadHotKeyInfo.cs` during XML serialization, which has now been fully implemented with a stable hash calculation.
+
+---
+
+# 🚀 Version 1.3 Update: What's New & Fixed?
+This version of **Translumo** has been customized and updated to Version 1.3. It includes exclusive features and major stability fixes that are not present in the original repository.
+
+## ✨ New Features
+1. **AI Translator Integration**: Added support for translating via Advanced AI Models (e.g., Gemini, ChatGPT/OpenAI compatible APIs) to achieve highly contextual and natural game translations.
+2. **Local LibreTranslate Support**: Fully integrated a completely offline, local LibreTranslate server support. Translumo will automatically manage the server startup and shutdown.
+3. **Clear Chat Hotkey (`ALT+C`)**: A newly implemented global hotkey that allows you to instantly clear the chat bubble/translation screen when it gets too cluttered.
+
+## 🛠️ Major Bug Fixes & Stability Improvements
+1. **Proxy Error Fixes**: Resolved persistent proxy errors that blocked connections to translators.
+2. **LibreTranslate Lifecycle Manager**: Fixed a bug where simply opening or minimizing the Settings menu would aggressively kill the LibreTranslate server. The server is now safely managed by a background singleton manager and only shuts down when you completely exit Translumo from the tray.
+3. **Restored Anti Double-Click**: Re-implemented the lock on the "Run LibreTranslate" button to prevent accidental spam-clicking that could cause duplicate server spawns.
+4. **Dark Theme Removal**: Systematically removed the highly unstable, experimental Dark Theme feature that was causing Translumo to force-close and crash on startup. 
+
+---
 ## Sibling Project
 This project has a sibling called **[Lookupper](https://lookupper.com)** — a screen dictionary for language learning. It is similar to Translumo but built for a different purpose. Lookupper is built to help you *learn* a language, not just depend on a translator forever.
 
@@ -133,4 +180,3 @@ A: Ensure the application path contains only Latin letters.
 - [Lookupper](https://lookupper.com) — on-screen dictionary and translator for language learning.
 - [ScreTran](https://github.com/PavlikBender/ScreTran) — simple screen translator.
 - [ScreenTranslator](https://github.com/OneMoreGres/ScreenTranslator) - screen capture, OCR and translation tool.
-

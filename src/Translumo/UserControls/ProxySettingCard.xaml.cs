@@ -1,8 +1,7 @@
-﻿using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Xceed.Wpf.Toolkit;
 
 namespace Translumo.Controls
 {
@@ -11,7 +10,6 @@ namespace Translumo.Controls
     /// </summary>
     public partial class ProxySettingCard : UserControl
     {
-
         public static readonly DependencyProperty DeleteCommandProperty = DependencyProperty.Register("DeleteCommand", typeof(ICommand), typeof(ProxySettingCard));
 
         public static readonly DependencyProperty IpAddressProperty =
@@ -32,7 +30,6 @@ namespace Translumo.Controls
                 new FrameworkPropertyMetadata(
                     defaultValue: default(string), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, LoginCallback));
 
-
         public static readonly DependencyProperty PasswordProperty =
             DependencyProperty.Register(
                 "Password", typeof(string), typeof(ProxySettingCard),
@@ -42,48 +39,39 @@ namespace Translumo.Controls
         private static void IpAddressCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var targetControl = (ProxySettingCard)d;
-            string newValue = Regex.Replace((e.NewValue as string) ?? string.Empty, "\\d+", 
-                v => v.Value.PadRight(3, targetControl.TbIpAddress.PromptChar));
-            if (newValue == e.OldValue as string)
+            if (targetControl.TbIpAddress.Text != e.NewValue as string)
             {
-                return;
+                targetControl.TbIpAddress.Text = e.NewValue as string ?? string.Empty;
             }
-
-            targetControl.TbIpAddress.Value = newValue;
         }
 
         private static void PortCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (e.NewValue as string == e.OldValue as string)
-            {
-                return;
-            }
-
             var targetControl = (ProxySettingCard)d;
-            targetControl.TbPort.Value = e.NewValue as string;
+            if (targetControl.TbPort.Text != e.NewValue as string)
+            {
+                targetControl.TbPort.Text = e.NewValue as string ?? string.Empty;
+            }
         }
 
         private static void LoginCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (e.NewValue as string == e.OldValue as string)
-            {
-                return;
-            }
-
             var targetControl = (ProxySettingCard)d;
-            targetControl.TbLogin.Text = e.NewValue as string;
+            if (targetControl.TbLogin.Text != e.NewValue as string)
+            {
+                targetControl.TbLogin.Text = e.NewValue as string ?? string.Empty;
+            }
         }
 
         private static void PasswordCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (e.NewValue as string == e.OldValue as string)
-            {
-                return;
-            }
-
             var targetControl = (ProxySettingCard)d;
-            targetControl.TbPassword.Text = e.NewValue as string;
+            if (targetControl.TbPassword.Text != e.NewValue as string)
+            {
+                targetControl.TbPassword.Text = e.NewValue as string ?? string.Empty;
+            }
         }
+
         public ICommand DeleteCommand
         {
             get { return (ICommand)GetValue(DeleteCommandProperty); }
@@ -114,20 +102,60 @@ namespace Translumo.Controls
             set { SetValue(PasswordProperty, value); }
         }
 
-
         public ProxySettingCard()
         {
             InitializeComponent();
         }
 
-        private string GetNonMaskedValue(MaskedTextBox control)
+        private void TbIpAddress_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            return control.Value?.ToString()?.Replace(" ", string.Empty);
+            // Allow only digits and dots for IP Address
+            e.Handled = !Regex.IsMatch(e.Text, "^[0-9.]+$");
+        }
+
+        private void TbPort_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // Allow only digits for Port
+            e.Handled = !Regex.IsMatch(e.Text, "^[0-9]+$");
+        }
+
+        private void TbIpAddress_Pasting(object sender, DataObjectPastingEventArgs e)
+        {
+            if (e.DataObject.GetDataPresent(typeof(string)))
+            {
+                var text = (string)e.DataObject.GetData(typeof(string));
+                // Only allow pasting if it strictly contains digits and dots
+                if (!Regex.IsMatch(text, "^[0-9.]+$"))
+                {
+                    e.CancelCommand();
+                }
+            }
+            else
+            {
+                e.CancelCommand();
+            }
+        }
+
+        private void TbPort_Pasting(object sender, DataObjectPastingEventArgs e)
+        {
+            if (e.DataObject.GetDataPresent(typeof(string)))
+            {
+                var text = (string)e.DataObject.GetData(typeof(string));
+                // Only allow pasting if it strictly contains digits
+                if (!Regex.IsMatch(text, "^[0-9]+$"))
+                {
+                    e.CancelCommand();
+                }
+            }
+            else
+            {
+                e.CancelCommand();
+            }
         }
 
         private void TbPort_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string newValue = GetNonMaskedValue(sender as MaskedTextBox);
+            string newValue = (sender as TextBox)?.Text;
             if (Port != newValue)
             {
                 Port = newValue;
@@ -136,7 +164,7 @@ namespace Translumo.Controls
 
         private void TbIpAddress_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string newValue = GetNonMaskedValue(sender as MaskedTextBox);
+            string newValue = (sender as TextBox)?.Text;
             if (IpAddress != newValue)
             {
                 IpAddress = newValue;

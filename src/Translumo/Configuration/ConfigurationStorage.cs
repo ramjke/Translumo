@@ -9,7 +9,7 @@ using Translumo.Utils.Extensions;
 
 namespace Translumo.Configuration
 {
-    public class  ConfigurationStorage
+    public class ConfigurationStorage
     {
         private const string ENCRYPTION_PASSWORD = "p@wd!";
 
@@ -20,14 +20,14 @@ namespace Translumo.Configuration
 
         public ConfigurationStorage(IServiceProvider serviceProvider, IEncryptionService encryptionService, ILogger<ConfigurationStorage> logger)
         {
-            this._logger = logger;
+            _logger = logger;
             _serviceProvider = serviceProvider;
             _encryptionService = encryptionService;
             _configurationTypes = new List<Type>();
         }
 
         public void RegisterConfiguration<TConfiguration>()
-            where TConfiguration: class
+            where TConfiguration : class
         {
             if (!_configurationTypes.Contains(typeof(TConfiguration)))
             {

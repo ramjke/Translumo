@@ -23,7 +23,7 @@ namespace Translumo.Controls
             get { return (ICommand)GetValue(ChatOpeningCommandProperty); }
             set { SetValue(ChatOpeningCommandProperty, value); }
         }
-        
+
 
         public TrayControl()
         {

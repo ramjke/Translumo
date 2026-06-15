@@ -1,0 +1,1 @@
+using System; using Microsoft.ML.Tokenizers; class Program { static void Main() { var asm = typeof(Tokenizer).Assembly; foreach (var t in asm.GetTypes()) { if (t.IsPublic) Console.WriteLine(t.Name); } } }

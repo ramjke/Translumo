@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -17,6 +17,7 @@ namespace Translumo.HotKeys
         public event EventHandler ShowSelectionAreaKeyPressed;
         public event EventHandler OnceTranslateKeyPressed;
         public event EventHandler WindowStyleChangeKeyPressed;
+        public event EventHandler ClearChatKeyPressed;
 
         public HotKeysConfiguration Configuration { get; }
         public bool GamepadHotkeysEnabled { get; }
@@ -28,12 +29,12 @@ namespace Translumo.HotKeys
 
         public HotKeysServiceManager(HotKeysConfiguration configuration, IControllerInputProvider controllerInputProvider, IControllerService controllerService)
         {
-            this._registeredHotKeys = InitializeHotKeys(configuration);
-            this._registeredGamepadHotKeys = new Dictionary<string, GamepadHotKey>();
-            this._controllerInputProvider = controllerInputProvider;
+            _registeredHotKeys = InitializeHotKeys(configuration);
+            _registeredGamepadHotKeys = new Dictionary<string, GamepadHotKey>();
+            _controllerInputProvider = controllerInputProvider;
             this.Configuration = configuration;
             this.GamepadHotkeysEnabled = controllerService.TryChangeListenState(true);
-            this._keyNamesLink = new[]
+            _keyNamesLink = new[]
             {
                 (nameof(configuration.ChatVisibilityKey), nameof(configuration.ChatVisibilityGamepadKey)),
                 (nameof(configuration.SelectAreaKey), nameof(configuration.SelectAreaGamepadKey)),
@@ -42,11 +43,12 @@ namespace Translumo.HotKeys
                 (nameof(configuration.ShowSelectionAreaKey), nameof(configuration.ShowSelectionAreaGamepadKey)),
                 (nameof(configuration.OnceTranslateKey), nameof(configuration.OnceTranslateGamepadKey)),
                 (nameof(configuration.WindowStyleChangeKey), nameof(configuration.WindowStyleChangeGamepadKey)),
+                (nameof(configuration.ClearChatKey), nameof(configuration.ClearChatGamepadKey)),
             };
 
             if (GamepadHotkeysEnabled)
             {
-                this._registeredGamepadHotKeys = InitializeGamepadHotKeys(configuration);
+                _registeredGamepadHotKeys = InitializeGamepadHotKeys(configuration);
                 _registeredGamepadHotKeys.ForEach(key =>
                 {
                     RegisterHotKey(key.Key);
@@ -126,7 +128,7 @@ namespace Translumo.HotKeys
                     var newValue = newValueProperty.GetValue(Configuration) as HotKeyInfo;
 
                     var gamepadKeyActionName = GetAssociativeGamepadHotKey(e.PropertyName);
-                    var forceSuspend = !_registeredGamepadHotKeys.ContainsKey(gamepadKeyActionName)  || _registeredGamepadHotKeys[gamepadKeyActionName].KeyCode == GamepadKeyCode.None;
+                    var forceSuspend = !_registeredGamepadHotKeys.ContainsKey(gamepadKeyActionName) || _registeredGamepadHotKeys[gamepadKeyActionName].KeyCode == GamepadKeyCode.None;
                     _registeredHotKeys[e.PropertyName].Reassign(newValue.Key, newValue.KeyModifier, forceSuspend);
                 }
                 else if (_registeredGamepadHotKeys.ContainsKey(e.PropertyName))
@@ -200,12 +202,17 @@ namespace Translumo.HotKeys
             WindowStyleChangeKeyPressed?.Invoke(this, EventArgs.Empty);
         }
 
+        private void OnClearChatPressed()
+        {
+            ClearChatKeyPressed?.Invoke(this, EventArgs.Empty);
+        }
+
         private IDictionary<string, HotKey> InitializeHotKeys(HotKeysConfiguration configuration)
         {
             return new Dictionary<string, HotKey>()
             {
                 {
-                    nameof(configuration.ChatVisibilityKey), new HotKey(configuration.ChatVisibilityKey.Key, 
+                    nameof(configuration.ChatVisibilityKey), new HotKey(configuration.ChatVisibilityKey.Key,
                         configuration.ChatVisibilityKey.KeyModifier, OnChatVisibilityPressed)
                 },
                 {
@@ -231,6 +238,10 @@ namespace Translumo.HotKeys
                 {
                     nameof(configuration.WindowStyleChangeKey), new HotKey(configuration.WindowStyleChangeKey.Key,
                         configuration.WindowStyleChangeKey.KeyModifier, OnWindowStyleChangePressed)
+                },
+                {
+                    nameof(configuration.ClearChatKey), new HotKey(configuration.ClearChatKey.Key,
+                        configuration.ClearChatKey.KeyModifier, OnClearChatPressed)
                 }
             };
         }
@@ -245,7 +256,8 @@ namespace Translumo.HotKeys
                 { nameof(configuration.SettingVisibilityGamepadKey), new GamepadHotKey(configuration.SettingVisibilityGamepadKey.Key, OnSettingVisibilityPressed) },
                 { nameof(configuration.ShowSelectionAreaGamepadKey), new GamepadHotKey(configuration.ShowSelectionAreaGamepadKey.Key, OnShowSelectionAreaPressed) },
                 { nameof(configuration.OnceTranslateGamepadKey), new GamepadHotKey(configuration.OnceTranslateGamepadKey.Key, OnOnceTranslatePressed) },
-                { nameof(configuration.WindowStyleChangeGamepadKey), new GamepadHotKey(configuration.WindowStyleChangeGamepadKey.Key, OnWindowStyleChangePressed) }
+                { nameof(configuration.WindowStyleChangeGamepadKey), new GamepadHotKey(configuration.WindowStyleChangeGamepadKey.Key, OnWindowStyleChangePressed) },
+                { nameof(configuration.ClearChatGamepadKey), new GamepadHotKey(configuration.ClearChatGamepadKey.Key, OnClearChatPressed) }
             };
         }
     }

@@ -35,6 +35,7 @@
 
     <!--  Hotkeys descriptions  -->
     <system:String x:Key="Str.Hotkeys.ChatVisibility">显示/隐藏 翻译墙</system:String>
+    <system:String x:Key="Str.Hotkeys.ClearChat">清除翻译文本</system:String>
     <system:String x:Key="Str.Hotkeys.SettingsVisibility">打开/关闭 设置</system:String>
     <system:String x:Key="Str.Hotkeys.SelectArea">选择翻译区域</system:String>
     <system:String x:Key="Str.Hotkeys.OnOffTranslation">开启/关闭 翻译</system:String>
@@ -42,8 +43,9 @@
     <system:String x:Key="Str.Hotkeys.OnceTranslate">选择翻译区域（一次性）</system:String>
     <system:String x:Key="Str.Hotkeys.WindowChangeStyle">锁定/解除锁定 翻译墙位置</system:String>
     <system:String x:Key="Str.Hotkeys.SettingsShowHelp">请按 '{0}' 打开设置页面</system:String>
-    <system:String x:Key="Str.Hotkeys.SelectAreaHelp">请按 '{0}' 选择翻译区域</system:String>
-    <system:String x:Key="Str.Hotkeys.OnTranslationHelp">请按 '{0}' 开始翻译</system:String>
+    <system:String x:Key="Str.Hotkeys.SelectAreaHelp">按下 [{0}] 选择翻译区域</system:String>
+    <system:String x:Key="Str.Hotkeys.OnTranslationHelp">按下 [{0}] 开启或关闭翻译</system:String>
+    <system:String x:Key="Str.Hotkeys.ClearChatHelp">按下 [{0}] 清除翻译文本</system:String>
     <system:String x:Key="Str.Hotkeys.GeneralHelp">要控制本应用，请使用托盘中的右键菜单，或以下快捷键：</system:String>
 
     <!--  Appearance settings  -->

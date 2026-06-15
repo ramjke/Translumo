@@ -58,21 +58,21 @@ namespace Translumo.MVVM.ViewModels
             }
         }
 
-        private OcrGeneralConfiguration _ocrConfiguration;
-        private TranslationConfiguration _translationConfiguration;
+        private readonly OcrGeneralConfiguration _ocrConfiguration;
+        private readonly TranslationConfiguration _translationConfiguration;
 
         private readonly LanguageService _languageService;
         private readonly DialogService _dialogService;
         private readonly ILogger _logger;
 
-        public OcrSettingsViewModel(OcrGeneralConfiguration ocrConfiguration, TranslationConfiguration translationConfiguration, 
+        public OcrSettingsViewModel(OcrGeneralConfiguration ocrConfiguration, TranslationConfiguration translationConfiguration,
             DialogService dialogService, LanguageService languageService, ILogger<OcrSettingsViewModel> logger)
         {
-            this._ocrConfiguration = ocrConfiguration;
-            this._languageService = languageService;
-            this._translationConfiguration = translationConfiguration;
-            this._dialogService = dialogService;
-            this._logger = logger;
+            _ocrConfiguration = ocrConfiguration;
+            _languageService = languageService;
+            _translationConfiguration = translationConfiguration;
+            _dialogService = dialogService;
+            _logger = logger;
         }
 
         private async Task CheckWindowsOcrAvailabilityAsync()
@@ -84,7 +84,7 @@ namespace Translumo.MVVM.ViewModels
             {
                 return;
             }
-            
+
             ActionInteractionStage stageToEnableFlag = new ActionInteractionStage(_dialogService, () =>
             {
                 toEnableWindowsOcr = true;

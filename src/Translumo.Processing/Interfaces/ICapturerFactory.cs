@@ -1,4 +1,4 @@
-﻿namespace Translumo.Processing.Interfaces
+namespace Translumo.Processing.Interfaces
 {
     public interface ICapturerFactory
     {
