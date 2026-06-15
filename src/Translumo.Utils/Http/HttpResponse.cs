@@ -11,7 +11,7 @@ namespace Translumo.Utils.Http
         public virtual Exception InnerException { get; protected set; }
 
         public HttpResponse()
-       {
+        {
             this.Body = null;
             this.IsSuccessful = false;
             this.InnerException = null;

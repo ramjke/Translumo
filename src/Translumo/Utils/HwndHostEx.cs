@@ -12,7 +12,7 @@ namespace Translumo.Utils
         [DllImport("user32.dll")]
         static extern int SetWindowLong(IntPtr hWnd, int nIndex, uint dwNewLong);
 
-        private IntPtr ChildHandle = IntPtr.Zero;
+        private readonly IntPtr ChildHandle = IntPtr.Zero;
 
         public const int GWL_STYLE = (-16);
         public const int WS_CHILD = 0x40000000;
@@ -28,9 +28,9 @@ namespace Translumo.Utils
 
             if (ChildHandle != IntPtr.Zero)
             {
-                SetWindowLong(this.ChildHandle, GWL_STYLE, WS_CHILD);
-                SetParent(this.ChildHandle, hwndParent.Handle);
-                href = new HandleRef(this, this.ChildHandle);
+                SetWindowLong(ChildHandle, GWL_STYLE, WS_CHILD);
+                SetParent(ChildHandle, hwndParent.Handle);
+                href = new HandleRef(this, ChildHandle);
             }
 
             return href;

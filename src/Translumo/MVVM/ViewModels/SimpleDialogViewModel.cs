@@ -41,7 +41,7 @@ namespace Translumo.MVVM.ViewModels
         {
             return new SimpleDialogViewModel()
             {
-                TextContent = textContent, 
+                TextContent = textContent,
                 CancelAllowed = dialogType == SimpleDialogTypes.Question,
                 IconSource = GetIconByDialogType(dialogType),
                 Caption = caption ?? GetCaptionByDialogType(dialogType)

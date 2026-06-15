@@ -144,6 +144,64 @@
             <GroupBox
                 Margin="0,20,0,0"
                 Style="{StaticResource MaterialDesignGroupBox}"
+                Visibility="{Binding IsRivaSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <GroupBox.Header>
+                    <Label
+                        Margin="0,-7,0,-7"
+                        Content="NVIDIA Riva Configuration"
+                        Style="{StaticResource SecondaryHeaderLabel}" />
+                </GroupBox.Header>
+                <StackPanel>
+                    <!-- Server URL Input -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                        <TextBox
+                            Width="250"
+                            FontSize="14"
+                            Text="{Binding Path=Model.RivaUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{DynamicResource MaterialDesignTextBox}" />
+                        <Label
+                            Margin="10,0,0,0"
+                            HorizontalAlignment="Stretch"
+                            Content="Endpoint URL"
+                            Style="{StaticResource ControlCaptionLabel}" />
+                    </StackPanel>
+
+                    <!-- API Key Input -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                        <TextBox
+                            Width="250"
+                            FontSize="14"
+                            Text="{Binding Path=Model.RivaApiKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{DynamicResource MaterialDesignTextBox}" />
+                        <Label
+                            Margin="10,0,0,0"
+                            HorizontalAlignment="Stretch"
+                            Content="API Key"
+                            Style="{StaticResource ControlCaptionLabel}" />
+                    </StackPanel>
+
+                    <!-- Test Button and Feedback -->
+                    <StackPanel Orientation="Horizontal">
+                        <Button
+                            Command="{Binding TestRivaCommand}"
+                            Content="Test Connection"
+                            IsEnabled="{Binding CanTestRiva}"
+                            Style="{StaticResource PrimaryButton}" />
+                        
+                        <TextBlock
+                            Margin="15,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="12"
+                            FontWeight="SemiBold"
+                            Foreground="{Binding RivaTestResultColor}"
+                            Text="{Binding RivaTestResult}"
+                            TextWrapping="WrapWithOverflow" />
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox
+                Margin="0,20,0,0"
+                Style="{StaticResource MaterialDesignGroupBox}"
                 Visibility="{Binding IsAiTranslatorSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <GroupBox.Header>
                     <Label
@@ -213,6 +271,33 @@
                             Text="{Binding AiTestResult}"
                             TextWrapping="WrapWithOverflow" />
                     </StackPanel>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox
+                Margin="0,20,0,0"
+                Style="{StaticResource MaterialDesignGroupBox}"
+                Visibility="{Binding IsOnnxSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <GroupBox.Header>
+                    <Label
+                        Margin="0,-7,0,-7"
+                        Content="ONNX Setup Guide"
+                        Style="{StaticResource SecondaryHeaderLabel}" />
+                </GroupBox.Header>
+                <StackPanel>
+                    <TextBlock
+                        FontSize="13"
+                        TextWrapping="Wrap"
+                        LineHeight="20">
+                        <Run FontWeight="Bold">How to add a new language (e.g., Japanese to Indonesian / ja-id):</Run>
+                        <LineBreak/>
+                        1. Create a folder named <Run FontWeight="SemiBold">"ja-id"</Run> inside the application's <Run FontWeight="SemiBold">"Models"</Run> directory.
+                        <LineBreak/>
+                        2. Download <Run FontWeight="SemiBold">encoder_model.onnx</Run>, <Run FontWeight="SemiBold">decoder_model.onnx</Run>, and <Run FontWeight="SemiBold">tokenizer.json</Run> (from HuggingFace) and place them inside the folder.
+                        <LineBreak/>
+                        3. Open <Run FontWeight="SemiBold">tokenizer.json</Run> with Notepad, find the line containing <Run FontWeight="SemiBold">"normalizer": null,</Run> and delete it.
+                        <LineBreak/>
+                        4. Select the corresponding Source and Target languages in the app above to use it!
+                    </TextBlock>
                 </StackPanel>
             </GroupBox>
             <StackPanel Orientation="Horizontal">

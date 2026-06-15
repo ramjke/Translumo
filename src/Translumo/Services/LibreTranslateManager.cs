@@ -23,8 +23,8 @@ namespace Translumo.Services
         {
             try
             {
-                if (IsRunning && 
-                    _libreTranslateProcess != null && 
+                if (IsRunning &&
+                    _libreTranslateProcess != null &&
                     !_libreTranslateProcess.HasExited &&
                     string.Equals(_currentSourceLang, sourceLang, StringComparison.OrdinalIgnoreCase) &&
                     string.Equals(_currentTargetLang, targetLang, StringComparison.OrdinalIgnoreCase))
@@ -81,7 +81,7 @@ namespace Translumo.Services
 
                 using var process = System.Diagnostics.Process.Start(processInfo);
                 if (process == null) return;
-                
+
                 var output = process.StandardOutput.ReadToEnd();
                 process.WaitForExit();
 

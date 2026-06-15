@@ -6,13 +6,13 @@ namespace Translumo.Dialog.Stages
     public class ConditionalInteractionStage : InteractionStage
     {
         public InteractionStage NextFalseStage { get; private set; }
-        
+
         private readonly Func<Task<bool>> _stageFunc;
 
-        public ConditionalInteractionStage(DialogService dialogService, Func<Task<bool>> stageFunc, string stageName = null) 
+        public ConditionalInteractionStage(DialogService dialogService, Func<Task<bool>> stageFunc, string stageName = null)
             : base(dialogService, stageName)
         {
-            this._stageFunc = stageFunc;
+            _stageFunc = stageFunc;
         }
 
         public InteractionStage AddNextFalse(InteractionStage nextStage)

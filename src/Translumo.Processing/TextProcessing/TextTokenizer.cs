@@ -13,7 +13,7 @@ namespace Translumo.Processing.TextProcessing
 
         public TextTokenizer(string languageCode)
         {
-            this._segmenter = new WordsSegmenter(languageCode);
+            _segmenter = new WordsSegmenter(languageCode);
         }
 
         public string Tokenize(string text)

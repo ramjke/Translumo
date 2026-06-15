@@ -42,7 +42,7 @@ namespace Translumo.Translation.Deepl
         private long GenerateDeeplId()
         {
             long num = 10000L;
-            
+
             return num * (long)Math.Round((double)num * Random.Shared.NextDouble());
         }
     }

@@ -9,9 +9,9 @@ namespace Translumo.Processing.TextProcessing
         public string Text { get; set; }
 
         public string ValidatedText { get; set; }
-        
+
         public float ValidityScore { get; set; }
-        
+
         public IOCREngine SourceEngine { get; }
 
         public LanguageDescriptor Language { get; }
@@ -32,7 +32,7 @@ namespace Translumo.Processing.TextProcessing
             {
                 return 1;
             }
-            
+
             var shorterLength = Math.Min(this.ValidatedText.Length, anotherResult.ValidatedText.Length);
             var longerLength = Math.Max(this.ValidatedText.Length, anotherResult.ValidatedText.Length);
 

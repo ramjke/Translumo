@@ -29,12 +29,12 @@ namespace Translumo.HotKeys
 
         public HotKeysServiceManager(HotKeysConfiguration configuration, IControllerInputProvider controllerInputProvider, IControllerService controllerService)
         {
-            this._registeredHotKeys = InitializeHotKeys(configuration);
-            this._registeredGamepadHotKeys = new Dictionary<string, GamepadHotKey>();
-            this._controllerInputProvider = controllerInputProvider;
+            _registeredHotKeys = InitializeHotKeys(configuration);
+            _registeredGamepadHotKeys = new Dictionary<string, GamepadHotKey>();
+            _controllerInputProvider = controllerInputProvider;
             this.Configuration = configuration;
             this.GamepadHotkeysEnabled = controllerService.TryChangeListenState(true);
-            this._keyNamesLink = new[]
+            _keyNamesLink = new[]
             {
                 (nameof(configuration.ChatVisibilityKey), nameof(configuration.ChatVisibilityGamepadKey)),
                 (nameof(configuration.SelectAreaKey), nameof(configuration.SelectAreaGamepadKey)),
@@ -48,7 +48,7 @@ namespace Translumo.HotKeys
 
             if (GamepadHotkeysEnabled)
             {
-                this._registeredGamepadHotKeys = InitializeGamepadHotKeys(configuration);
+                _registeredGamepadHotKeys = InitializeGamepadHotKeys(configuration);
                 _registeredGamepadHotKeys.ForEach(key =>
                 {
                     RegisterHotKey(key.Key);
@@ -128,7 +128,7 @@ namespace Translumo.HotKeys
                     var newValue = newValueProperty.GetValue(Configuration) as HotKeyInfo;
 
                     var gamepadKeyActionName = GetAssociativeGamepadHotKey(e.PropertyName);
-                    var forceSuspend = !_registeredGamepadHotKeys.ContainsKey(gamepadKeyActionName)  || _registeredGamepadHotKeys[gamepadKeyActionName].KeyCode == GamepadKeyCode.None;
+                    var forceSuspend = !_registeredGamepadHotKeys.ContainsKey(gamepadKeyActionName) || _registeredGamepadHotKeys[gamepadKeyActionName].KeyCode == GamepadKeyCode.None;
                     _registeredHotKeys[e.PropertyName].Reassign(newValue.Key, newValue.KeyModifier, forceSuspend);
                 }
                 else if (_registeredGamepadHotKeys.ContainsKey(e.PropertyName))
@@ -212,7 +212,7 @@ namespace Translumo.HotKeys
             return new Dictionary<string, HotKey>()
             {
                 {
-                    nameof(configuration.ChatVisibilityKey), new HotKey(configuration.ChatVisibilityKey.Key, 
+                    nameof(configuration.ChatVisibilityKey), new HotKey(configuration.ChatVisibilityKey.Key,
                         configuration.ChatVisibilityKey.KeyModifier, OnChatVisibilityPressed)
                 },
                 {

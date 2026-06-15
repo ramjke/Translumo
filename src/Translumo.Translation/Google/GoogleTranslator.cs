@@ -16,8 +16,8 @@ namespace Translumo.Translation.Google
     public class GoogleTranslator : BaseTranslator<GoogleContainer>
     {
         private const string TRANSLATE_URL = "https://translate.google.com/m?hl={1}&sl={0}&tl={1}&ie=UTF-8&prev=_m&q={2}";
-        
-        public GoogleTranslator(TranslationConfiguration translationConfiguration, LanguageService languageService, ILogger logger) 
+
+        public GoogleTranslator(TranslationConfiguration translationConfiguration, LanguageService languageService, ILogger logger)
             : base(translationConfiguration, languageService, logger)
         {
         }
@@ -54,7 +54,7 @@ namespace Translumo.Translation.Google
 
             throw new TranslationException($"Unexpected web response: '{requestResult.Body}'");
         }
-        
+
         protected override IList<GoogleContainer> CreateContainers(TranslationConfiguration configuration)
         {
             var result = configuration.ProxySettings.Select(proxy => new GoogleContainer(proxy)).ToList();

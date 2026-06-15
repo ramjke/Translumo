@@ -9,6 +9,8 @@ using Translumo.Translation.Papago;
 using Translumo.Translation.Yandex;
 using Translumo.Translation.LibreTranslate;
 using Translumo.Translation.Ai;
+using Translumo.Translation.Riva;
+using Translumo.Translation.Onnx;
 
 namespace Translumo.Translation
 {
@@ -20,9 +22,9 @@ namespace Translumo.Translation
 
         public TranslatorFactory(LanguageService languageService, IActionDispatcher actionDispatcher, ILogger<TranslatorFactory> logger)
         {
-            this._languageService = languageService;
-            this._actionDispatcher = actionDispatcher;
-            this._logger = logger;
+            _languageService = languageService;
+            _actionDispatcher = actionDispatcher;
+            _logger = logger;
         }
 
         public ITranslator CreateTranslator(TranslationConfiguration translatorConfiguration)
@@ -41,6 +43,10 @@ namespace Translumo.Translation
                     return new LibreTranslateTranslator(translatorConfiguration, _languageService, _logger);
                 case Translators.AiTranslator:
                     return new AiTranslator(translatorConfiguration, _languageService, _logger);
+                case Translators.NvidiaRiva:
+                    return new RivaTranslator(translatorConfiguration, _languageService, _logger);
+                case Translators.Onnx:
+                    return new OnnxTranslator(translatorConfiguration, _languageService, _logger);
                 default:
                     throw new NotSupportedException();
             }

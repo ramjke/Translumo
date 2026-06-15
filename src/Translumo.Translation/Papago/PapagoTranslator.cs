@@ -19,10 +19,10 @@ namespace Translumo.Translation.Papago
             Languages.Turkish, Languages.Arabic, Languages.PortugueseBrazil, Languages.Greek, Languages.Belarusian, Languages.Polish, Languages.Persian
         });
 
-        public PapagoTranslator(TranslationConfiguration translationConfiguration, LanguageService languageService, ILogger logger) : 
+        public PapagoTranslator(TranslationConfiguration translationConfiguration, LanguageService languageService, ILogger logger) :
             base(translationConfiguration, languageService, logger)
         {
-            this._sync = new AutoResetEvent(true);
+            _sync = new AutoResetEvent(true);
         }
 
         public override Task<string> TranslateTextAsync(string sourceText)

@@ -13,7 +13,7 @@ namespace Translumo.Translation.Ai
 {
     public class AiTranslator : BaseTranslator<AiContainer>
     {
-        public AiTranslator(TranslationConfiguration translationConfiguration, LanguageService languageService, ILogger logger) 
+        public AiTranslator(TranslationConfiguration translationConfiguration, LanguageService languageService, ILogger logger)
             : base(translationConfiguration, languageService, logger)
         {
         }
@@ -26,11 +26,12 @@ namespace Translumo.Translation.Ai
         protected override async Task<string> TranslateTextInternal(AiContainer container, string sourceText)
         {
             var provider = TranslationConfiguration.AiProvider;
-            
+
             string apiKey = string.Empty;
             if (provider == AiTranslatorProvider.Gemini) apiKey = TranslationConfiguration.GeminiApiKey;
             else if (provider == AiTranslatorProvider.DeepSeek) apiKey = TranslationConfiguration.DeepSeekApiKey;
             else if (provider == AiTranslatorProvider.OpenRouter) apiKey = TranslationConfiguration.OpenRouterApiKey;
+            else if (provider == AiTranslatorProvider.NvidiaNIM) apiKey = TranslationConfiguration.NvidiaNIMApiKey;
 
             if (string.IsNullOrWhiteSpace(apiKey))
             {
@@ -55,7 +56,8 @@ namespace Translumo.Translation.Ai
             if (provider == AiTranslatorProvider.Gemini) modelStr = TranslationConfiguration.GeminiAiModel;
             else if (provider == AiTranslatorProvider.DeepSeek) modelStr = TranslationConfiguration.DeepSeekAiModel;
             else if (provider == AiTranslatorProvider.OpenRouter) modelStr = TranslationConfiguration.OpenRouterAiModel;
-            
+            else if (provider == AiTranslatorProvider.NvidiaNIM) modelStr = TranslationConfiguration.NvidiaNIMAiModel;
+
             string model;
 
             string url;
@@ -68,7 +70,7 @@ namespace Translumo.Translation.Ai
             {
                 model = string.IsNullOrWhiteSpace(modelStr) ? "gemini-3.5-flash" : modelStr.Trim();
                 url = $"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={apiKey}";
-                
+
                 var geminiRequest = new GeminiRequest
                 {
                     contents = new List<GeminiContent>
@@ -123,6 +125,24 @@ namespace Translumo.Translation.Ai
 
                 requestBody = JsonSerializer.Serialize(chatRequest);
             }
+            else if (provider == AiTranslatorProvider.NvidiaNIM)
+            {
+                model = string.IsNullOrWhiteSpace(modelStr) ? "deepseek-ai/deepseek-v4-flash" : modelStr.Trim();
+                url = "https://integrate.api.nvidia.com/v1/chat/completions";
+                container.Reader.OptionalHeaders["Authorization"] = $"Bearer {apiKey}";
+
+                var chatRequest = new OpenAiChatRequest
+                {
+                    model = model,
+                    messages = new List<OpenAiMessage>
+                    {
+                        new OpenAiMessage { role = "system", content = prompt },
+                        new OpenAiMessage { role = "user", content = sourceText }
+                    }
+                };
+
+                requestBody = JsonSerializer.Serialize(chatRequest);
+            }
             else
             {
                 throw new NotSupportedException($"AI Provider {provider} is not supported.");
@@ -144,7 +164,7 @@ namespace Translumo.Translation.Ai
                             return text.Trim();
                         }
                     }
-                    else // DeepSeek and OpenRouter
+                    else // DeepSeek, OpenRouter, NvidiaNIM
                     {
                         var response = JsonSerializer.Deserialize<OpenAiChatResponse>(requestResult.Body, JsonOptions);
                         var text = response?.choices?.FirstOrDefault()?.message?.content;

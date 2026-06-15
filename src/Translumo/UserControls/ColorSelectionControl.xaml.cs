@@ -17,7 +17,7 @@ namespace Translumo.Controls
             DependencyProperty.Register(
                 "SelectedColor", typeof(Color), typeof(ColorSelectionControl),
                 new FrameworkPropertyMetadata(
-                    defaultValue:default(Color), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, SelectedColorChangedCallback));
+                    defaultValue: default(Color), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, SelectedColorChangedCallback));
 
         private static void SelectedColorChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -27,7 +27,7 @@ namespace Translumo.Controls
             }
 
             var targetControl = (ColorSelectionControl)d;
-            targetControl.cpWindowColor.Color = (Color) e.NewValue;
+            targetControl.cpWindowColor.Color = (Color)e.NewValue;
         }
 
         public ICommand ColorPickedCommand
@@ -52,7 +52,7 @@ namespace Translumo.Controls
         {
             InitializeComponent();
         }
-        
+
         private void btnApply_Click(object sender, RoutedEventArgs e)
         {
             SetValue(SelectedColorProperty, cpWindowColor.Color);

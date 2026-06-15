@@ -54,7 +54,7 @@ namespace Translumo.MVVM.Views
 
             rtbChat.CaretPosition = rtbChat.CaretPosition.DocumentEnd;
 
-            var paragraph = new Paragraph { LineHeight = fontTextBlockInstance.LineHeight, TextAlignment = fontTextBlockInstance.TextAlignment};
+            var paragraph = new Paragraph { LineHeight = fontTextBlockInstance.LineHeight, TextAlignment = fontTextBlockInstance.TextAlignment };
             var run = GetRunInstance(textType).Clone(text);
             paragraph.Inlines.Add(run);
             rtbChat.Document.Blocks.Add(paragraph);

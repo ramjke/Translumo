@@ -1,0 +1,9 @@
+{
+  "model": "nvidia/riva-translate-4b-instruct-v1.1",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Translate from English to Indonesian:\nHello world"
+    }
+  ]
+}

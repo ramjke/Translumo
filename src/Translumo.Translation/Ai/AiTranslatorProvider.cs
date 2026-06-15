@@ -4,6 +4,7 @@ namespace Translumo.Translation.Ai
     {
         Gemini = 0,
         DeepSeek = 1,
-        OpenRouter = 2
+        OpenRouter = 2,
+        NvidiaNIM = 3
     }
 }

@@ -134,11 +134,11 @@ namespace Translumo.MVVM.Common
                 using (var client = new System.Net.Http.HttpClient(handler))
                 {
                     client.Timeout = TimeSpan.FromSeconds(5);
-                    
+
                     var stopwatch = Stopwatch.StartNew();
                     var response = await client.GetAsync("https://www.google.com");
                     stopwatch.Stop();
-                    
+
                     if (response.IsSuccessStatusCode)
                     {
                         TestStatus = $"{stopwatch.ElapsedMilliseconds} ms";

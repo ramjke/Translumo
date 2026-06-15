@@ -18,7 +18,7 @@ namespace Translumo.Translation.Deepl
     public sealed class DeepLTranslator : BaseTranslator<DeeplContainer>
     {
         private const string DEEPL_API_URL = "https://www2.deepl.com/jsonrpc";
-        
+
         private readonly HashSet<Languages> _unsupportedLanguages = new(new[]
         {
             Languages.Vietnamese, Languages.Thai, Languages.Belarusian, Languages.Persian

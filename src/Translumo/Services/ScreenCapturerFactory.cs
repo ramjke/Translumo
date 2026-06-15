@@ -12,8 +12,8 @@ namespace Translumo.Services
 
         public ScreenCapturerFactory(ScreenCaptureConfiguration configuration, ILogger<ScreenCapturerFactory> logger)
         {
-            this._configuration = configuration;
-            this._logger = logger;
+            _configuration = configuration;
+            _logger = logger;
         }
 
         public IScreenCapturer CreateCapturer(bool reliabilityPrioritize)
@@ -29,7 +29,7 @@ namespace Translumo.Services
         }
 
         private TCapturer TryCreateCapturer<TCapturer>()
-            where TCapturer: IScreenCapturer
+            where TCapturer : IScreenCapturer
         {
             TCapturer capturer = default;
             try

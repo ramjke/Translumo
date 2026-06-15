@@ -15,7 +15,7 @@ namespace Translumo.Utils.Extensions
         /// <param name="source">Source object</param>
         /// <returns></returns>
         public static TDestination MapTo<TSource, TDestination>(this TSource source)
-            where TDestination: class
+            where TDestination : class
             where TSource : class
         {
             var sourceProperties = typeof(TSource)

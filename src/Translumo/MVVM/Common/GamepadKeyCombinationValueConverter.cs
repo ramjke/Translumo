@@ -16,7 +16,7 @@ namespace Translumo.MVVM.Common
                 return new GamepadKeyCombination() { Key = GamepadKeyCode.None };
             }
 
-            return new GamepadKeyCombination() { Key = hotKeyInfo.Key};
+            return new GamepadKeyCombination() { Key = hotKeyInfo.Key };
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

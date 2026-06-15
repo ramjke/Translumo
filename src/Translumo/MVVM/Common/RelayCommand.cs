@@ -11,8 +11,8 @@ namespace Translumo.MVVM.Common
             remove { CommandManager.RequerySuggested -= value; }
         }
 
-        private Action methodToExecute;
-        private Func<bool> canExecuteEvaluator;
+        private readonly Action methodToExecute;
+        private readonly Func<bool> canExecuteEvaluator;
 
         public RelayCommand(Action methodToExecute, Func<bool> canExecuteEvaluator)
         {
@@ -26,20 +26,20 @@ namespace Translumo.MVVM.Common
 
         public bool CanExecute(object parameter)
         {
-            if (this.canExecuteEvaluator == null)
+            if (canExecuteEvaluator == null)
             {
                 return true;
             }
             else
             {
-                bool result = this.canExecuteEvaluator.Invoke();
+                bool result = canExecuteEvaluator.Invoke();
                 return result;
             }
         }
 
         public void Execute(object parameter)
         {
-            this.methodToExecute.Invoke();
+            methodToExecute.Invoke();
         }
     }
 }

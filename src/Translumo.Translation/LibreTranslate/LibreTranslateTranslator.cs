@@ -13,7 +13,7 @@ namespace Translumo.Translation.LibreTranslate
 {
     public class LibreTranslateTranslator : BaseTranslator<LibreTranslateContainer>
     {
-        public LibreTranslateTranslator(TranslationConfiguration translationConfiguration, LanguageService languageService, ILogger logger) 
+        public LibreTranslateTranslator(TranslationConfiguration translationConfiguration, LanguageService languageService, ILogger logger)
             : base(translationConfiguration, languageService, logger)
         {
         }
@@ -24,8 +24,8 @@ namespace Translumo.Translation.LibreTranslate
             var url = baseUrl.TrimEnd('/') + "/translate";
 
             var requestModel = new LibreTranslateRequest(
-                sourceText, 
-                SourceLangDescriptor.IsoCode, 
+                sourceText,
+                SourceLangDescriptor.IsoCode,
                 TargetLangDescriptor.IsoCode
             );
 

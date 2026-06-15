@@ -27,8 +27,8 @@ namespace Translumo.MVVM.Models
         {
             this.Configuration = configuration;
             this.CaptureConfiguration = captureConfiguration;
-            this._translationProcessingService = translationProcessingService;
-            this._chatItemsCount = 0;
+            _translationProcessingService = translationProcessingService;
+            _chatItemsCount = 0;
         }
 
         public void AddChatItem(string text, TextTypes textType)

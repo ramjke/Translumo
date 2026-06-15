@@ -47,7 +47,7 @@ public class TtsConfiguration : BindableBase
             SetProperty(ref _installedWinTtsLanguages, value);
         }
     }
-    
+
     public string SelectedVoiceName
     {
         get => _selectedVoiceName;

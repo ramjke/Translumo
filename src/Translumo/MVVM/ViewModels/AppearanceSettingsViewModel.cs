@@ -49,7 +49,7 @@ namespace Translumo.MVVM.ViewModels
         public ICommand ColorIsPickedCommand => new RelayCommand<bool>(OnColorPickedCommand);
 
         private ChatWindowConfiguration _model;
-       
+
         private Action<ChatWindowConfiguration, Color> _newColorSetter;
         private string _additionalPanelTriggerName;
         private bool _colorPickerIsOpened;
@@ -61,7 +61,7 @@ namespace Translumo.MVVM.ViewModels
         public AppearanceSettingsViewModel(ChatWindowConfiguration model, ChatUITextMediator chatMediator, SystemConfiguration systemConfig)
         {
             this.Model = model;
-            this._chatMediator = chatMediator;
+            _chatMediator = chatMediator;
             this.SystemConfig = systemConfig;
             this.AvailableAlignments = Enum.GetValues<TextAlignment>()
                 .Select(alignment => new DisplayAlignment(alignment, GetDisplayAlignmentText(alignment)))

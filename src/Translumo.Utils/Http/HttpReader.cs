@@ -9,7 +9,7 @@ namespace Translumo.Utils.Http
 {
     public class HttpReader
     {
-        public CookieContainer Cookies { get; set;}
+        public CookieContainer Cookies { get; set; }
         public string? Referer { get; set; }
         public bool ThrowExceptions { get; set; } = true;
         public IDictionary<string, string> OptionalHeaders { get; set; }
@@ -25,7 +25,7 @@ namespace Translumo.Utils.Http
         public HttpReader() : this(null, null)
         {
         }
-        
+
         public HttpReader(CookieContainer cookieIn) : this(cookieIn, null)
         {
         }
@@ -89,7 +89,7 @@ namespace Translumo.Utils.Http
             {
                 WebRequest request = PrepRequest(url, method, Cookies, AuthorizationString);
                 string body = ReadWebData(request, dataIn, acceptCookie);
-                
+
                 return new HttpResponse(isSuccessful: true, body);
             }
             catch (Exception ex)

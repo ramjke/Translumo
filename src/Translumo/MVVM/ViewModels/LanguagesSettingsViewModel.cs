@@ -63,7 +63,7 @@ namespace Translumo.MVVM.ViewModels
                     {
                         TtsSettings.SelectedVoiceName = value.Name;
                     };
-                    
+
                     _ = ReconfigureTts(TtsSettings.TtsLanguage, TtsSettings.TtsSystem, updateVoiceAction);
                 }
             }
@@ -77,6 +77,10 @@ namespace Translumo.MVVM.ViewModels
 
         public bool IsAiTranslatorSelected => Model.Translator == Translators.AiTranslator;
 
+        public bool IsRivaSelected => Model.Translator == Translators.NvidiaRiva;
+
+        public bool IsOnnxSelected => Model.Translator == Translators.Onnx;
+
         public IEnumerable<AiTranslatorProvider> AvailableAiProviders => Enum.GetValues<AiTranslatorProvider>();
 
         public string AiModelCaption
@@ -89,6 +93,8 @@ namespace Translumo.MVVM.ViewModels
                     return "Model Identifier (Default: deepseek-v4-flash)";
                 if (Model.AiProvider == AiTranslatorProvider.OpenRouter)
                     return "Model Identifier";
+                if (Model.AiProvider == AiTranslatorProvider.NvidiaNIM)
+                    return "Model Identifier (Default: deepseek-ai/deepseek-v4-flash)";
                 return "Model Identifier";
             }
         }
@@ -100,6 +106,7 @@ namespace Translumo.MVVM.ViewModels
                 if (Model.AiProvider == AiTranslatorProvider.Gemini) return Model.GeminiApiKey;
                 if (Model.AiProvider == AiTranslatorProvider.DeepSeek) return Model.DeepSeekApiKey;
                 if (Model.AiProvider == AiTranslatorProvider.OpenRouter) return Model.OpenRouterApiKey;
+                if (Model.AiProvider == AiTranslatorProvider.NvidiaNIM) return Model.NvidiaNIMApiKey;
                 return string.Empty;
             }
             set
@@ -107,6 +114,7 @@ namespace Translumo.MVVM.ViewModels
                 if (Model.AiProvider == AiTranslatorProvider.Gemini) Model.GeminiApiKey = value;
                 else if (Model.AiProvider == AiTranslatorProvider.DeepSeek) Model.DeepSeekApiKey = value;
                 else if (Model.AiProvider == AiTranslatorProvider.OpenRouter) Model.OpenRouterApiKey = value;
+                else if (Model.AiProvider == AiTranslatorProvider.NvidiaNIM) Model.NvidiaNIMApiKey = value;
                 OnPropertyChanged(nameof(CurrentAiApiKey));
             }
         }
@@ -118,6 +126,7 @@ namespace Translumo.MVVM.ViewModels
                 if (Model.AiProvider == AiTranslatorProvider.Gemini) return Model.GeminiAiModel;
                 if (Model.AiProvider == AiTranslatorProvider.DeepSeek) return Model.DeepSeekAiModel;
                 if (Model.AiProvider == AiTranslatorProvider.OpenRouter) return Model.OpenRouterAiModel;
+                if (Model.AiProvider == AiTranslatorProvider.NvidiaNIM) return Model.NvidiaNIMAiModel;
                 return string.Empty;
             }
             set
@@ -125,6 +134,7 @@ namespace Translumo.MVVM.ViewModels
                 if (Model.AiProvider == AiTranslatorProvider.Gemini) Model.GeminiAiModel = value;
                 else if (Model.AiProvider == AiTranslatorProvider.DeepSeek) Model.DeepSeekAiModel = value;
                 else if (Model.AiProvider == AiTranslatorProvider.OpenRouter) Model.OpenRouterAiModel = value;
+                else if (Model.AiProvider == AiTranslatorProvider.NvidiaNIM) Model.NvidiaNIMAiModel = value;
                 OnPropertyChanged(nameof(CurrentAiModel));
             }
         }
@@ -254,6 +264,35 @@ namespace Translumo.MVVM.ViewModels
 
         public ICommand TestAiCommand => new AsyncRelayCommand(OnTestAiAsync);
 
+        private string _rivaTestResult;
+        public string RivaTestResult
+        {
+            get => _rivaTestResult;
+            set => SetProperty(ref _rivaTestResult, value);
+        }
+
+        private string _rivaTestResultColor = "Gray";
+        public string RivaTestResultColor
+        {
+            get => _rivaTestResultColor;
+            set => SetProperty(ref _rivaTestResultColor, value);
+        }
+
+        private bool _isRivaTesting;
+        public bool IsRivaTesting
+        {
+            get => _isRivaTesting;
+            set
+            {
+                SetProperty(ref _isRivaTesting, value);
+                OnPropertyChanged(nameof(CanTestRiva));
+            }
+        }
+
+        public bool CanTestRiva => !IsRivaTesting;
+
+        public ICommand TestRivaCommand => new AsyncRelayCommand(OnTestRivaAsync);
+
         public ICommand ProxySettingsClickedCommand => new RelayCommand(OnProxySettingsClicked);
         public ICommand ProxyItemDeletedCommand => new RelayCommand<ProxyCardItem>(OnProxyItemDeletedCommand);
         public ICommand ProxyItemAddCommand => new RelayCommand(OnProxyItemAddCommand);
@@ -293,6 +332,8 @@ namespace Translumo.MVVM.ViewModels
                 {
                     OnPropertyChanged(nameof(IsLibreTranslateSelected));
                     OnPropertyChanged(nameof(IsAiTranslatorSelected));
+                    OnPropertyChanged(nameof(IsRivaSelected));
+                    OnPropertyChanged(nameof(IsOnnxSelected));
                 }
                 else if (args.PropertyName == nameof(Model.AiProvider))
                 {
@@ -305,19 +346,19 @@ namespace Translumo.MVVM.ViewModels
             this.TtsSettings.TtsLanguage = this.Model.TranslateToLang;
 
             this.AvailableVoices = new ObservableCollection<VoiceInfo>();
-            
+
             if (this.TtsSettings.TtsSystem == TTSEngines.WindowsTTS)
             {
                 var languageCode = languageService.GetLanguageDescriptor(this.TtsSettings.TtsLanguage).Code;
                 LoadAvailableVoices(languageCode);
             }
 
-            this._languageService = languageService;
-            this._dialogService = dialogService;
-            this._ocrConfiguration = ocrConfiguration;
-            this._libreTranslateManager = libreTranslateManager;
-            this._logger = logger;
-            
+            _languageService = languageService;
+            _dialogService = dialogService;
+            _ocrConfiguration = ocrConfiguration;
+            _libreTranslateManager = libreTranslateManager;
+            _logger = logger;
+
             OnPropertyChanged(nameof(AiModelCaption));
             ResetLibreTranslateState();
         }
@@ -328,19 +369,19 @@ namespace Translumo.MVVM.ViewModels
             {
                 var voices = GetAvailableVoicesForLanguage(languageCode);
                 AvailableVoices = new ObservableCollection<VoiceInfo>(voices);
-                
+
                 if (!string.IsNullOrEmpty(TtsSettings.SelectedVoiceName))
                 {
-                    _selectedVoice = AvailableVoices.FirstOrDefault(v => 
+                    _selectedVoice = AvailableVoices.FirstOrDefault(v =>
                         v.Name.Equals(TtsSettings.SelectedVoiceName, StringComparison.OrdinalIgnoreCase));
                 }
-                
+
                 if (_selectedVoice == null && AvailableVoices.Count > 0)
                 {
                     _selectedVoice = AvailableVoices[0];
                     TtsSettings.SelectedVoiceName = _selectedVoice.Name;
                 }
-                
+
                 OnPropertyChanged(nameof(SelectedVoice));
             }
             catch (Exception ex)
@@ -354,7 +395,7 @@ namespace Translumo.MVVM.ViewModels
         {
             using var synth = new SpeechSynthesizer();
             var result = new List<VoiceInfo>();
-            
+
             try
             {
                 var voices = synth.GetInstalledVoices(new CultureInfo(languageTag));
@@ -417,7 +458,7 @@ namespace Translumo.MVVM.ViewModels
             catch (Exception ex)
             {
                 _logger.LogWarning(ex, "Failed to validate model against OpenRouter meta API.");
-                return true; 
+                return true;
             }
             return false;
         }
@@ -460,11 +501,13 @@ namespace Translumo.MVVM.ViewModels
                 }
 
                 var testTranslator = new Translation.Ai.AiTranslator(Model, _languageService, _logger);
-                
+
                 string testText = "Hello";
+                var stopwatch = System.Diagnostics.Stopwatch.StartNew();
                 string translated = await testTranslator.TranslateTextAsync(testText);
-                
-                AiTestResult = $"Connection successful! Test: '{testText}' -> '{translated}'";
+                stopwatch.Stop();
+
+                AiTestResult = $"Connection successful! Test: '{testText}' -> '{translated}' ({stopwatch.ElapsedMilliseconds}ms)";
                 AiTestResultColor = "Green";
             }
             catch (Exception ex)
@@ -476,6 +519,49 @@ namespace Translumo.MVVM.ViewModels
             finally
             {
                 IsAiTesting = false;
+            }
+        }
+
+        private async Task OnTestRivaAsync()
+        {
+            if (IsRivaTesting)
+            {
+                return;
+            }
+
+            IsRivaTesting = true;
+            RivaTestResult = "Testing Riva connection...";
+            RivaTestResultColor = "Orange";
+
+            if (string.IsNullOrWhiteSpace(Model.RivaApiKey))
+            {
+                RivaTestResult = "Validation Error: Please enter an API Key first.";
+                RivaTestResultColor = "Red";
+                IsRivaTesting = false;
+                return;
+            }
+
+            try
+            {
+                var testTranslator = new Translumo.Translation.Riva.RivaTranslator(Model, _languageService, _logger);
+
+                string testText = "Hello";
+                var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+                string translated = await testTranslator.TranslateTextAsync(testText);
+                stopwatch.Stop();
+
+                RivaTestResult = $"Connection successful! Test: '{testText}' -> '{translated}' ({stopwatch.ElapsedMilliseconds}ms)";
+                RivaTestResultColor = "Green";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Riva connection test failed");
+                RivaTestResult = $"Connection failed: {ex.Message}";
+                RivaTestResultColor = "Red";
+            }
+            finally
+            {
+                IsRivaTesting = false;
             }
         }
 
@@ -571,7 +657,7 @@ namespace Translumo.MVVM.ViewModels
             {
                 this.TtsSettings.TtsLanguage = language;
                 this.Model.TranslateToLang = language;
-                
+
                 if (TtsSettings.TtsSystem == TTSEngines.WindowsTTS)
                 {
                     var langCode = _languageService.GetLanguageDescriptor(language).Code;
@@ -588,10 +674,10 @@ namespace Translumo.MVVM.ViewModels
 
         private async Task ChangeTtsSystem(TTSEngines engine)
         {
-            Action changeTtsEngineAction = () => 
+            Action changeTtsEngineAction = () =>
             {
                 this.TtsSettings.TtsSystem = engine;
-                
+
                 if (engine == TTSEngines.WindowsTTS)
                 {
                     var langCode = _languageService.GetLanguageDescriptor(TtsSettings.TtsLanguage).Code;
@@ -604,7 +690,7 @@ namespace Translumo.MVVM.ViewModels
                     OnPropertyChanged(nameof(SelectedVoice));
                 }
             };
-            
+
             await this.ReconfigureTts(TtsSettings.TtsLanguage, engine, changeTtsEngineAction);
             OnPropertyChanged(nameof(TtsSystem));
             OnPropertyChanged(nameof(IsTtsWindowsSelected));

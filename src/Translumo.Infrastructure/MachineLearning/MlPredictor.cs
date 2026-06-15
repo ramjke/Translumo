@@ -5,8 +5,8 @@ using Microsoft.ML;
 namespace Translumo.Infrastructure.MachineLearning
 {
     public class MlPredictor<TInput, TOutput> : IPredictor<TInput, TOutput>
-        where TInput: class
-        where TOutput: class, new()
+        where TInput : class
+        where TOutput : class, new()
     {
         public bool Loaded { get; private set; }
 
@@ -16,7 +16,7 @@ namespace Translumo.Infrastructure.MachineLearning
 
         public MlPredictor()
         {
-            this._context = new MLContext();
+            _context = new MLContext();
             this.Loaded = false;
         }
 
@@ -31,7 +31,7 @@ namespace Translumo.Infrastructure.MachineLearning
             {
                 UnloadModel();
             }
-            
+
             _model = _context.Model.Load(path, out var schema);
             _predictor = _context.Model.CreatePredictionEngine<TInput, TOutput>(_model);
             Loaded = true;

@@ -57,7 +57,7 @@ namespace Translumo.HotKeys
         public HotKeyInfo SettingVisibilityKey
         {
             get => _settingVisibilityKey;
-            set 
+            set
             {
                 SetProperty(ref _settingVisibilityKey, value);
             }

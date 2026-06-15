@@ -11,7 +11,7 @@ namespace Translumo.Services
 
         public ObservablePipe(Dispatcher dispatcher)
         {
-            this._dispatcher = dispatcher;
+            _dispatcher = dispatcher;
         }
 
         public void Send(T item)

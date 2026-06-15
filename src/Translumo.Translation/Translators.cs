@@ -13,6 +13,10 @@ namespace Translumo.Translation
 
         LibreTranslate = 4,
 
-        AiTranslator = 5
+        AiTranslator = 5,
+
+        NvidiaRiva = 6,
+
+        Onnx = 7
     }
 }

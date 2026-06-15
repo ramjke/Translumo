@@ -23,7 +23,7 @@ namespace Translumo.Dialog.Stages
             string languageCode,
             InteractionStage enableFlagStage,
             ILogger logger)
-            {
+        {
             return new ConditionalInteractionStage(
                     dialogService,
                     () => Task.FromResult(OCR.WindowsOCR.WindowsOCRHelper.IsLanguageOcrCapabilityInstalled(languageCode)),
@@ -60,7 +60,7 @@ namespace Translumo.Dialog.Stages
             string languageCode,
             InteractionStage enableFlagStage,
             ILogger logger)
-            {
+        {
             return new ConditionalInteractionStage(
                     dialogService,
                     () => Task.FromResult(TTS.WindowsTTSHelper.IsLanguageTTSCapabilityInstalled(languageCode)),

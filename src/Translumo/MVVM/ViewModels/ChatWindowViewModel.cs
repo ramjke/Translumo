@@ -39,15 +39,15 @@ namespace Translumo.MVVM.ViewModels
         private readonly HotKeysServiceManager _hotKeysServiceManager;
         private readonly UpdateManager _updateManager;
 
-        public ChatWindowViewModel(ChatWindowModel model, HotKeysServiceManager hotKeysManager, ChatUITextMediator chatTextMediator, UpdateManager updateManager, 
+        public ChatWindowViewModel(ChatWindowModel model, HotKeysServiceManager hotKeysManager, ChatUITextMediator chatTextMediator, UpdateManager updateManager,
             IActionDispatcher dispatcher, DialogService dialogService, IServiceProvider serviceProvider, ILogger<ChatWindowViewModel> logger)
         {
             this.Model = model;
-            this._logger = logger;
-            this._dialogService = dialogService;
-            this._serviceProvider = serviceProvider;
-            this._hotKeysServiceManager = hotKeysManager;
-            this._updateManager = updateManager;
+            _logger = logger;
+            _dialogService = dialogService;
+            _serviceProvider = serviceProvider;
+            _hotKeysServiceManager = hotKeysManager;
+            _updateManager = updateManager;
 
             dispatcher.RegisterConsumer<BrowseSiteDispatchArg, BrowseSiteDispatchResult>(DispatcherActions.PASS_SITE, BrowseSiteHandler);
 
@@ -104,7 +104,7 @@ namespace Translumo.MVVM.ViewModels
         private void HotKeysManagerOnSelectAreaKeyPressed(object sender, EventArgs e)
         {
             Model.EndTranslation();
-            
+
             var result = _dialogService.ShowWindowDialog<SelectionAreaWindow>(out var window);
             if (result.HasValue && result.Value)
             {
@@ -137,14 +137,14 @@ namespace Translumo.MVVM.ViewModels
         }
 
         private void HotKeysManagerOnWindowStyleChangeKeyPressed(object sender, EventArgs e)
-        { 
+        {
             const int WS_EX_TRANSPARENT = 0x00000020;
             const int GWL_EXSTYLE = -20;
 
             IntPtr hwnd = _dialogService.GetWindowHandle<ChatWindowViewModel>();
             int extendedStyle = Win32Interfaces.GetWindowLong(hwnd, GWL_EXSTYLE);
             Win32Interfaces.SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle ^ WS_EX_TRANSPARENT);
-            
+
             bool isLocked = (extendedStyle | WS_EX_TRANSPARENT) != extendedStyle;
             Model.AddChatItem(LocalizationManager.GetValue(isLocked ? "Str.Chat.WindowLocked" : "Str.Chat.WindowUnlocked"), TextTypes.Info);
         }

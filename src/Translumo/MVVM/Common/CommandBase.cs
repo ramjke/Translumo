@@ -5,7 +5,7 @@ using System.Windows.Markup;
 namespace Translumo.MVVM.Common
 {
     public abstract class CommandBase<TCommand> : MarkupExtension, ICommand
-        where TCommand: class, ICommand, new()
+        where TCommand : class, ICommand, new()
     {
         protected static TCommand Command;
 

@@ -24,8 +24,8 @@ namespace Translumo.MVVM.ViewModels
 
         public HotkeysSettingsViewModel(HotKeysServiceManager hotKeysServiceManager)
         {
-            this._configuration = hotKeysServiceManager.Configuration;
-            this._serviceManager = hotKeysServiceManager;
+            _configuration = hotKeysServiceManager.Configuration;
+            _serviceManager = hotKeysServiceManager;
 
             var defaultGamepadHotKey = new GamepadHotKeyInfo(GamepadKeyCode.None);
             Model = new List<HotKeyModel>(new[]

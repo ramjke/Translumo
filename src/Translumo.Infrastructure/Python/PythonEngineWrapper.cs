@@ -9,7 +9,7 @@ public class PythonEngineWrapper : IDisposable
 {
     private bool _disposedValue;
     private int _countUsage;
-    private IntPtr _threadState;
+    private readonly IntPtr _threadState;
 
     public PythonEngineWrapper()
     {

@@ -14,7 +14,7 @@ namespace Translumo.Utils
     {
         private static IControllerInputProvider _controllerProvider;
 
-        private static IList<(EventHandler<GamepadKeyPressedEventArgs>, Action<object, GamepadKeyPressedEventArgs>)> _subscribers;
+        private static readonly IList<(EventHandler<GamepadKeyPressedEventArgs>, Action<object, GamepadKeyPressedEventArgs>)> _subscribers;
 
         static UIElementExtensions()
         {
@@ -33,7 +33,7 @@ namespace Translumo.Utils
                 throw new InvalidOperationException("Controller input is not registered");
             }
 
-            var eventHandler = new EventHandler<GamepadKeyPressedEventArgs> (handler);
+            var eventHandler = new EventHandler<GamepadKeyPressedEventArgs>(handler);
             _subscribers.Add((eventHandler, handler));
 
             _controllerProvider.KeyDown += eventHandler;
@@ -54,7 +54,7 @@ namespace Translumo.Utils
                 _subscribers.Remove(subscriber);
             }
         }
-        
+
 
         public static void SubscribeControllerKeyUp(this UIElement element, Action<object, GamepadKeyPressedEventArgs> handler)
         {

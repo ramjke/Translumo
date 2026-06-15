@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Threading;
@@ -45,7 +45,7 @@ namespace Translumo.Services
             {
                 Dispose();
             }
-            
+
             _factory = new Factory1();
             //Get first adapter
             _adapter = _factory.GetAdapter1(0);
@@ -156,7 +156,7 @@ namespace Translumo.Services
                 // Get the desktop capture texture
                 var mapSource = _device.ImmediateContext.MapSubresource(_screenTexture, 0, MapMode.Read,
                     SharpDX.Direct3D11.MapFlags.None);
-                
+
                 // Create Drawing.Bitmap
                 using (var bitmap = new Bitmap(_width, _height, PixelFormat.Format32bppArgb))
                 {
@@ -184,14 +184,21 @@ namespace Translumo.Services
                         .ToBytes(ImageFormat.Tiff);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 if (curAttempt >= CaptureAttempts)
                 {
                     throw;
                 }
 
-                Thread.Sleep(AttemptDelayMs);
+                if (ex is CaptureException ce && ce.ErrorCode == SharpDX.DXGI.ResultCode.AccessLost.Code)
+                {
+                    Initialize();
+                }
+                else
+                {
+                    Thread.Sleep(AttemptDelayMs);
+                }
 
                 return MakeScreenshotInternal(captureArea, ++curAttempt);
             }

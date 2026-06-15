@@ -11,7 +11,7 @@ namespace Translumo.Services
         public event EventHandler<GamepadKeyPressedEventArgs> KeyDown;
         public event EventHandler<GamepadKeyPressedEventArgs> KeyUp;
 
-        private IDictionary<int, GamepadHotKey> _registeredHotKeys;
+        private readonly IDictionary<int, GamepadHotKey> _registeredHotKeys;
 
         public ControllerInputProvider(ObservablePipe<Keystroke> inputPipe)
         {

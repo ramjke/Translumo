@@ -32,7 +32,7 @@ namespace Translumo.OCR.WindowsOCR
 
         public string[] GetTextLines(byte[] image)
         {
-            if (MsEngine == null) 
+            if (MsEngine == null)
                 return [];
 
             using var stream = new MemoryStream(image);

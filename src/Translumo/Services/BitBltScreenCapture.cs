@@ -22,7 +22,7 @@ namespace Translumo.Services
 
         public BitBltScreenCapture(ScreenCaptureConfiguration configuration)
         {
-            this._configuration = configuration;
+            _configuration = configuration;
         }
 
         public void Initialize()
@@ -57,7 +57,7 @@ namespace Translumo.Services
             IntPtr hBitmap = IntPtr.Zero;
 
             try
-            { 
+            {
                 hdcSrc = Win32Interfaces.GetDCEx(IntPtr.Zero, IntPtr.Zero,
                     DeviceContextValues.Window | DeviceContextValues.Cache | DeviceContextValues.LockWindowUpdate);
                 hdcDest = Win32Interfaces.CreateCompatibleDC(hdcSrc);

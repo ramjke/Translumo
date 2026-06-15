@@ -6,8 +6,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
-    <PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.26.0" />
-    <PackageReference Include="Microsoft.ML.Tokenizers" Version="2.0.0" />
+    <PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.16.3" />
+    <PackageReference Include="Microsoft.ML.Tokenizers" Version="0.22.0-preview.24271.1" />
+    <PackageReference Include="Tokenizers.DotNet" Version="1.4.1" />
+    <PackageReference Include="Tokenizers.DotNet.runtime.win-x64" Version="1.4.1" />
   </ItemGroup>
 
   <ItemGroup>

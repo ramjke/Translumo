@@ -31,7 +31,7 @@ namespace Translumo.Utils
             if (_cachedTranslationTextBrush == null || _cachedTranslationTextBrush.Color != brushColor)
             {
                 _cachedTranslationTextBrush = new SolidColorBrush(brushColor);
-                
+
                 return _cachedTranslationTextBrush;
             }
 

@@ -12,8 +12,8 @@ namespace Translumo.Update
 
         public UpdateManager(IReleasesClient releasesClient, ILogger<UpdateManager> logger)
         {
-            this._releasesClient = releasesClient;
-            this._logger = logger;
+            _releasesClient = releasesClient;
+            _logger = logger;
         }
 
 

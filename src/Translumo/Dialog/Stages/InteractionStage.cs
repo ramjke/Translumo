@@ -14,8 +14,8 @@ namespace Translumo.Dialog.Stages
 
         protected InteractionStage(DialogService dialogService, string stageName)
         {
-            this.StageName = stageName;
-            this.DialogService = dialogService;
+            StageName = stageName;
+            DialogService = dialogService;
         }
 
         public InteractionStage AddNextStage(InteractionStage nextStage)
@@ -80,6 +80,6 @@ namespace Translumo.Dialog.Stages
         }
 
         protected abstract Task<InteractionStage> ExecuteInner();
-        
+
     }
 }

@@ -12,7 +12,7 @@ namespace Translumo.OCR.Tesseract
         public override byte PrimaryPriority => 1;
         public override int Confidence => 2;
 
-        public TesseractOCREngineWIthPreprocess(LanguageDescriptor languageDescriptor) 
+        public TesseractOCREngineWIthPreprocess(LanguageDescriptor languageDescriptor)
             : base(languageDescriptor)
         {
         }

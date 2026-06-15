@@ -50,8 +50,8 @@ namespace Translumo
 
             ServiceCollection services = new ServiceCollection();
             ConfigureServices(services);
-            this._serviceProvider = services.BuildServiceProvider();
-            this._logger = _serviceProvider.GetService<ILogger<App>>();
+            _serviceProvider = services.BuildServiceProvider();
+            _logger = _serviceProvider.GetService<ILogger<App>>();
 
             this.DispatcherUnhandledException += OnDispatcherUnhandledException;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;

@@ -39,7 +39,7 @@ namespace Translumo.Processing.Logging
             {
                 await File.WriteAllBytesAsync(string.Format(imgPathFormat, _counter), img);
             }
-            
+
             _counter++;
         }
 

@@ -21,7 +21,7 @@ namespace Translumo.Utils
     {
         public static IEnumerable<CultureInfo> AvailableLocalizations = new[]
         {
-            new CultureInfo("en-US"), 
+            new CultureInfo("en-US"),
             new CultureInfo("ru-RU"),
             new CultureInfo("zh-CN")
         };
@@ -86,7 +86,7 @@ namespace Translumo.Utils
         public static void ReleaseChangedValuesCallbacks(object caller)
         {
             var toRemove = ChangedValueCallbacks.Where(ctx => ctx.Value.Caller == caller).ToArray();
-            
+
             toRemove.ForEach(item => ChangedValueCallbacks.Remove(item));
         }
 

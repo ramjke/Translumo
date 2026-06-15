@@ -95,13 +95,13 @@ namespace Translumo.TTS
             };
 
             return process;  // Return the process after completion
-        } 
+        }
 
         public static List<VoiceInfo> GetAvailableVoicesForLanguage(string languageTag)
         {
             using var synth = new SpeechSynthesizer();
             var result = new List<VoiceInfo>();
-            
+
             try
             {
                 var voices = synth.GetInstalledVoices(new CultureInfo(languageTag));
@@ -113,7 +113,7 @@ namespace Translumo.TTS
             }
             catch
             {
-                
+
             }
 
             try
@@ -131,6 +131,6 @@ namespace Translumo.TTS
             }
 
             return result;
-        }      
+        }
     }
 }
