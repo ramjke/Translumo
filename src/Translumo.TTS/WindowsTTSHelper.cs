@@ -6,7 +6,7 @@ namespace Translumo.TTS
 {
     public static class WindowsTTSHelper
     {
-        public static async Task<bool> InstallTTSLanguageCapatibility(string languageCode)
+        public static async Task<bool> InstallTTSLanguageCapability(string languageCode)
         {
             var process = CreateTTSCapabilityInstallProcess(languageCode);
             if (process == null)

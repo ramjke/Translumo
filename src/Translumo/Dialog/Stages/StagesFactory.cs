@@ -35,7 +35,7 @@ namespace Translumo.Dialog.Stages
                         .AddNextStage(
                             new ConditionalInteractionStage(
                                     dialogService,
-                                    async () => await OCR.WindowsOCR.WindowsOCRHelper.InstallOcrLanguageCapatibility(languageCode),
+                                    async () => await OCR.WindowsOCR.WindowsOCRHelper.InstallOcrLanguageCapability(languageCode),
                                     LocalizationManager.GetValue("Str.Stages.InstallationLangPack"))
                                 .AddNextStage(
                                     new DialogInteractionStage(
@@ -72,7 +72,7 @@ namespace Translumo.Dialog.Stages
                     .AddNextStage(
                         new ConditionalInteractionStage(
                                 dialogService,
-                                async () => await TTS.WindowsTTSHelper.InstallTTSLanguageCapatibility(languageCode),
+                                async () => await TTS.WindowsTTSHelper.InstallTTSLanguageCapability(languageCode),
                                 LocalizationManager.GetValue("Str.Stages.InstallationLangPack"))
                             .AddNextStage(
                                 new DialogInteractionStage(

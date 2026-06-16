@@ -20,7 +20,7 @@ namespace Translumo.Translation.Deepl
             [JsonPropertyName("id")]
             public long Id { get; set; }
 
-            public DeepLTranslatorRequest(long id, string sentence, string sourceLanguage, string tragetLanguage, string regionalVariantCode)
+            public DeepLTranslatorRequest(long id, string sentence, string sourceLanguage, string targetLanguage, string regionalVariantCode)
             {
                 this.Id = id;
                 this.Jsonrpc = "2.0";
@@ -36,7 +36,7 @@ namespace Translumo.Translation.Deepl
                     jobs.Add(new Job(regexResult[i].Value, prevValue, nextValue));
                 }
 
-                Params = new Parameters(jobs, new Lang(sourceLanguage, tragetLanguage), regionalVariantCode);
+                Params = new Parameters(jobs, new Lang(sourceLanguage, targetLanguage), regionalVariantCode);
             }
 
             public sealed class Parameters
