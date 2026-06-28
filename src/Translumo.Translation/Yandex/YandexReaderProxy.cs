@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
@@ -61,16 +61,10 @@ namespace Translumo.Translation.Yandex
                 return string.Empty;
             }
 
-            const char SID_SEPARATOR = '.';
-
             var match = RegexStorage.YandexSidRegex.Match(body);
             if (match.Success)
             {
-                var splittedReversed = match.Value
-                    .Split(SID_SEPARATOR)
-                    .Select(str => new string(str.Reverse().ToArray()));
-
-                return string.Join(SID_SEPARATOR, splittedReversed);
+                return match.Value;
             }
 
             return string.Empty;
