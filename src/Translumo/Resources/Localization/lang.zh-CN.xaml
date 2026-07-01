@@ -40,6 +40,7 @@
     <system:String x:Key="Str.Hotkeys.OnOffTranslation">开启/关闭 翻译</system:String>
     <system:String x:Key="Str.Hotkeys.ShowSelectArea">显示已选择的翻译区域</system:String>
     <system:String x:Key="Str.Hotkeys.OnceTranslate">选择翻译区域（一次性）</system:String>
+    <system:String x:Key="Str.Hotkeys.ImageTranslate">图像翻译（选择区域，像谷歌一样叠加显示）</system:String>
     <system:String x:Key="Str.Hotkeys.WindowChangeStyle">锁定/解除锁定 翻译墙位置</system:String>
     <system:String x:Key="Str.Hotkeys.SettingsShowHelp">请按 '{0}' 打开设置页面</system:String>
     <system:String x:Key="Str.Hotkeys.SelectAreaHelp">请按 '{0}' 选择翻译区域</system:String>

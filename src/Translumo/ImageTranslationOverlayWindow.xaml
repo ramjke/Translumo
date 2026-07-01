@@ -1,0 +1,92 @@
+<Window
+    x:Class="Translumo.ImageTranslationOverlayWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Image translation"
+    AllowsTransparency="True"
+    Background="Transparent"
+    KeyDown="OnKeyDown"
+    Loaded="OnLoaded"
+    ResizeMode="NoResize"
+    ShowInTaskbar="False"
+    Topmost="True"
+    WindowState="Maximized"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Grid
+        x:Name="Root"
+        Background="#66000000"
+        MouseDown="Root_MouseDown">
+        <Canvas x:Name="LayerCanvas" />
+        <Border
+            x:Name="Toolbar"
+            Margin="0,16,0,0"
+            Padding="12,7"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Background="#F21B1D23"
+            CornerRadius="8"
+            MouseDown="Toolbar_MouseDown">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock
+                    x:Name="DetectedLabel"
+                    Margin="2,0,14,0"
+                    VerticalAlignment="Center"
+                    FontWeight="Bold"
+                    Foreground="#9FE1CB" />
+                <TextBlock
+                    Margin="0,0,4,0"
+                    VerticalAlignment="Center"
+                    Foreground="#C9D3D0"
+                    Text="Source" />
+                <ComboBox
+                    x:Name="SourceCombo"
+                    Width="150"
+                    Margin="0,0,12,0"
+                    SelectionChanged="SourceCombo_Changed" />
+                <TextBlock
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Foreground="#5DCAA5"
+                    Text="→" />
+                <TextBlock
+                    Margin="0,0,4,0"
+                    VerticalAlignment="Center"
+                    Foreground="#C9D3D0"
+                    Text="Target" />
+                <ComboBox
+                    x:Name="TargetCombo"
+                    Width="150"
+                    Margin="0,0,14,0"
+                    SelectionChanged="TargetCombo_Changed" />
+                <Button
+                    x:Name="CopyButton"
+                    Margin="0,0,8,0"
+                    Padding="12,3"
+                    Click="CopyButton_Click"
+                    Content="Copy" />
+                <Button
+                    x:Name="CloseButton"
+                    Padding="10,3"
+                    Click="CloseButton_Click"
+                    Content="✕" />
+            </StackPanel>
+        </Border>
+        <Border
+            x:Name="BusyIndicator"
+            Padding="18,10"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Background="#E61B1D23"
+            CornerRadius="8"
+            Visibility="Collapsed">
+            <TextBlock
+                Foreground="#F2F5F0"
+                FontSize="16"
+                Text="Translating…" />
+        </Border>
+    </Grid>
+</Window>

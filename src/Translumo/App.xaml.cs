@@ -150,6 +150,8 @@ namespace Translumo
             services.AddSingleton<ICapturerFactory, ScreenCapturerFactory>();
             services.AddSingleton<PythonEngineWrapper>();
 
+            services.AddSingleton<Processing.ImageTranslation.ImageTranslationService>();
+
             services.AddTransient<IProcessingService, TranslationProcessingService>();
             services.AddTransient<OcrEnginesFactory>();
             services.AddTransient<TranslatorFactory>();

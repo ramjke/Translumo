@@ -16,6 +16,7 @@ namespace Translumo.HotKeys
         public event EventHandler SettingVisibilityKeyPressed;
         public event EventHandler ShowSelectionAreaKeyPressed;
         public event EventHandler OnceTranslateKeyPressed;
+        public event EventHandler ImageTranslateKeyPressed;
         public event EventHandler WindowStyleChangeKeyPressed;
 
         public HotKeysConfiguration Configuration { get; }
@@ -41,6 +42,7 @@ namespace Translumo.HotKeys
                 (nameof(configuration.SettingVisibilityKey), nameof(configuration.SettingVisibilityGamepadKey)),
                 (nameof(configuration.ShowSelectionAreaKey), nameof(configuration.ShowSelectionAreaGamepadKey)),
                 (nameof(configuration.OnceTranslateKey), nameof(configuration.OnceTranslateGamepadKey)),
+                (nameof(configuration.ImageTranslateKey), nameof(configuration.ImageTranslateGamepadKey)),
                 (nameof(configuration.WindowStyleChangeKey), nameof(configuration.WindowStyleChangeGamepadKey)),
             };
 
@@ -195,6 +197,11 @@ namespace Translumo.HotKeys
             OnceTranslateKeyPressed?.Invoke(this, EventArgs.Empty);
         }
 
+        private void OnImageTranslatePressed()
+        {
+            ImageTranslateKeyPressed?.Invoke(this, EventArgs.Empty);
+        }
+
         private void OnWindowStyleChangePressed()
         {
             WindowStyleChangeKeyPressed?.Invoke(this, EventArgs.Empty);
@@ -229,6 +236,10 @@ namespace Translumo.HotKeys
                         configuration.OnceTranslateKey.KeyModifier, OnOnceTranslatePressed)
                 },
                 {
+                    nameof(configuration.ImageTranslateKey), new HotKey(configuration.ImageTranslateKey.Key,
+                        configuration.ImageTranslateKey.KeyModifier, OnImageTranslatePressed)
+                },
+                {
                     nameof(configuration.WindowStyleChangeKey), new HotKey(configuration.WindowStyleChangeKey.Key,
                         configuration.WindowStyleChangeKey.KeyModifier, OnWindowStyleChangePressed)
                 }
@@ -245,6 +256,7 @@ namespace Translumo.HotKeys
                 { nameof(configuration.SettingVisibilityGamepadKey), new GamepadHotKey(configuration.SettingVisibilityGamepadKey.Key, OnSettingVisibilityPressed) },
                 { nameof(configuration.ShowSelectionAreaGamepadKey), new GamepadHotKey(configuration.ShowSelectionAreaGamepadKey.Key, OnShowSelectionAreaPressed) },
                 { nameof(configuration.OnceTranslateGamepadKey), new GamepadHotKey(configuration.OnceTranslateGamepadKey.Key, OnOnceTranslatePressed) },
+                { nameof(configuration.ImageTranslateGamepadKey), new GamepadHotKey(configuration.ImageTranslateGamepadKey.Key, OnImageTranslatePressed) },
                 { nameof(configuration.WindowStyleChangeGamepadKey), new GamepadHotKey(configuration.WindowStyleChangeGamepadKey.Key, OnWindowStyleChangePressed) }
             };
         }
