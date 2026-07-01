@@ -14,6 +14,7 @@ namespace Translumo.HotKeys
             TranslationStateKey = new HotKeyInfo(Key.OemTilde, KeyModifier.None),
             ShowSelectionAreaKey = new HotKeyInfo(Key.Y, KeyModifier.Alt),
             OnceTranslateKey = new HotKeyInfo(Key.F, KeyModifier.Shift),
+            ImageTranslateKey = new HotKeyInfo(Key.D, KeyModifier.Alt),
             WindowStyleChangeKey = new HotKeyInfo(Key.T, KeyModifier.Ctrl),
 
             ChatVisibilityGamepadKey = new GamepadHotKeyInfo(GamepadKeyCode.None),
@@ -22,6 +23,7 @@ namespace Translumo.HotKeys
             TranslationStateGamepadKey = new GamepadHotKeyInfo(GamepadKeyCode.None),
             ShowSelectionAreaGamepadKey = new GamepadHotKeyInfo(GamepadKeyCode.None),
             OnceTranslateGamepadKey = new GamepadHotKeyInfo(GamepadKeyCode.None),
+            ImageTranslateGamepadKey = new GamepadHotKeyInfo(GamepadKeyCode.None),
             WindowStyleChangeGamepadKey = new GamepadHotKeyInfo(GamepadKeyCode.None)
         };
 
@@ -76,6 +78,15 @@ namespace Translumo.HotKeys
             set
             {
                 SetProperty(ref _onceTranslateKey, value);
+            }
+        }
+
+        public HotKeyInfo ImageTranslateKey
+        {
+            get => _imageTranslateKey;
+            set
+            {
+                SetProperty(ref _imageTranslateKey, value);
             }
         }
 
@@ -144,6 +155,15 @@ namespace Translumo.HotKeys
             }
         }
 
+        public GamepadHotKeyInfo ImageTranslateGamepadKey
+        {
+            get => _imageTranslateGamepadKey;
+            set
+            {
+                SetProperty(ref _imageTranslateGamepadKey, value);
+            }
+        }
+
         public GamepadHotKeyInfo WindowStyleChangeGamepadKey
         {
             get => _windowStyleChangeGamepadKey;
@@ -159,6 +179,7 @@ namespace Translumo.HotKeys
         private HotKeyInfo _settingVisibilityKey;
         private HotKeyInfo _showSelectionAreaKey;
         private HotKeyInfo _onceTranslateKey;
+        private HotKeyInfo _imageTranslateKey = new HotKeyInfo(Key.D, KeyModifier.Alt);
         private HotKeyInfo _windowStyleChangeKey = new HotKeyInfo(Key.T, KeyModifier.Ctrl);
 
         private GamepadHotKeyInfo _chatVisibilityGamepadKey;
@@ -167,6 +188,7 @@ namespace Translumo.HotKeys
         private GamepadHotKeyInfo _settingVisibilityGamepadKey;
         private GamepadHotKeyInfo _showSelctionAreaGamepadKey;
         private GamepadHotKeyInfo _onceTranslateGamepadKey;
+        private GamepadHotKeyInfo _imageTranslateGamepadKey = new GamepadHotKeyInfo(GamepadKeyCode.None);
         private GamepadHotKeyInfo _windowStyleChangeGamepadKey = new GamepadHotKeyInfo(GamepadKeyCode.None);
     }
 }

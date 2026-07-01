@@ -40,6 +40,7 @@
     <system:String x:Key="Str.Hotkeys.OnOffTranslation">Включить/выключить перевод</system:String>
     <system:String x:Key="Str.Hotkeys.ShowSelectArea">Показать выбранную область перевода</system:String>
     <system:String x:Key="Str.Hotkeys.OnceTranslate">Выбрать область и перевести текст один раз</system:String>
+    <system:String x:Key="Str.Hotkeys.ImageTranslate">Перевод изображения (выделить область, наложение как в Google)</system:String>
     <system:String x:Key="Str.Hotkeys.WindowChangeStyle">Заблокировать/разблокировать окно перевода</system:String>
     <system:String x:Key="Str.Hotkeys.SettingsShowHelp">Нажмите '{0}' чтобы открыть настройки</system:String>
     <system:String x:Key="Str.Hotkeys.SelectAreaHelp">Нажмите '{0}' чтобы выбрать область захвата текста</system:String>
