@@ -4,6 +4,7 @@
 
     <Style TargetType="{x:Type controls:HotkeyInput}">
         <Setter Property="Background" Value="#e5eded"></Setter>
+        <Setter Property="Foreground" Value="#1b1d23"></Setter>
         <Setter Property="BorderBrush" Value="#868787"></Setter>
         <Setter Property="BorderThickness" Value="1"></Setter>
         <Setter Property="FontWeight" Value="Bold"></Setter>

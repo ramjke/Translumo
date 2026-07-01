@@ -59,7 +59,7 @@
                     <ColumnDefinition Width="250" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0" Background="{StaticResource PrimaryHueDarkBrush}">
+                <Grid Grid.Column="0" Background="{StaticResource ChromeBackgroundBrush}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="68" />
                         <RowDefinition Height="*" />
@@ -132,6 +132,7 @@
                             <TextBlock
                                 Margin="12,8,0,0"
                                 FontSize="18"
+                                Foreground="#1b1d23"
                                 Text="{DynamicResource Str.Lookupper.ProjectNote}" />
                             <Image
                                 Height="60"
