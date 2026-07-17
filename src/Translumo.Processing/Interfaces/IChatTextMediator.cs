@@ -9,5 +9,8 @@ namespace Translumo.Processing.Interfaces
         void SendText(string text, TextTypes textType);
 
         void ClearTexts();
+
+        // New: send original + translated
+        void SendText(string original, string translated);
     }
 }

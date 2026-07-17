@@ -9,6 +9,7 @@ namespace Translumo.Services
     {
         public event EventHandler<TranslatedEventArgs> TextRaised;
         public event EventHandler ClearTextsRaised; 
+        public event EventHandler<TranslatedWithOriginalEventArgs> TextWithOriginalRaised;
 
         public void SendText(string text, bool successful)
         {
@@ -23,6 +24,11 @@ namespace Translumo.Services
         public void ClearTexts()
         {
             ClearTextsRaised?.RaiseOnUIThread(this);
+        }
+
+        public void SendText(string original, string translated)
+        {
+            TextWithOriginalRaised?.RaiseOnUIThread(this, new TranslatedWithOriginalEventArgs(original, translated, TextTypes.Translation));
         }
     }
 }
