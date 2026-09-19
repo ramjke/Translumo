@@ -30,7 +30,7 @@ namespace Translumo.Services
         private int _width;
         private int _height;
 
-        private bool _initalized = false;
+        private bool _initialized = false;
 
         private readonly ScreenCaptureConfiguration _configuration;
 
@@ -41,7 +41,7 @@ namespace Translumo.Services
 
         public void Initialize()
         {
-            if (_initalized)
+            if (_initialized)
             {
                 Dispose();
             }
@@ -76,7 +76,7 @@ namespace Translumo.Services
             _screenTexture = new Texture2D(_device, _textureDesc);
             _duplicatedOutput = _output1.DuplicateOutput(_device);
 
-            _initalized = true;
+            _initialized = true;
         }
 
         public byte[] CaptureScreen()
@@ -131,7 +131,7 @@ namespace Translumo.Services
             _output1?.Dispose();
             _output1 = null;
 
-            _initalized = false;
+            _initialized = false;
         }
 
         private byte[] MakeScreenshotInternal(RectangleF captureArea, int curAttempt)

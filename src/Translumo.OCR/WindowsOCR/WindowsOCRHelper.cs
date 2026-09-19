@@ -10,7 +10,7 @@ namespace Translumo.OCR.WindowsOCR
 {
     public static class WindowsOCRHelper
     {
-        public static async Task<bool> InstallOcrLanguageCapatibility(string languageCode)
+        public static async Task<bool> InstallOcrLanguageCapability(string languageCode)
         {
             var process = CreateOcrCapabilityInstallProcess(languageCode);
             if (process == null)
@@ -73,10 +73,10 @@ namespace Translumo.OCR.WindowsOCR
             return process;  // Return the process after completion
         }
 
-        private static Language GetInstalledWindowsOCRLanguageByTag(string languageTag, bool exactMathing = false)
+        private static Language GetInstalledWindowsOCRLanguageByTag(string languageTag, bool exactMatching = false)
         {
             var installedLanguages = OcrEngine.AvailableRecognizerLanguages;
-            if (exactMathing)
+            if (exactMatching)
             {
                 return installedLanguages.FirstOrDefault(l => l.LanguageTag == languageTag);
             }

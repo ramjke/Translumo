@@ -14,7 +14,7 @@ namespace Translumo.Utils
                 return;
             }
 
-            var previuosValue = member;
+            var previousValue = member;
             member = value;
             try
             {
@@ -22,7 +22,7 @@ namespace Translumo.Utils
             }
             catch
             {
-                member = previuosValue;
+                member = previousValue;
                 OnPropertyChanged(propertyName);
                 throw;
             }
