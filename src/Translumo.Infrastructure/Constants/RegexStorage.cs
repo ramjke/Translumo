@@ -1,4 +1,4 @@
-﻿using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
 
 namespace Translumo.Infrastructure.Constants
 {
@@ -28,7 +28,7 @@ namespace Translumo.Infrastructure.Constants
             EndDotRegex = new Regex(@"\.{3,}$", RegexOptions.Compiled);
             GoogleTranslateResultRegex = new Regex("(?<=(<div(.*)class=\"result-container\"(.*)>))[\\s\\S]*?(?=(<\\/div>))", RegexOptions.Compiled | RegexOptions.IgnoreCase);
             GuidGenerationRegex = new Regex("[xy]", RegexOptions.Compiled);
-            YandexSidRegex = new Regex(@"(?<=(SID\:\s*')).*(?=('))", RegexOptions.Compiled);
+            YandexSidRegex = new Regex(@"(?<=(sid\:\s*')).*(?=('))", RegexOptions.Compiled | RegexOptions.IgnoreCase);
             DeeplSentenceRegex = new Regex(@"(\S.+?([.!?♪。]|$))([\r\n]+|(?=\s+|$))", RegexOptions.Compiled | RegexOptions.Multiline);
         }
     }
