@@ -9,18 +9,19 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/Generic.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/Generic.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/MaterialDesignLightTheme.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/MaterialDesignDarkTheme.xaml" />
 
                 <!--  primary colors  -->
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
                         <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/materialdesigncolor.cyan.accent.xaml" />
                     </ResourceDictionary.MergedDictionaries>
-                    <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#fbffff" />
+                    <!--  Dark theme: light foreground, teal accents  -->
+                    <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#eaf4f0" />
                     <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="{StaticResource Accent400Foreground}" />
-                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#c7f7ff" />
+                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#2fb98a" />
                     <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="{StaticResource Accent400Foreground}" />
-                    <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#95c4cc" />
+                    <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#5dcaa5" />
                     <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="{StaticResource Accent400Foreground}" />
                 </ResourceDictionary>
 
@@ -29,19 +30,22 @@
                     <ResourceDictionary.MergedDictionaries>
                         <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/materialdesigncolor.cyan.accent.xaml" />
                     </ResourceDictionary.MergedDictionaries>
-                    <SolidColorBrush x:Key="SecondaryHueLightBrush" Color="#fbffff" />
+                    <!--  Dark theme: SecondaryHueLight is the main content surface  -->
+                    <SolidColorBrush x:Key="SecondaryHueLightBrush" Color="#24272e" />
                     <SolidColorBrush x:Key="SecondaryHueLightForegroundBrush" Color="{StaticResource Accent400Foreground}" />
-                    <SolidColorBrush x:Key="SecondaryHueMidBrush" Color="#c7ffea" />
+                    <SolidColorBrush x:Key="SecondaryHueMidBrush" Color="#3a3f48" />
                     <SolidColorBrush x:Key="SecondaryHueMidForegroundBrush" Color="{StaticResource Accent400Foreground}" />
-                    <SolidColorBrush x:Key="SecondaryHueDarkBrush" Color="#95ccb8" />
+                    <SolidColorBrush x:Key="SecondaryHueDarkBrush" Color="#9fe1cb" />
                     <SolidColorBrush x:Key="SecondaryHueDarkForegroundBrush" Color="{StaticResource Accent400Foreground}" />
                 </ResourceDictionary>
 
                 <!--  other colors  -->
                 <ResourceDictionary>
                     <SolidColorBrush x:Key="ErrorBrush" Color="#f03a16" />
-                    <SolidColorBrush x:Key="HoverBackgroundBrush" Color="#ebf5f7" />
+                    <SolidColorBrush x:Key="HoverBackgroundBrush" Color="#2e333c" />
                     <SolidColorBrush x:Key="WarningBrush" Color="#ffdad6" />
+                    <!--  Dark chrome surface for the side navigation and dialog headers  -->
+                    <SolidColorBrush x:Key="ChromeBackgroundBrush" Color="#1b1d23" />
                 </ResourceDictionary>
 
                 <ResourceDictionary Source="/Themes/Label.xaml" />

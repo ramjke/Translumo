@@ -7,6 +7,9 @@
 ext_components/
 components.zip
 
+# local tidy runnable copy (see run/ folder)
+run/
+
 # User-specific files
 *.rsuser
 *.suo

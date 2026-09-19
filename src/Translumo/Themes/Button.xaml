@@ -141,6 +141,7 @@
         <Setter Property="BorderThickness" Value="0.8" />
         <Setter Property="BorderBrush" Value="{StaticResource PrimaryHueDarkBrush}" />
         <Setter Property="Background" Value="{StaticResource PrimaryHueLightBrush}" />
+        <Setter Property="Foreground" Value="#1b1d23" />
         <Setter Property="Height" Value="35" />
         <Setter Property="Template">
             <Setter.Value>
