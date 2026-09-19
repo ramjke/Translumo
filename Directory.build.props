@@ -1,0 +1,5 @@
+<Project>
+  <PropertyGroup>
+    <SolutionDir Condition="'$(SolutionDir)' == ''">$(MSBuildThisFileDirectory)</SolutionDir>
+  </PropertyGroup>
+</Project>

@@ -1,10 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Transactions;
 using System.Web;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Translumo.Infrastructure.Constants;
 using Translumo.Infrastructure.Language;
 using Translumo.Translation.Configuration;
@@ -15,7 +20,7 @@ namespace Translumo.Translation.Google
 {
     public class GoogleTranslator : BaseTranslator<GoogleContainer>
     {
-        private const string TRANSLATE_URL = "https://translate.google.com/m?hl={1}&sl={0}&tl={1}&ie=UTF-8&prev=_m&q={2}";
+        private const string TRANSLATE_URL = "https://translate.googleapis.com/translate_a/single?client=dict-chrome-ex&sl={0}&tl={1}&dt=t&q={2}";
         
         public GoogleTranslator(TranslationConfiguration translationConfiguration, LanguageService languageService, ILogger logger) 
             : base(translationConfiguration, languageService, logger)
@@ -43,13 +48,18 @@ namespace Translumo.Translation.Google
                 .ConfigureAwait(false);
             if (requestResult.IsSuccessful)
             {
-                var matchResult = RegexStorage.GoogleTranslateResultRegex.Match(requestResult.Body);
-                if (!matchResult.Success)
-                {
-                    throw new TranslationException($"Unexpected web response: '{requestResult.Body}'");
+                try {
+                    var matchResult = JsonConvert.DeserializeObject<dynamic>(requestResult.Body);
+                    StringBuilder translationResult = new StringBuilder();
+                    foreach(var el in matchResult[0]) {
+                        translationResult.Append(el[0].ToString());
+                    }
+                    return translationResult.ToString();
                 }
-
-                return WebUtility.HtmlDecode(matchResult.Value);
+                catch (Exception ex)
+                {
+                    throw new TranslationException($"Parse error: '{ex.Message}'");
+                }
             }
 
             throw new TranslationException($"Unexpected web response: '{requestResult.Body}'");
