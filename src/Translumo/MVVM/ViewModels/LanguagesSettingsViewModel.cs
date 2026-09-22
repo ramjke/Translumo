@@ -105,23 +105,6 @@ namespace Translumo.MVVM.ViewModels
         public bool IsTtsEnabled => TtsSettings.TtsSystem != TTSEngines.None;
 
 
-        public ObservableCollection<ProxyCardItem> ProxyCollection
-        {
-            get => _proxyCollection;
-            set
-            {
-                SetProperty(ref _proxyCollection, value);
-            }
-        }
-        public bool ProxySettingsIsOpened
-        {
-            get => _proxySettingsIsOpened;
-            set
-            {
-                SetProperty(ref _proxySettingsIsOpened, value);
-                PanelStateIsChanged?.Invoke(this, value);
-            }
-        }
 
         public Languages TranslateFromLang
         {
@@ -150,13 +133,7 @@ namespace Translumo.MVVM.ViewModels
             }
         }
 
-        public ICommand ProxySettingsClickedCommand => new RelayCommand(OnProxySettingsClicked);
-        public ICommand ProxyItemDeletedCommand => new RelayCommand<ProxyCardItem>(OnProxyItemDeletedCommand);
-        public ICommand ProxyItemAddCommand => new RelayCommand(OnProxyItemAddCommand);
-        public ICommand ProxySettingsSubmitCommand => new RelayCommand<bool>(OnProxySettingsSubmit);
 
-        private ObservableCollection<ProxyCardItem> _proxyCollection;
-        private bool _proxySettingsIsOpened;
 
         private readonly DialogService _dialogService;
         private readonly OcrGeneralConfiguration _ocrConfiguration;
@@ -261,33 +238,6 @@ namespace Translumo.MVVM.ViewModels
             return result;
         }
 
-        private void OnProxySettingsClicked()
-        {
-            InitializeProxyCollection();
-            ProxySettingsIsOpened = true;
-        }
-
-        private void OnProxyItemDeletedCommand(ProxyCardItem itemToDelete)
-        {
-            _proxyCollection.Remove(itemToDelete);
-        }
-
-        private void OnProxyItemAddCommand()
-        {
-            _proxyCollection.Add(new ProxyCardItem());
-        }
-
-        private void OnProxySettingsSubmit(bool applyProxy)
-        {
-            if (applyProxy)
-            {
-                Model.ProxySettings = ProxyCollection.Where(pr => pr.IsValid())
-                    .Select(pr => pr.MapTo<ProxyCardItem, Proxy>())
-                    .ToList();
-            }
-
-            ProxySettingsIsOpened = false;
-        }
 
         private async Task ChangeSourceLanguage(Languages language)
         {
@@ -403,14 +353,9 @@ namespace Translumo.MVVM.ViewModels
             availableLang.DisplayName = LocalizationManager.GetValue(key, false, OnLocalizedValueChanged, this);
         }
 
-        private void InitializeProxyCollection()
-        {
-            ProxyCollection = new ObservableCollection<ProxyCardItem>(Model.ProxySettings.Select(st => st.MapTo<Proxy, ProxyCardItem>()));
-        }
 
         public void ClosePanel()
         {
-            ProxySettingsIsOpened = false;
         }
 
         public void Dispose()

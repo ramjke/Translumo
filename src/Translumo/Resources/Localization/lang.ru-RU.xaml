@@ -66,12 +66,6 @@
     <system:String x:Key="Str.AppearanceSettings.AutoClearTexts2">после бездействия</system:String>
     <system:String x:Key="Str.AppearanceSettings.Ms">мс</system:String>
 
-    <!--  Proxy settings  -->
-    <system:String x:Key="Str.ProxySettings.Proxy">Прокси</system:String>
-    <system:String x:Key="Str.ProxySettings.IpAddress">IP адрес</system:String>
-    <system:String x:Key="Str.ProxySettings.Port">Порт</system:String>
-    <system:String x:Key="Str.ProxySettings.Note" xml:space="preserve">Используйте IPv4 прокси чтобы избежать блокировки со стороны сервисов перевода за множественные запросы.&#13;Приложение будет равномерно использовать пул доступных прокси между запросами.</system:String>
-    <system:String x:Key="Str.ProxySettings.Caption">Список прокси — изменить</system:String>
 
 
     <!--  OCR settings  -->
@@ -154,7 +148,6 @@
     <system:String x:Key="Str.Stages.TtsNotSupportLanguageTemplate">{0} '{1}' не поддерживает '{2}' язык</system:String>
 
     <!--  Buttons  -->
-    <system:String x:Key="Str.Button.SettingProxy">Настроить прокси</system:String>
     <system:String x:Key="Str.Button.ShowText">Показать пример текста</system:String>
     <system:String x:Key="Str.Button.Apply">Применить</system:String>
 

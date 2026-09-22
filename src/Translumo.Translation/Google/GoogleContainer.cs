@@ -8,9 +8,9 @@ namespace Translumo.Translation.Google
     {
         public HttpReader Reader { get; set; }
 
-        public GoogleContainer(Proxy proxy = null, bool isPrimary = false) : base(proxy, isPrimary)
+        public GoogleContainer(bool isPrimary = false) : base(isPrimary)
         {
-            Reader = CreateReader(proxy);
+            Reader = CreateReader();
         }
 
         public override void Block()
@@ -19,10 +19,9 @@ namespace Translumo.Translation.Google
             Reader.Cookies = new CookieContainer();
         }
 
-        private HttpReader CreateReader(Proxy proxy)
+        private HttpReader CreateReader()
         {
             var httpReader = new HttpReader();
-            httpReader.Proxy = proxy?.ToWebProxy();
             httpReader.ThrowExceptions = false;
 
             httpReader.ContentType = "application/x-www-form-urlencoded; charset=UTF-8";

@@ -13,8 +13,6 @@ namespace Translumo.Translation
 
         public DateTime LastTimeUsedUtc { get; protected set; }
 
-        public Proxy Proxy { get; protected set; }
-
         public bool IsPrimary { get; }
 
         protected readonly object Obj = new object();
@@ -22,11 +20,10 @@ namespace Translumo.Translation
         private const int FAIL_USE_LIMITATION = 3;
         private const int BLOCK_TIME_MIN = 15;
 
-        protected TranslationContainer(Proxy proxy, bool isPrimary)
+        protected TranslationContainer(bool isPrimary)
         {
-            this.Proxy = proxy;
             this.IsPrimary = isPrimary;
-            this.LastTimeUsedUtc = isPrimary ? DateTime.MinValue : DateTime.MinValue.AddMinutes(1);
+            this.LastTimeUsedUtc = DateTime.MinValue;
         }
 
         public virtual void MarkContainerIsUsed(bool isSuccessful)

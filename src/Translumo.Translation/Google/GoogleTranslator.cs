@@ -54,10 +54,7 @@ namespace Translumo.Translation.Google
         
         protected override IList<GoogleContainer> CreateContainers(TranslationConfiguration configuration)
         {
-            var result = configuration.ProxySettings.Select(proxy => new GoogleContainer(proxy)).ToList();
-            result.Add(new GoogleContainer(isPrimary: true));
-
-            return result;
+            return new List<GoogleContainer> { new GoogleContainer(isPrimary: true) };
         }
 
         private static bool TryReadTranslation(HttpResponse response, out string translation)

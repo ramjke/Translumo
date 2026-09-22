@@ -7,20 +7,19 @@ namespace Translumo.Translation.Yandex
     {
         public HttpReader Reader { get; private set; }
 
-        public YandexContainer(Proxy proxy = null, bool isPrimary = false) : base(proxy, isPrimary)
+        public YandexContainer(bool isPrimary = false) : base(isPrimary)
         {
-            Reader = CreateReader(proxy);
+            Reader = CreateReader();
         }
 
-        private static HttpReader CreateReader(Proxy proxy)
+        private static HttpReader CreateReader()
         {
             return new HttpReader
             {
                 ThrowExceptions = false,
                 ContentType = "application/json",
                 Accept = "*/*",
-                UserAgent = "Translumo",
-                Proxy = proxy?.ToWebProxy()
+                UserAgent = "Translumo"
             };
         }
     }

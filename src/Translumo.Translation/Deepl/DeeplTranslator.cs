@@ -79,10 +79,7 @@ namespace Translumo.Translation.Deepl
 
         protected override IList<DeeplContainer> CreateContainers(TranslationConfiguration configuration)
         {
-            var result = configuration.ProxySettings.Select(proxy => new DeeplContainer(proxy)).ToList();
-            result.Add(new DeeplContainer(isPrimary: true));
-
-            return result;
+            return new List<DeeplContainer> { new DeeplContainer(isPrimary: true) };
         }
 
         private static string GetApiUrl(string apiKey)

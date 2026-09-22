@@ -135,44 +135,6 @@
                     Content="Voices"
                     Style="{StaticResource ControlCaptionLabel}" />
             </StackPanel>
-            <GroupBox Margin="0,20,0,0" Style="{StaticResource MaterialDesignGroupBox}">
-                <GroupBox.Header>
-                    <Label
-                        Margin="0,-7,0,-7"
-                        Content="{DynamicResource Str.ProxySettings.Proxy}"
-                        Style="{StaticResource SecondaryHeaderLabel}" />
-                </GroupBox.Header>
-                <StackPanel>
-                    <TextBlock
-                        FontSize="12"
-                        Style="{StaticResource TextBlockBase}"
-                        Text="{DynamicResource Str.ProxySettings.Note}"
-                        TextWrapping="WrapWithOverflow" />
-                    <Button
-                        Margin="0,5,0,0"
-                        HorizontalAlignment="Left"
-                        Command="{Binding ProxySettingsClickedCommand}"
-                        Content="{DynamicResource Str.Button.SettingProxy}"
-                        Style="{StaticResource PrimaryButton}" />
-                </StackPanel>
-            </GroupBox>
         </StackPanel>
-        <DockPanel
-            Grid.Row="0"
-            Grid.Column="1"
-            Margin="9,0,0,0"
-            Visibility="{Binding ProxySettingsIsOpened, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <controls:ProxyEditList
-                x:Name="ProxyListControl"
-                Padding="9,0,0,0"
-                HorizontalAlignment="Stretch"
-                AddCommand="{Binding ProxyItemAddCommand}"
-                BorderBrush="{DynamicResource PrimaryHueMidBrush}"
-                BorderThickness="1,0,0,0"
-                DeleteCommand="{Binding ProxyItemDeletedCommand}"
-                SourceList="{Binding Path=ProxyCollection, Mode=TwoWay}"
-                SubmitCommand="{Binding ProxySettingsSubmitCommand}"
-                UseLayoutRounding="False" />
-        </DockPanel>
     </Grid>
 </UserControl>

@@ -66,12 +66,6 @@
     <system:String x:Key="Str.AppearanceSettings.Ms">ms</system:String>
 
 
-    <!--  Proxy settings  -->
-    <system:String x:Key="Str.ProxySettings.Proxy">Proxy</system:String>
-    <system:String x:Key="Str.ProxySettings.IpAddress">IP address</system:String>
-    <system:String x:Key="Str.ProxySettings.Port">Port</system:String>
-    <system:String x:Key="Str.ProxySettings.Note" xml:space="preserve">Use IPv4 proxy to avoid block by translation services with a large number of simultaneous requests.&#13;The app will allocate the proxy address pool between requests.</system:String>
-    <system:String x:Key="Str.ProxySettings.Caption">Proxy list — change</system:String>
 
 
     <!--  OCR settings  -->
@@ -154,7 +148,6 @@
     <system:String x:Key="Str.Stages.TtsNotSupportLanguageTemplate">{0} '{1}' doesn't support '{2}' language</system:String>
 
     <!--  Buttons  -->
-    <system:String x:Key="Str.Button.SettingProxy">Configure proxy</system:String>
     <system:String x:Key="Str.Button.ShowText">Show text example</system:String>
     <system:String x:Key="Str.Button.Apply">Apply</system:String>
 

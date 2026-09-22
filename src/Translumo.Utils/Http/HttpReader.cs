@@ -17,8 +17,7 @@ namespace Translumo.Utils.Http
         public string? UserAgent { get; set; } = "User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko";
         public string? Accept { get; set; } = "text/html, application/xhtml+xml, */*";
         public string? ContentType { get; set; } = "application/x-www-form-urlencoded";
-        public WebProxy? Proxy { get; set; }
-
+    
         protected string? AuthorizationString;
 
 
@@ -108,7 +107,6 @@ namespace Translumo.Utils.Http
             WebRequest webRequest = WebRequest.Create(uri);
             webRequest.Method = method.ToString();
             HttpWebRequest httpWebRequest = (HttpWebRequest)webRequest;
-            httpWebRequest.Proxy = Proxy;
 
             if (UserAgent != null)
             {

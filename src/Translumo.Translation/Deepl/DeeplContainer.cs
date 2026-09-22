@@ -8,9 +8,9 @@ namespace Translumo.Translation.Deepl
     {
         public HttpReader Reader { get; private set; }
 
-        public DeeplContainer(Proxy proxy = null, bool isPrimary = false) : base(proxy, isPrimary)
+        public DeeplContainer(bool isPrimary = false) : base(isPrimary)
         {
-            Reader = CreateReader(proxy);
+            Reader = CreateReader();
         }
 
         public override void Block()
@@ -19,14 +19,13 @@ namespace Translumo.Translation.Deepl
             Reader.Cookies = new CookieContainer();
         }
 
-        private HttpReader CreateReader(Proxy proxy)
+        private HttpReader CreateReader()
         {
             var deeplReader = new HttpReader();
             deeplReader.ThrowExceptions = false;
             deeplReader.ContentType = "application/json";
             deeplReader.Accept = "*/*";
             deeplReader.UserAgent = "Translumo";
-            deeplReader.Proxy = proxy?.ToWebProxy();
 
             return deeplReader;
         }

@@ -57,7 +57,7 @@ namespace Translumo.Translation
                     container.MarkContainerIsUsed(false);
                     if (container.IsBlocked && !container.IsPrimary)
                     {
-                        Logger.LogWarning($"Translation container is blocked until {container.BlockedUntilUtc.Value.ToLocalTime()} ({container.Proxy})");
+                        Logger.LogWarning($"Translation container is blocked until {container.BlockedUntilUtc.Value.ToLocalTime()}");
                     }
                     
                     var backupContainer = GetContainer(false, container);

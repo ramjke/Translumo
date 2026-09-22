@@ -38,7 +38,7 @@ Version 1.0.x includes many changes and improvements compared to versions 0.9.x.
 
 - **Integrated modern OCR engines**: Windows OCR (recommended), Tesseract 5.2 (legacy), EasyOCR (legacy)
 
-- **Available translators**: DeepL (recommended, needs a free API key), Google Translate, Yandex Translate, Naver Papago.
+- **Available translators**: Google Translate (works out of the box), DeepL (needs a free API key), Yandex Translate (needs a Yandex Cloud API key).
 
 - **Supported recognition languages**: English, Russian, Japanese, Chinese (Simplified), Korean.
 
@@ -81,8 +81,8 @@ Reducing the capture area decreases the chance of picking up random letters from
 ### Set Up the DeepL API Key
 DeepL works through its official API, so it needs a key. Create one for free at [deepl.com/pro-api](https://www.deepl.com/pro-api) — the free plan covers 500,000 characters per month — then paste it into **Languages -> DeepL API key**. The field only appears when DeepL is selected as the translator. Both free and paid keys work; Translumo picks the right endpoint automatically.
 
-### Use Proxy List to Avoid Blocking by Translation Services
-Some translators may block clients sending many requests. Configure personal or shared IPv4 proxies (1-2 is usually enough) under **Languages → Proxy tab**. The app will alternate proxies to reduce requests from a single IP.
+### Set Up the Yandex API Key
+Yandex Translate also works through its official API. Create an API key in the [Yandex Cloud console](https://yandex.cloud/en/docs/iam/operations/api-key/create) for a service account with the `ai.translate.user` role, then paste it into **Languages -> Yandex API key**. The field only appears when Yandex is selected as the translator.
 
 ### Use Borderless or Windowed Modes in Games (Not Fullscreen)
 These modes are required for correct translation overlay display. If your game does not support them, use tools like [Borderless Gaming](https://github.com/Codeusa/Borderless-Gaming).
@@ -100,6 +100,9 @@ A: Try reinstalling while connected to a VPN.
 
 **Q: DeepL does not translate**  
 A: Check the API key in **Languages -> DeepL API key**. "The API key was rejected" means the key is wrong or expired; "translation quota exceeded" means the monthly character limit for that key is used up.
+
+**Q: Yandex does not translate**  
+A: Check the API key in **Languages -> Yandex API key**. "The API key was rejected" means the key is wrong; "no access to the translate service" means the service account is missing the `ai.translate.user` role.
 
 **Q: Hotkeys don't work**  
 A: Other applications may be intercepting hotkeys.

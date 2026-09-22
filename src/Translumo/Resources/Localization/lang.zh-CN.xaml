@@ -66,12 +66,6 @@
     <system:String x:Key="Str.AppearanceSettings.Ms">ms</system:String>
 
 
-    <!--  Proxy settings  -->
-    <system:String x:Key="Str.ProxySettings.Proxy">代理</system:String>
-    <system:String x:Key="Str.ProxySettings.IpAddress">IP地址</system:String>
-    <system:String x:Key="Str.ProxySettings.Port">端口</system:String>
-    <system:String x:Key="Str.ProxySettings.Note" xml:space="preserve">使用 IPv4 代理可以避免因大量并发请求而被服务器封禁，&#13;配置多个代理后Translumo会自动分配它们的使用频率。</system:String>
-    <system:String x:Key="Str.ProxySettings.Caption">代理列表</system:String>
 
 
     <!--  OCR settings  -->
@@ -154,7 +148,6 @@
     <system:String x:Key="Str.Stages.TtsNotSupportLanguageTemplate">{0} “{1}” 不支持 “{2}” 语言。</system:String>
 
     <!--  Buttons  -->
-    <system:String x:Key="Str.Button.SettingProxy">配置代理</system:String>
     <system:String x:Key="Str.Button.ShowText">示例文本</system:String>
     <system:String x:Key="Str.Button.Apply">接受</system:String>
 

@@ -64,10 +64,7 @@ namespace Translumo.Translation.Yandex
 
         protected override IList<YandexContainer> CreateContainers(TranslationConfiguration configuration)
         {
-            var result = configuration.ProxySettings.Select(proxy => new YandexContainer(proxy)).ToList();
-            result.Add(new YandexContainer(isPrimary: true));
-
-            return result;
+            return new List<YandexContainer> { new YandexContainer(isPrimary: true) };
         }
 
         private static string DescribeFailure(HttpResponse response)
