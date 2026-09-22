@@ -30,6 +30,7 @@
     <!--  Language settings  -->
     <system:String x:Key="Str.LangSettings.SourceLang">Исходный язык</system:String>
     <system:String x:Key="Str.LangSettings.TranslationLang">Язык перевода</system:String>
+    <system:String x:Key="Str.LangSettings.DeeplApiKey">Ключ API DeepL</system:String>
     <system:String x:Key="Str.LangSettings.Translator">Переводчик</system:String>
     <system:String x:Key="Str.LangSettings.TtsSystem">Синтез речи (TTS)</system:String>
 

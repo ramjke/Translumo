@@ -11,6 +11,7 @@ namespace Translumo.Translation.Configuration
             TranslateFromLang = Languages.English,
             TranslateToLang = Languages.Russian,
             Translator = Translators.Google,
+            DeeplApiKey = string.Empty,
             ProxySettings = new List<Proxy>()
         };
 
@@ -41,6 +42,15 @@ namespace Translumo.Translation.Configuration
             }
         }
 
+        public string DeeplApiKey
+        {
+            get => _deeplApiKey;
+            set
+            {
+                SetProperty(ref _deeplApiKey, value);
+            }
+        }
+
         public List<Proxy> ProxySettings
         {
             get => _proxySettings;
@@ -53,6 +63,7 @@ namespace Translumo.Translation.Configuration
         private Languages _translateFromLang;
         private Languages _translateToLang;
         private Translators _translator;
+        private string _deeplApiKey = string.Empty;
         private List<Proxy> _proxySettings = new List<Proxy>();
     }
 }

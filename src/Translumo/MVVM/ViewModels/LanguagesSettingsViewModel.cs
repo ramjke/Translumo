@@ -17,6 +17,7 @@ using Translumo.MVVM.Common;
 using Translumo.MVVM.Models;
 using Translumo.OCR.Configuration;
 using Translumo.OCR.WindowsOCR;
+using Translumo.Translation;
 using Translumo.Translation.Configuration;
 using Translumo.TTS;
 using Translumo.Utils;
@@ -64,6 +65,29 @@ namespace Translumo.MVVM.ViewModels
         }
 
         public bool IsTtsWindowsSelected => TtsSettings.TtsSystem == TTSEngines.WindowsTTS;
+
+        public bool IsDeeplSelected => Model.Translator == Translators.Deepl;
+
+        public Translators Translator
+        {
+            get => Model.Translator;
+            set
+            {
+                Model.Translator = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(IsDeeplSelected));
+            }
+        }
+
+        public string DeeplApiKey
+        {
+            get => Model.DeeplApiKey;
+            set
+            {
+                Model.DeeplApiKey = value;
+                OnPropertyChanged();
+            }
+        }
 
         public bool IsTtsEnabled => TtsSettings.TtsSystem != TTSEngines.None;
 

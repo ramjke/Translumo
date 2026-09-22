@@ -30,6 +30,7 @@
     <!--  Language settings  -->
     <system:String x:Key="Str.LangSettings.SourceLang">Source language</system:String>
     <system:String x:Key="Str.LangSettings.TranslationLang">Translation language</system:String>
+    <system:String x:Key="Str.LangSettings.DeeplApiKey">DeepL API key</system:String>
     <system:String x:Key="Str.LangSettings.Translator">Translator</system:String>
     <system:String x:Key="Str.LangSettings.TtsSystem">Text to speech system</system:String>
 

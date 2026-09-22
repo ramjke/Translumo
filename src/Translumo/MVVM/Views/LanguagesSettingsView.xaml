@@ -76,12 +76,24 @@
                     Width="130"
                     FontSize="14"
                     ItemsSource="{Binding Source={StaticResource dataFromEnum}}"
-                    SelectedItem="{Binding Path=Model.Translator}"
+                    SelectedItem="{Binding Path=Translator}"
                     Style="{StaticResource ComboBoxBase}" />
                 <Label
                     Margin="12,0,0,0"
                     HorizontalAlignment="Stretch"
                     Content="{DynamicResource Str.LangSettings.Translator}"
+                    Style="{StaticResource ControlCaptionLabel}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Visibility="{Binding IsDeeplSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBox
+                    Width="220"
+                    VerticalContentAlignment="Center"
+                    FontSize="14"
+                    Text="{Binding DeeplApiKey, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                <Label
+                    Margin="12,0,0,0"
+                    HorizontalAlignment="Stretch"
+                    Content="{DynamicResource Str.LangSettings.DeeplApiKey}"
                     Style="{StaticResource ControlCaptionLabel}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">

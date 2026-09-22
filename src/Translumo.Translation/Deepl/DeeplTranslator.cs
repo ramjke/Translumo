@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Net;
+using System.Text.Json;
 using System.Threading.Tasks;
-using System.Transactions;
 using Microsoft.Extensions.Logging;
 using Translumo.Infrastructure.Language;
 using Translumo.Translation.Configuration;
 using Translumo.Translation.Exceptions;
 using Translumo.Utils.Http;
-using static Translumo.Translation.Deepl.DeepLRequest;
-using static Translumo.Translation.Deepl.DeepLResponse;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Translumo.Translation.Deepl
 {
     public sealed class DeepLTranslator : BaseTranslator<DeeplContainer>
     {
-        private const string DEEPL_API_URL = "https://www2.deepl.com/jsonrpc";
-        
+        private const string FREE_API_URL = "https://api-free.deepl.com/v2/translate";
+        private const string PRO_API_URL = "https://api.deepl.com/v2/translate";
+        private const string FREE_KEY_SUFFIX = ":fx";
+
         private readonly HashSet<Languages> _unsupportedLanguages = new(new[]
         {
             Languages.Vietnamese, Languages.Thai, Languages.Belarusian, Languages.Persian
@@ -31,10 +30,14 @@ namespace Translumo.Translation.Deepl
 
         public override Task<string> TranslateTextAsync(string sourceText)
         {
-            //TODO: Temp implementation for specific lang
             if (_unsupportedLanguages.Contains(TargetLangDescriptor.Language))
             {
-                throw new TransactionException("DeepL translator is unavailable for this language");
+                throw new TranslationException("DeepL translator is unavailable for this language");
+            }
+
+            if (string.IsNullOrWhiteSpace(TranslationConfiguration.DeeplApiKey))
+            {
+                throw new TranslationException("DeepL API key is not set. Add it in the language settings");
             }
 
             return base.TranslateTextAsync(sourceText);
@@ -42,56 +45,36 @@ namespace Translumo.Translation.Deepl
 
         protected override async Task<string> TranslateTextInternal(DeeplContainer container, string sourceText)
         {
-            var sourceLangCode = SourceLangDescriptor.IsoCode.ToUpper();
-            var targetLangCode = TargetLangDescriptor.IsoCode.ToUpper();
-            var regionalCode = TargetLangDescriptor.RegionalVariant ? TargetLangDescriptor.Code : string.Empty;
+            var apiKey = TranslationConfiguration.DeeplApiKey.Trim();
+            var targetLangCode = TargetLangDescriptor.RegionalVariant
+                ? TargetLangDescriptor.Code.ToUpperInvariant()
+                : TargetLangDescriptor.IsoCode.ToUpperInvariant();
 
-            var request = new DeepLTranslatorRequest(container.DeeplId, sourceText, sourceLangCode, targetLangCode, regionalCode);
-            string dataIn = request.ToJsonString();
-            HttpResponse httpResponse = await container.Reader.RequestWebDataAsync(DEEPL_API_URL, HttpMethods.POST, dataIn, acceptCookie: true)
+            var request = new DeepLRequest(sourceText, SourceLangDescriptor.IsoCode.ToUpperInvariant(), targetLangCode);
+            container.Reader.OptionalHeaders["Authorization"] = $"DeepL-Auth-Key {apiKey}";
+
+            var response = await container.Reader
+                .RequestWebDataAsync(GetApiUrl(apiKey), HttpMethods.POST, JsonSerializer.Serialize(request))
                 .ConfigureAwait(false);
-            container.DeeplId++;
-
-            if (httpResponse.IsSuccessful)
+            if (!response.IsSuccessful)
             {
-                DeepLTranslationResponse deepLTranslationResponse;
-                try
-                {
-                    deepLTranslationResponse = JsonSerializer.Deserialize<DeepLTranslationResponse>(httpResponse.Body);
-                }
-                catch (System.Text.Json.JsonException ex)
-                {
-                    throw new TranslationException($"Unexpected body translation response: '{httpResponse.Body}'", ex);
-                }
-
-                if (deepLTranslationResponse?.Result?.Translations != null)
-                {
-                    StringBuilder stringBuilder = new StringBuilder();
-                    for (var i = 0; i < deepLTranslationResponse.Result.Translations.Count; i++)
-                    {
-                        Beam beam = deepLTranslationResponse.Result.Translations[i].Beams.FirstOrDefault();
-                        if (beam?.PostProcessedSentence != null)
-                        {
-                            stringBuilder.Append(beam.PostProcessedSentence);
-                            if (i < request.Params.Jobs.Count && request.Params.Jobs[i].NewLineFollows)
-                            {
-                                stringBuilder.Append(Environment.NewLine);
-                            }
-                            else
-                            {
-                                stringBuilder.Append(" ");
-                            }
-                        }
-                    }
-
-                    return stringBuilder.ToString().TrimEnd();
-                }
-
-
-                throw new TranslationException($"Unexpected body translation response: '{httpResponse.Body}'");
+                throw new TranslationException($"DeepL request failed: '{DescribeFailure(response)}'", response.InnerException);
             }
 
-            throw new TranslationException($"Response by translator service is not successful: '{httpResponse.InnerException?.Message ?? httpResponse.Body}'", httpResponse.InnerException);
+            try
+            {
+                var translated = JsonSerializer.Deserialize<DeepLResponse>(response.Body)?.Translations?.FirstOrDefault()?.Text;
+                if (translated == null)
+                {
+                    throw new TranslationException($"Unexpected DeepL response: '{response.Body}'");
+                }
+
+                return translated;
+            }
+            catch (JsonException ex)
+            {
+                throw new TranslationException($"Unexpected DeepL response: '{response.Body}'", ex);
+            }
         }
 
         protected override IList<DeeplContainer> CreateContainers(TranslationConfiguration configuration)
@@ -100,6 +83,31 @@ namespace Translumo.Translation.Deepl
             result.Add(new DeeplContainer(isPrimary: true));
 
             return result;
+        }
+
+        private static string GetApiUrl(string apiKey)
+        {
+            return apiKey.EndsWith(FREE_KEY_SUFFIX, StringComparison.OrdinalIgnoreCase) ? FREE_API_URL : PRO_API_URL;
+        }
+
+        private static string DescribeFailure(HttpResponse response)
+        {
+            if (response.InnerException is WebException webException && webException.Response is HttpWebResponse httpResponse)
+            {
+                switch ((int)httpResponse.StatusCode)
+                {
+                    case 403:
+                        return "the API key was rejected";
+                    case 429:
+                        return "too many requests, try again later";
+                    case 456:
+                        return "translation quota exceeded for this key";
+                    default:
+                        return $"service responded with {(int)httpResponse.StatusCode}";
+                }
+            }
+
+            return response.InnerException?.Message ?? response.Body ?? "empty response";
         }
     }
 }
