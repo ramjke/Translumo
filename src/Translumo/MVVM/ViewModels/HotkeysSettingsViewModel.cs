@@ -94,7 +94,7 @@ namespace Translumo.MVVM.ViewModels
         private void UpdateTargetHotKey(HotKeyModel model)
         {
             var targetPropInfo = _configuration.GetType().GetProperty(model.ConfigurationPropertyName);
-            var sameKeyModel = Model.FirstOrDefault(m => m.HotKey.Equals(model.HotKey) && m != model);
+            var sameKeyModel = Model.FirstOrDefault(m => m != model && Equals(m.HotKey, model.HotKey));
             if (sameKeyModel != null)
             {
                 _serviceManager.UnregisterHotKey(model.ConfigurationPropertyName);
@@ -107,12 +107,12 @@ namespace Translumo.MVVM.ViewModels
         private void UpdateTargetGamepadHotKey(HotKeyModel model)
         {
             var targetPropInfo = _configuration.GetType().GetProperty(model.GamepadConfigurationPropertyName);
-            var sameKeyModel = Model.FirstOrDefault(m => m.GamepadHotKey.Equals(model.GamepadHotKey) && m != model);
-            if (sameKeyModel != null && model.GamepadHotKey.Key != GamepadKeyCode.None)
+            var sameKeyModel = Model.FirstOrDefault(m => m != model && Equals(m.GamepadHotKey, model.GamepadHotKey));
+            if (sameKeyModel != null && model.GamepadHotKey?.Key != GamepadKeyCode.None)
             {
                 var oldValue = targetPropInfo.GetValue(_configuration) as GamepadHotKeyInfo;
                 sameKeyModel.GamepadHotKey = oldValue;
-                if (oldValue.Key == GamepadKeyCode.None)
+                if (oldValue == null || oldValue.Key == GamepadKeyCode.None)
                 {
                     sameKeyModel.HotKey = model.HotKey;
                 }

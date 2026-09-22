@@ -80,7 +80,7 @@ namespace Translumo.Utils.Extensions
                         continue;
                     }
                 }
-                if (propertyInfo.GetSetMethod() == null)
+                if (propertyInfo.GetSetMethod() == null || value == null)
                 {
                     continue;
                 }
