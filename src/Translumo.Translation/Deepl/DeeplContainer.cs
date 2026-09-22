@@ -27,6 +27,7 @@ namespace Translumo.Translation.Deepl
         private HttpReader CreateReader(Proxy proxy)
         {
             var deeplReader = new HttpReader();
+            deeplReader.ThrowExceptions = false;
             deeplReader.Referer = "https://www.deepl.com/translator";
             deeplReader.ContentType = "application/json";
             deeplReader.Accept = "*/*";

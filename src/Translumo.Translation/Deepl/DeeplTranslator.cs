@@ -54,7 +54,16 @@ namespace Translumo.Translation.Deepl
 
             if (httpResponse.IsSuccessful)
             {
-                DeepLTranslationResponse deepLTranslationResponse = JsonSerializer.Deserialize<DeepLTranslationResponse>(httpResponse.Body);
+                DeepLTranslationResponse deepLTranslationResponse;
+                try
+                {
+                    deepLTranslationResponse = JsonSerializer.Deserialize<DeepLTranslationResponse>(httpResponse.Body);
+                }
+                catch (System.Text.Json.JsonException ex)
+                {
+                    throw new TranslationException($"Unexpected body translation response: '{httpResponse.Body}'", ex);
+                }
+
                 if (deepLTranslationResponse?.Result?.Translations != null)
                 {
                     StringBuilder stringBuilder = new StringBuilder();
@@ -82,7 +91,7 @@ namespace Translumo.Translation.Deepl
                 throw new TranslationException($"Unexpected body translation response: '{httpResponse.Body}'");
             }
 
-            throw new TranslationException($"Response by translator service is not successful: '{httpResponse.Body}'", httpResponse.InnerException);
+            throw new TranslationException($"Response by translator service is not successful: '{httpResponse.InnerException?.Message ?? httpResponse.Body}'", httpResponse.InnerException);
         }
 
         protected override IList<DeeplContainer> CreateContainers(TranslationConfiguration configuration)
