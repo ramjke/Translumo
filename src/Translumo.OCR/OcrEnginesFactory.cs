@@ -144,7 +144,14 @@ namespace Translumo.OCR
 
             if (cachedEngine is IDisposable disposableEngine)
             {
-                disposableEngine.Dispose();
+                try
+                {
+                    disposableEngine.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Failed to dispose OCR engine {EngineType}", typeof(TEngine).Name);
+                }
             }
 
             _cachedEngines.Remove(cachedEngine);

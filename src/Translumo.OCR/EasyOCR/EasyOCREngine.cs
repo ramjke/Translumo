@@ -101,12 +101,15 @@ namespace Translumo.OCR.EasyOCR
             {
                 if (_objectsInitialized)
                 {
-                    _builtinsLib.Dispose();
-                    _easyOcrLib.Dispose();
-                    if (_readerIsUsed)
+                    _pythonEngine.Execute(() =>
                     {
-                        _reader.Dispose();
-                    }
+                        _builtinsLib.Dispose();
+                        _easyOcrLib.Dispose();
+                        if (_readerIsUsed)
+                        {
+                            _reader.Dispose();
+                        }
+                    });
 
                     _readerIsUsed = false;
                     _objectsInitialized = false;
