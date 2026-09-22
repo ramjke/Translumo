@@ -42,10 +42,6 @@
             <views:OcrSettingsView />
         </DataTemplate>
         <common:CaseConverter x:Key="CaseConverter" Case="Upper" />
-        <common:BoolBrushConverter
-            x:Key="HasUpdatesConverter"
-            FalseBrush="{DynamicResource PrimaryHueLightBrush}"
-            TrueBrush="{DynamicResource WarningBrush}" />
         <system:Boolean x:Key="ConfirmationClose">True</system:Boolean>
     </Window.Resources>
 
@@ -114,10 +110,18 @@
                             Command="{Binding AboutDialogOpenedCommand}"
                             DockPanel.Dock="Right"
                             Style="{StaticResource SystemAdditionalButton}">
-                            <wpf:PackIcon
-                                Foreground="{Binding HasUpdates, Mode=OneWay, Converter={StaticResource HasUpdatesConverter}}"
-                                Kind="Information"
-                                Style="{StaticResource SystemAdditionalIcon}" />
+                            <wpf:PackIcon Kind="Information">
+                                <wpf:PackIcon.Style>
+                                    <Style BasedOn="{StaticResource SystemAdditionalIcon}" TargetType="{x:Type wpf:PackIcon}">
+                                        <Setter Property="Foreground" Value="{DynamicResource PrimaryHueLightBrush}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding HasUpdates, Mode=OneWay}" Value="True">
+                                                <Setter Property="Foreground" Value="{DynamicResource WarningBrush}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </wpf:PackIcon.Style>
+                            </wpf:PackIcon>
                         </Button>
                     </DockPanel>
                     <Button
