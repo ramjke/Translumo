@@ -1,0 +1,95 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Translumo.Controls"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+
+    <Style x:Key="NumericInputStepButton" TargetType="{x:Type RepeatButton}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Width" Value="24" />
+        <Setter Property="Foreground" Value="{DynamicResource SecondaryHueDarkBrush}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Border Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource HoverBackgroundBrush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type controls:NumericInput}">
+        <Setter Property="Height" Value="{DynamicResource ControlHeight}" />
+        <Setter Property="Width" Value="96" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Background" Value="{DynamicResource SecondaryHueLightBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueDarkBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:NumericInput}">
+                    <Border
+                        x:Name="Root"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{DynamicResource ControlCornerRadius}"
+                        SnapsToDevicePixels="True">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox
+                                x:Name="PART_TextBox"
+                                Grid.Column="0"
+                                Margin="10,0,0,0"
+                                Padding="0"
+                                VerticalContentAlignment="Center"
+                                materialDesign:HintAssist.Hint=""
+                                Background="Transparent"
+                                BorderThickness="0"
+                                FontSize="{TemplateBinding FontSize}"
+                                Foreground="{TemplateBinding Foreground}"
+                                Style="{x:Null}" />
+                            <StackPanel Grid.Column="1" Orientation="Vertical">
+                                <RepeatButton
+                                    x:Name="PART_Increase"
+                                    Height="15"
+                                    Style="{StaticResource NumericInputStepButton}">
+                                    <materialDesign:PackIcon
+                                        Width="14"
+                                        Height="14"
+                                        Kind="ChevronUp" />
+                                </RepeatButton>
+                                <RepeatButton
+                                    x:Name="PART_Decrease"
+                                    Height="15"
+                                    Style="{StaticResource NumericInputStepButton}">
+                                    <materialDesign:PackIcon
+                                        Width="14"
+                                        Height="14"
+                                        Kind="ChevronDown" />
+                                </RepeatButton>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                            <Setter TargetName="Root" Property="BorderThickness" Value="2" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

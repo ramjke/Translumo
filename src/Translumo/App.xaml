@@ -19,7 +19,7 @@
                 <ResourceDictionary Source="/Themes/PackIcon.xaml" />
                 <ResourceDictionary Source="/Themes/TextBox.xaml" />
                 <ResourceDictionary Source="/Themes/ComboBox.xaml" />
-                <ResourceDictionary Source="/Themes/Spinner.xaml" />
+                <ResourceDictionary Source="/Themes/NumericInput.xaml" />
                 <ResourceDictionary Source="/Themes/CheckBox.xaml" />
                 <ResourceDictionary Source="/Themes/ToggleButton.xaml" />
 

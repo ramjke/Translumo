@@ -6,7 +6,6 @@
     xmlns:controls="clr-namespace:Translumo.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:mde="https://spiegelp.github.io/MaterialDesignExtensions/winfx/xaml"
     Name="wControl"
     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
@@ -77,8 +76,9 @@
                 Grid.Row="1"
                 Grid.Column="0"
                 Orientation="Horizontal">
-                <mde:OversizedNumberSpinner
-                    Max="80"
+                <controls:NumericInput
+                    Maximum="80"
+                    Minimum="1"
                     Value="{Binding Model.FontSize, Mode=TwoWay}" />
                 <Label Content="{DynamicResource Str.AppearanceSettings.FontSize}" Style="{StaticResource ControlCaptionLabel}" />
             </StackPanel>
@@ -86,8 +86,9 @@
                 Grid.Row="2"
                 Grid.Column="0"
                 Orientation="Horizontal">
-                <mde:OversizedNumberSpinner
-                    Max="50"
+                <controls:NumericInput
+                    Maximum="50"
+                    Minimum="1"
                     Value="{Binding Model.LineSpacing, Mode=TwoWay}" />
                 <Label Content="{DynamicResource Str.AppearanceSettings.LineSpacing}" Style="{StaticResource ControlCaptionLabel}" />
             </StackPanel>
@@ -158,12 +159,20 @@
                 Grid.Column="1"
                 Orientation="Horizontal"
                 Visibility="{Binding Model.TextProcessing.AutoClearTexts, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Label Content="{DynamicResource Str.AppearanceSettings.AutoClearTexts2}" Style="{StaticResource ControlCaptionLabel}" />
-                <mde:OversizedNumberSpinner
-                    Min="1000"
-                    Style="{StaticResource BigOversizedNumberSpinner}"
+                <Label
+                    Margin="0,0,0,0"
+                    Content="{DynamicResource Str.AppearanceSettings.AutoClearTexts2}"
+                    Style="{StaticResource ControlCaptionLabel}" />
+                <controls:NumericInput
+                    Width="84"
+                    Maximum="99999"
+                    Minimum="1000"
+                    Step="500"
                     Value="{Binding Model.TextProcessing.AutoClearTextsDelayMs, Mode=TwoWay}" />
-                <Label Content="{DynamicResource Str.AppearanceSettings.Ms}" Style="{StaticResource ControlCaptionLabel}" />
+                <Label
+                    Margin="8,0,0,0"
+                    Content="{DynamicResource Str.AppearanceSettings.Ms}"
+                    Style="{StaticResource ControlCaptionLabel}" />
             </StackPanel>
         </Grid>
         <DockPanel
