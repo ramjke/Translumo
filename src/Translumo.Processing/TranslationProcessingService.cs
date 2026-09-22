@@ -36,11 +36,12 @@ namespace Translumo.Processing
         private readonly TextDetectionProvider _textProvider;
         private readonly TextResultCacheService _textResultCacheService;
         private readonly ILogger _logger;
-        private static readonly object _obj = new object();
+        private readonly object _obj = new object();
+        private readonly object _ttsLock = new object();
 
         private ITTSEngine _ttsEngine;
-        private IEnumerable<IOCREngine> _engines;
-        private ITranslator _translator;
+        private volatile IOCREngine[] _engines;
+        private volatile ITranslator _translator;
         private TranslationConfiguration _translationConfiguration;
         private OcrGeneralConfiguration _ocrGeneralConfiguration;
         private TextProcessingConfiguration _textProcessingConfiguration;
@@ -123,10 +124,10 @@ namespace Translumo.Processing
             const int MAX_TRANSLATE_TASK_POOL = 4;
             const int SEQUENTIAL_DIFF_LETTERS = 3;
 
-            IOCREngine primaryOcr = _engines.OrderByDescending(e => e.PrimaryPriority).First();
-            IOCREngine[] otherOcr = _engines.Except(new[] { primaryOcr }).ToArray();
-
-            var detectedResults = new Task<TextDetectionResult>[otherOcr.Length + 1];
+            IOCREngine[] appliedEngines = null;
+            IOCREngine primaryOcr = null;
+            IOCREngine[] otherOcr = null;
+            Task<TextDetectionResult>[] detectedResults = null;
             var activeTranslationTasks = new List<Task>();
             Mat cachedImg = null;
             Guid iterationId;
@@ -154,6 +155,24 @@ namespace Translumo.Processing
                 return null;
             }
 
+            bool EnginesEnsureActual()
+            {
+                var actualEngines = _engines;
+                if (!ReferenceEquals(actualEngines, appliedEngines))
+                {
+                    appliedEngines = actualEngines;
+                    primaryOcr = actualEngines.OrderByDescending(e => e.PrimaryPriority).FirstOrDefault();
+                    otherOcr = primaryOcr == null
+                        ? Array.Empty<IOCREngine>()
+                        : actualEngines.Except(new[] { primaryOcr }).ToArray();
+                    detectedResults = new Task<TextDetectionResult>[otherOcr.Length + 1];
+                    cachedImg?.Dispose();
+                    cachedImg = null;
+                }
+
+                return primaryOcr != null;
+            }
+
             void CapturerEnsureInitialized()
             {
                 lock (_obj)
@@ -178,6 +197,11 @@ namespace Translumo.Processing
                     Thread.Sleep(GetIterationDelayMs(lastIterationType, sequentialText));
                     lock (_obj)
                     {
+                        if (!EnginesEnsureActual())
+                        {
+                            continue;
+                        }
+
                         if (Interlocked.Read(ref _lastTranslatedTextTicks) < DateTime.UtcNow.AddMilliseconds(clearTextDelayMs).Ticks
                             && !cancellationToken.IsCancellationRequested)
                         {
@@ -303,6 +327,11 @@ namespace Translumo.Processing
                 {
                     byte[] screenshot = _onceTimeCapturer.CaptureScreen(captureArea);
                     var taskResults = _engines.Select(engine => _textProvider.GetTextAsync(engine, screenshot)).ToArray();
+                    if (taskResults.Length == 0)
+                    {
+                        return;
+                    }
+
                     // TODO: sometimes one of task (win tts) is not complete long time and translation is not working
                     Task.WaitAll(taskResults);
                     TextDetectionResult bestDetected = GetBestDetectionResult(taskResults, 3);
@@ -330,12 +359,15 @@ namespace Translumo.Processing
 
         private async Task TranslateTextAsync(string text, Guid iterationId)
         {
-            var translation = await _translator.TranslateTextAsync(text);
+            var translation = await _translator.TranslateTextAsync(text).ConfigureAwait(false);
             if (!string.IsNullOrWhiteSpace(translation) && !_textResultCacheService.IsTranslatedCached(translation, iterationId))
             {
                 Interlocked.Exchange(ref _lastTranslatedTextTicks, DateTime.UtcNow.Ticks);
                 _chatTextMediator.SendText(translation, true);
-                _ttsEngine.SpeechText(translation);
+                lock (_ttsLock)
+                {
+                    _ttsEngine.SpeechText(translation);
+                }
 
                 try
                 {
@@ -416,8 +448,12 @@ namespace Translumo.Processing
             if (e.PropertyName == nameof(_ttsConfiguration.TtsLanguage)
                 || e.PropertyName == nameof(_ttsConfiguration.TtsSystem))
             {
-                _ttsEngine.Dispose();
-                _ttsEngine = _ttsFactory.CreateTtsEngine(_ttsConfiguration);
+                var newTtsEngine = _ttsFactory.CreateTtsEngine(_ttsConfiguration);
+                lock (_ttsLock)
+                {
+                    _ttsEngine.Dispose();
+                    _ttsEngine = newTtsEngine;
+                }
             }
         }
 
@@ -426,7 +462,7 @@ namespace Translumo.Processing
             _engines = InitializeEngines();
         }
 
-        private IEnumerable<IOCREngine> InitializeEngines()
+        private IOCREngine[] InitializeEngines()
         {
             return _enginesFactory
                 .GetEngines(_ocrGeneralConfiguration.OcrConfigurations, _translationConfiguration.TranslateFromLang)
@@ -435,7 +471,11 @@ namespace Translumo.Processing
 
         public void Dispose()
         {
-            _ttsEngine.Dispose();
+            lock (_ttsLock)
+            {
+                _ttsEngine.Dispose();
+            }
+
             _textProvider.Dispose();
             _capturer?.Dispose();
             _onceTimeCapturer?.Dispose();

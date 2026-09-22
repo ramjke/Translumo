@@ -10,8 +10,8 @@ namespace Translumo.Processing.TextProcessing
     {
         public int CacheCapacity
         {
-            get => _cachedTexts.Capacity;
-            set => _cachedTexts.Capacity = value;
+            get { lock (_cacheLock) { return _cachedTexts.Capacity; } }
+            set { lock (_cacheLock) { _cachedTexts.Capacity = value; } }
         }
 
         public int CacheLifeTimeMs { get; set; } = 3000;
@@ -22,6 +22,8 @@ namespace Translumo.Processing.TextProcessing
         private const double LOWER_SIMILARITY_THRESHOLD = 0.55;
         private const double UPPER_SIMILARITY_THRESHOLD = 0.9;
         private const double TRANSLATED_SIMILARITY_THRESHOLD = 0.955;
+
+        private readonly object _cacheLock = new object();
 
         private DateTime? _cachedDateTime;
         private Guid _iterationId = Guid.NewGuid();
@@ -39,60 +41,75 @@ namespace Translumo.Processing.TextProcessing
 
         public bool IsCached(string text, bool isSequentialText)
         {
-            bool isCached = IsCachedInternal(text);
-            if (isSequentialText && isCached)
+            lock (_cacheLock)
             {
-                _cachedTexts.Remove(text);
-                isCached = false;
-            }
-            _cachedTextsCurrentIteration.Add(new KeyValuePair<string, float>(text, default(float)));
+                bool isCached = IsCachedInternal(text);
+                if (isSequentialText && isCached)
+                {
+                    _cachedTexts.Remove(text);
+                    isCached = false;
+                }
+                _cachedTextsCurrentIteration.Add(new KeyValuePair<string, float>(text, default(float)));
 
-            return isCached;
+                return isCached;
+            }
         }
 
         public bool IsCached(string text, float score, bool isSequentialText, bool isAsianLanguage, out Guid iterationId)
         {
-            try
+            lock (_cacheLock)
             {
-                if (IsCachedInternal(text))
+                try
                 {
-                    return true;
-                }
-                
-                _cachedTextsCurrentIteration.Add(new KeyValuePair<string, float>(text, score));
+                    if (IsCachedInternal(text))
+                    {
+                        return true;
+                    }
+                    
+                    _cachedTextsCurrentIteration.Add(new KeyValuePair<string, float>(text, score));
 
-                return HasBetterSimilarText(text, score, isAsianLanguage) && !isSequentialText;
-            }
-            finally
-            {
-                iterationId = _iterationId;
+                    return HasBetterSimilarText(text, score, isAsianLanguage) && !isSequentialText;
+                }
+                finally
+                {
+                    iterationId = _iterationId;
+                }
             }
         }
 
         public bool IsTranslatedCached(string text, Guid iterationId)
         {
-            var hasSimilarity = _cachedTranslated.Any(cached => 
-                cached.Item2 == iterationId && cached.Item1.GetJaroSimilarity(text) > TRANSLATED_SIMILARITY_THRESHOLD);
-            if (!hasSimilarity)
+            lock (_cacheLock)
             {
-                _cachedTranslated.Enqueue((text, iterationId));
-            }
+                var hasSimilarity = _cachedTranslated.Any(cached => 
+                    cached.Item2 == iterationId && cached.Item1.GetJaroSimilarity(text) > TRANSLATED_SIMILARITY_THRESHOLD);
+                if (!hasSimilarity)
+                {
+                    _cachedTranslated.Enqueue((text, iterationId));
+                }
 
-            return hasSimilarity;
+                return hasSimilarity;
+            }
         }
 
         public void EndIteration()
         {
-            _cachedTextsCurrentIteration.ForEach(AddCachedText);
-            _cachedTextsCurrentIteration.Clear();
+            lock (_cacheLock)
+            {
+                _cachedTextsCurrentIteration.ForEach(AddCachedText);
+                _cachedTextsCurrentIteration.Clear();
+            }
         }
 
         public void Reset()
         {
-            _cachedTextsCurrentIteration.Clear();
-            _cachedTexts.Clear();
-            _cachedTranslated.Clear();
-            _iterationId = Guid.NewGuid();
+            lock (_cacheLock)
+            {
+                _cachedTextsCurrentIteration.Clear();
+                _cachedTexts.Clear();
+                _cachedTranslated.Clear();
+                _iterationId = Guid.NewGuid();
+            }
         }
 
         private bool IsCachedInternal(string text)

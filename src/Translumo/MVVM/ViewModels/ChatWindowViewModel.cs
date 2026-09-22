@@ -91,7 +91,7 @@ namespace Translumo.MVVM.ViewModels
             }
             else
             {
-                StartTranslation(true);
+                Model.StartTranslation();
             }
         }
 
@@ -116,13 +116,6 @@ namespace Translumo.MVVM.ViewModels
 
         private void HotKeysManagerOnOnceTranslateKeyPressed(object sender, EventArgs e)
         {
-            if (_dialogService.WindowIsOpened<SettingsViewModel>())
-            {
-                Model.AddChatItem(LocalizationManager.GetValue("Str.Chat.SettingsOpened"), TextTypes.Info);
-
-                return;
-            }
-
             var result = _dialogService.ShowWindowDialog<SelectionAreaWindow>(out var window);
             if (result.HasValue && result.Value)
             {
@@ -147,7 +140,6 @@ namespace Translumo.MVVM.ViewModels
         {
             if (!_dialogService.CloseWindow<SettingsViewModel>())
             {
-                Model.EndTranslation();
                 var scope = _serviceProvider.CreateScope();
                 var viewModel = scope.ServiceProvider.GetService<SettingsViewModel>();
                 viewModel.HasUpdates = _hasUpdates;
@@ -164,7 +156,7 @@ namespace Translumo.MVVM.ViewModels
             ChatWindowIsVisible = !ChatWindowIsVisible;
             if (ChatWindowIsVisible)
             {
-                StartTranslation(false);
+                Model.StartTranslation();
             }
             else
             {
@@ -195,21 +187,6 @@ namespace Translumo.MVVM.ViewModels
                 HtmlPage = result?.Body,
                 Cookies = result?.Cookies
             };
-        }
-
-        private void StartTranslation(bool showWarning)
-        {
-            if (_dialogService.WindowIsOpened<SettingsViewModel>())
-            {
-                if (showWarning)
-                {
-                    Model.AddChatItem(LocalizationManager.GetValue("Str.Chat.SettingsOpened"), TextTypes.Info);
-                }
-
-                return;
-            }
-
-            Model.StartTranslation();
         }
 
         private void SendHelpText()
