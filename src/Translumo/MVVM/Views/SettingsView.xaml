@@ -83,7 +83,7 @@
                                 Loaded="SnMenu_Loaded"
                                 NavigationItemFeedback="{DynamicResource SecondaryHueLightBrush}"
                                 NavigationItemSelectedCommand="{Binding NavigationItemSelectedCommand}"
-                                SelectionBackground="{DynamicResource HoverBackgroundBrush}"
+                                SelectionBackground="{DynamicResource ChromeSelectionBrush}"
                                 SelectionForeground="{DynamicResource ChromeForegroundBrush}"
                                 Style="{DynamicResource MaterialSideNavigationBlock}" />
                         </materialDesign:ColorZone>

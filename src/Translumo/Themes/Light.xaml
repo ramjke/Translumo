@@ -22,7 +22,8 @@
     <SolidColorBrush x:Key="ErrorBrush" Color="#f03a16" />
     <SolidColorBrush x:Key="WarningBrush" Color="#ffdad6" />
     <SolidColorBrush x:Key="HoverBackgroundBrush" Color="#ebf5f7" />
-    <SolidColorBrush x:Key="ChromeBackgroundBrush" Color="#95c4cc" />
-    <SolidColorBrush x:Key="ChromeForegroundBrush" Color="#1b1d23" />
+    <SolidColorBrush x:Key="ChromeBackgroundBrush" Color="#2f6069" />
+    <SolidColorBrush x:Key="ChromeForegroundBrush" Color="#fffafafa" />
+    <SolidColorBrush x:Key="ChromeSelectionBrush" Color="#3f7d8a" />
 
 </ResourceDictionary>

@@ -31,7 +31,7 @@
             HorizontalAlignment="Left">
             <Grid.Resources>
                 <Style TargetType="{x:Type StackPanel}">
-                    <Setter Property="Margin" Value="0,0,0,7" />
+                    <Setter Property="Margin" Value="0,0,0,8" />
                 </Style>
             </Grid.Resources>
             <Grid.ColumnDefinitions>
@@ -39,11 +39,11 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="70" />
-                <RowDefinition Height="70" />
-                <RowDefinition Height="70" />
+                <RowDefinition Height="56" />
+                <RowDefinition Height="56" />
+                <RowDefinition Height="56" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="70" />
+                <RowDefinition Height="56" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <StackPanel
@@ -78,7 +78,6 @@
                 Grid.Column="0"
                 Orientation="Horizontal">
                 <mde:OversizedNumberSpinner
-                    Height="70"
                     Max="80"
                     Value="{Binding Model.FontSize, Mode=TwoWay}" />
                 <Label Content="{DynamicResource Str.AppearanceSettings.FontSize}" Style="{StaticResource ControlCaptionLabel}" />
@@ -88,7 +87,6 @@
                 Grid.Column="0"
                 Orientation="Horizontal">
                 <mde:OversizedNumberSpinner
-                    Height="70"
                     Max="50"
                     Value="{Binding Model.LineSpacing, Mode=TwoWay}" />
                 <Label Content="{DynamicResource Str.AppearanceSettings.LineSpacing}" Style="{StaticResource ControlCaptionLabel}" />
@@ -97,12 +95,11 @@
                 Grid.Row="3"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
-                Margin="10,12,0,0"
+                Margin="0,12,0,0"
                 Orientation="Horizontal">
                 <ComboBox
-                    Width="300"
+                    Width="220"
                     DisplayMemberPath="DisplayText"
-                    FontSize="16"
                     ItemsSource="{Binding Path=AvailableAlignments}"
                     SelectedValue="{Binding Path=Model.TextAlignment, Mode=TwoWay}"
                     SelectedValuePath="TextAlignment"
@@ -111,7 +108,6 @@
             <StackPanel
                 Grid.Row="4"
                 Grid.Column="0"
-                Margin="10,0,0,0"
                 Orientation="Horizontal">
                 <ToggleButton IsChecked="{Binding Model.TextProcessing.AutoClearTexts}" Style="{StaticResource PrimaryToggleButton}" />
                 <Label Content="{DynamicResource Str.AppearanceSettings.AutoClearTexts}" Style="{StaticResource ControlCaptionLabel}" />
@@ -120,9 +116,8 @@
                 Grid.Row="5"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
-                Margin="10,0,0,0"
                 Orientation="Vertical">
-                <StackPanel Margin="0,0,0,14" Orientation="Horizontal">
+                <StackPanel Margin="0,0,0,16" Orientation="Horizontal">
                     <ToggleButton
                         x:Name="ExcludeFromCaptueToggle"
                         IsChecked="{Binding Model.ExcludeFromCaptue}"
@@ -132,12 +127,12 @@
                 <Label Content="{DynamicResource Str.AppearanceSettings.WindowOpacity}" />
                 <Slider
                     Name="slicderFontOpacity"
-                    Width="230"
+                    Width="220"
                     HorizontalAlignment="Left"
                     Style="{DynamicResource MaterialDesignSlider}"
                     Value="{Binding Model.BackgroundOpacity, Converter={StaticResource SliderPercentValueConverter}}" />
                 <Button
-                    Margin="0,30,0,0"
+                    Margin="0,24,0,0"
                     HorizontalAlignment="Left"
                     Command="{Binding SendTestTextCommand}"
                     Content="{DynamicResource Str.Button.ShowText}"
@@ -161,12 +156,10 @@
             <StackPanel
                 Grid.Row="4"
                 Grid.Column="1"
-                Margin="-6,0,0,0"
                 Orientation="Horizontal"
                 Visibility="{Binding Model.TextProcessing.AutoClearTexts, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Label Content="{DynamicResource Str.AppearanceSettings.AutoClearTexts2}" Style="{StaticResource ControlCaptionLabel}" />
                 <mde:OversizedNumberSpinner
-                    Height="70"
                     Min="1000"
                     Style="{StaticResource BigOversizedNumberSpinner}"
                     Value="{Binding Model.TextProcessing.AutoClearTextsDelayMs, Mode=TwoWay}" />

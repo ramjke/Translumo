@@ -4,8 +4,8 @@
 
     <Style TargetType="mde:OversizedNumberSpinner">
         <Setter Property="Background" Value="{DynamicResource SecondaryHueLightBrush}"></Setter>
-        <Setter Property="Width" Value="30"></Setter>
-        <Setter Property="Height" Value="58"></Setter>
+        <Setter Property="Width" Value="32"></Setter>
+        <Setter Property="Height" Value="48"></Setter>
         <Setter Property="Min" Value="1"></Setter>
     </Style>
 

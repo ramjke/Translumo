@@ -24,5 +24,6 @@
     <SolidColorBrush x:Key="HoverBackgroundBrush" Color="#2e333c" />
     <SolidColorBrush x:Key="ChromeBackgroundBrush" Color="#1b1d23" />
     <SolidColorBrush x:Key="ChromeForegroundBrush" Color="#fffafafa" />
+    <SolidColorBrush x:Key="ChromeSelectionBrush" Color="#2e333c" />
 
 </ResourceDictionary>
