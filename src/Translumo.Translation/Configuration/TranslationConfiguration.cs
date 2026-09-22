@@ -10,6 +10,7 @@ namespace Translumo.Translation.Configuration
         {
             TranslateFromLang = Languages.English,
             TranslateToLang = Languages.Russian,
+            Translator = Translators.Google,
             ProxySettings = new List<Proxy>()
         };
 
