@@ -19,22 +19,6 @@
             <CheckBox
                 Margin="2,0,0,0"
                 Content="{materialDesign:PackIcon Close}"
-                IsChecked="{Binding TesseractOcrEnabled}"
-                Style="{StaticResource RoundedCheckBox}" />
-            <Label
-                Content="{DynamicResource Str.OcrSettings.TesseractOcr}"
-                FontWeight="{Binding TesseractOcrEnabled, Converter={StaticResource boldFontConverter}}"
-                Style="{StaticResource ControlCaptionLabel}" />
-        </StackPanel>
-        <StackPanel>
-            <Label>
-                <TextBlock common:Inlines.Text="{DynamicResource Str.OcrSettings.TesseractOcrDesc}" Style="{StaticResource TextBlockBase}" />
-            </Label>
-        </StackPanel>
-        <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
-            <CheckBox
-                Margin="2,0,0,0"
-                Content="{materialDesign:PackIcon Close}"
                 IsChecked="{Binding WindowsOcrEnabled}"
                 Style="{StaticResource RoundedCheckBox}" />
             <Label

@@ -36,7 +36,7 @@ Version 1.0.x includes many changes and improvements compared to versions 0.9.x.
 - **Low latency**  
   Several optimizations reduce system impact and minimize latency between text appearance and translation.
 
-- **Integrated modern OCR engines**: Windows OCR (recommended), Tesseract 5.2 (legacy), EasyOCR (legacy)
+- **Integrated modern OCR engines**: Windows OCR (recommended), EasyOCR
 
 - **Available translators**: Google Translate (works out of the box), DeepL (needs a free API key), Yandex Translate (needs a Yandex Cloud API key).
 
@@ -46,7 +46,7 @@ Version 1.0.x includes many changes and improvements compared to versions 0.9.x.
 
 ## System Requirements
 
-### Minimal requirements to use Tesseract and Windows OCR
+### Minimal requirements to use Windows OCR
 - Windows 10 version 2004 (build 19041) or later, or Windows 11
 - DirectX 11 compatible GPU
 - 2 GB RAM
@@ -66,14 +66,11 @@ Version 1.0.x includes many changes and improvements compared to versions 0.9.x.
 4. Define the capture area: press **Alt+Q** and select an area on the screen
 5. Run translation (press **~**)
 
-### Recommended OCR Engines
+### Which OCR Engine to Use
 
-- It is recommended to use **WindowsOCR** only.
+**WindowsOCR** is fast, and for most text it is all you need.
 
-Tesseract is old, slow, and produces many errors.  
-EasyOCR is even slower, requires significant resources (including a specific GPU), and often leads to bugs.  
-
-It’s probably better to remove all other OCR engines and keep only WindowsOCR, but they are still included in Translumo for historical reasons.
+EasyOCR is worth turning on when the text uses an unusual font or sits on a busy background — it copes with that noticeably better. In exchange it is slower and needs an Nvidia GPU.
 
 ### Select Minimum Capture Area
 Reducing the capture area decreases the chance of picking up random letters from the background. Larger frames take longer to process.
@@ -107,9 +104,6 @@ A: Check the API key in **Languages -> Yandex API key**. "The API key was reject
 **Q: Hotkeys don't work**  
 A: Other applications may be intercepting hotkeys.
 
-**Q: Text detection failed (TesseractOCREngine)**  
-A: Ensure the application path contains only Latin letters.
-
 ## Build
 
 *Visual Studio 2022 and .NET 8 SDK are required.*
@@ -125,7 +119,6 @@ A: Ensure the application path contains only Latin letters.
 ## Credits
 
 - [Material Design In XAML Toolkit](https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit)  
-- [Tesseract .NET wrapper](https://github.com/charlesw/tesseract)  
 - [OpenCvSharp](https://github.com/shimat/opencvsharp)  
 - [Python.NET](https://github.com/pythonnet/pythonnet)  
 - [EasyOCR](https://github.com/JaidedAI/EasyOCR)  

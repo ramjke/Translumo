@@ -69,11 +69,9 @@
 
 
     <!--  OCR settings  -->
-    <system:String x:Key="Str.OcrSettings.TesseractOcr">Tesseract OCR</system:String>
     <system:String x:Key="Str.OcrSettings.WindowsOcr">Windows OCR</system:String>
     <system:String x:Key="Str.OcrSettings.EasyOcr">EasyOCR</system:String>
-    <system:String x:Key="Str.OcrSettings.TesseractOcrDesc" xml:space="preserve">Tesseract 5.0 with LSTM mode. One of the most popular early open-source OCR solution.&#13;Consistently recognizes text with simple solid background.&#13;&lt;Bold&gt;Performance impact:&lt;/Bold&gt; low</system:String>
-    <system:String x:Key="Str.OcrSettings.WindowsOcrDesc" xml:space="preserve">Native OCR solution by Microsoft. Able to handle a more complex background then Tesseract.&#13;&lt;Bold&gt;Performance impact:&lt;/Bold&gt; minor</system:String>
+    <system:String x:Key="Str.OcrSettings.WindowsOcrDesc" xml:space="preserve">Native OCR solution by Microsoft. Handles complex backgrounds and fonts well.&#13;&lt;Bold&gt;Performance impact:&lt;/Bold&gt; minor</system:String>
     <system:String x:Key="Str.OcrSettings.WindowsOcrDesc2">Additional language packs may need to be installed</system:String>
     <system:String x:Key="Str.OcrSettings.EasyOcrDesc" xml:space="preserve">The most advanced open-source OCR solution by Jaided AI.&#13;High precision of text recognition even with a complex background and uncommon fonts.&#13;&lt;Bold&gt;Performance impact:&lt;/Bold&gt; high</system:String>
     <system:String x:Key="Str.OcrSettings.EasyOcrDesc2">Installation additional packages (Python, PyTorch) is required</system:String>

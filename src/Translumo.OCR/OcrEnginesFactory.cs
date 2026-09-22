@@ -6,7 +6,6 @@ using Translumo.Infrastructure.Language;
 using Translumo.Infrastructure.Python;
 using Translumo.OCR.Configuration;
 using Translumo.OCR.EasyOCR;
-using Translumo.OCR.Tesseract;
 using Translumo.OCR.WindowsOCR;
 
 namespace Translumo.OCR
@@ -53,22 +52,6 @@ namespace Translumo.OCR
                     }
                 }
 
-                if (confType == typeof(TesseractOCRConfiguration))
-                {
-                    if (!TryRemoveIfDisabled<TesseractOCREngine>(ocrConfiguration))
-                    {
-                        var engine = TryGetEngine(() => new TesseractOCREngine(langDescriptor), detectionLanguage);
-                        if (engine != null)
-                            yield return engine;
-                    }
-
-                    if (!TryRemoveIfDisabled<TesseractOCREngineWIthPreprocess>(ocrConfiguration))
-                    {
-                        var engine = TryGetEngine(() => new TesseractOCREngineWIthPreprocess(langDescriptor), detectionLanguage);
-                        if (engine != null)
-                            yield return engine;
-                    }
-                }
 
                 if (confType == typeof(EasyOCRConfiguration))
                 {

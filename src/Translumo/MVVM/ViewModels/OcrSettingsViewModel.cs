@@ -8,7 +8,6 @@ using Translumo.Dialog.Stages;
 using Translumo.Infrastructure.Language;
 using Translumo.OCR.Configuration;
 using Translumo.OCR.EasyOCR;
-using Translumo.OCR.Tesseract;
 using Translumo.OCR.WindowsOCR;
 using Translumo.Translation.Configuration;
 using Translumo.Utils;
@@ -48,15 +47,6 @@ namespace Translumo.MVVM.ViewModels
             }
         }
 
-        public bool TesseractOcrEnabled
-        {
-            get => _ocrConfiguration.GetConfiguration<TesseractOCRConfiguration>().Enabled;
-            set
-            {
-                _ocrConfiguration.GetConfiguration<TesseractOCRConfiguration>().Enabled = value;
-                OnPropertyChanged(nameof(TesseractOcrEnabled));
-            }
-        }
 
         private OcrGeneralConfiguration _ocrConfiguration;
         private TranslationConfiguration _translationConfiguration;

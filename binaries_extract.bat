@@ -8,19 +8,17 @@ set "downloadUrl=https://github.com/ramjke/Translumo/releases/download/v.0.8.5/_
 
 set "targetPaths[0]=%~1python\"
 set "targetPaths[1]=%~1models\easyocr\"
-set "targetPaths[2]=%~1models\tessdata\"
-set "targetPaths[3]=%~1models\prediction\"
+set "targetPaths[2]=%~1models\prediction\"
 
 set "inputBinariesPaths[0]=%componentsPath%\python"
 set "inputBinariesPaths[1]=%componentsPath%\models\easyocr"
-set "inputBinariesPaths[2]=%componentsPath%\models\tessdata"
-set "inputBinariesPaths[3]=%componentsPath%\models\prediction"
+set "inputBinariesPaths[2]=%componentsPath%\models\prediction"
 
 echo Prebuild: Starting binaries downloading and extraction (binaries_extract.bat)...
 
 :: Check if target folders already exist
 set "allFoldersExist=1"
-for %%i in (0,1,2,3) do if NOT exist "!targetPaths[%%i]!" set "allFoldersExist=0"
+for %%i in (0,1,2) do if NOT exist "!targetPaths[%%i]!" set "allFoldersExist=0"
 
 if "!allFoldersExist!"=="1" (
     echo Folders exist in the target location. Extraction and copy skipped.
@@ -45,7 +43,7 @@ if errorlevel 1 (
 
 echo Copy binary/model folders to target locations...
 
-for %%i in (0,1,2,3) do (
+for %%i in (0,1,2) do (
     if NOT exist "!targetPaths[%%i]!" (
         echo Path not found: !targetPaths[%%i]!
         mkdir "!targetPaths[%%i]!" 2>nul

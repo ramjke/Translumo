@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Reflection;
 using System.Threading;
 using System.Xml.Serialization;
@@ -53,7 +54,7 @@ namespace Translumo.Configuration
                 _logger.LogTrace($"Loading configuration from '{confPath}'");
                 using (FileStream fs = new FileStream(confPath, FileMode.Open))
                 {
-                    var decryptedConfig = ReplaceRemovedTranslators(_encryptionService.Decrypt(fs, ENCRYPTION_PASSWORD));
+                    var decryptedConfig = DropRemovedEngines(_encryptionService.Decrypt(fs, ENCRYPTION_PASSWORD));
                     using (var textReader = new StringReader(decryptedConfig))
                     {
                         savedConfigs = serializer.Deserialize(textReader) as List<object>;
@@ -142,9 +143,11 @@ namespace Translumo.Configuration
         }
 
 
-        private static string ReplaceRemovedTranslators(string configuration)
+        private static string DropRemovedEngines(string configuration)
         {
-            return configuration.Replace("<Translator>Papago</Translator>", "<Translator>Google</Translator>");
+            configuration = configuration.Replace("<Translator>Papago</Translator>", "<Translator>Google</Translator>");
+
+            return Regex.Replace(configuration, @"\s*<OcrConfiguration xsi:type=""TesseractOCRConfiguration"">.*?</OcrConfiguration>", string.Empty, RegexOptions.Singleline);
         }
 
         private string GetConfigurationPath()

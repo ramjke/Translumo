@@ -69,11 +69,9 @@
 
 
     <!--  OCR settings  -->
-    <system:String x:Key="Str.OcrSettings.TesseractOcr">Tesseract OCR</system:String>
     <system:String x:Key="Str.OcrSettings.WindowsOcr">Windows OCR</system:String>
     <system:String x:Key="Str.OcrSettings.EasyOcr">EasyOCR</system:String>
-    <system:String x:Key="Str.OcrSettings.TesseractOcrDesc" xml:space="preserve">Tesseract 5.0，采用LSTM mode。它是早期最流行的开源OCR（图文识别）解决方案之一。&#13;&#13;能够识别纯色背景排版、字体不复杂的简单文本。&#13;&#13;&lt;Bold&gt;性能影响:&lt;/Bold&gt; 低</system:String>
-    <system:String x:Key="Str.OcrSettings.WindowsOcrDesc" xml:space="preserve">微软原生OCR解决方案。能够处理比Tesseract更复杂的背景。&#13;&#13;&lt;Bold&gt;性能影响:&lt;/Bold&gt; 中</system:String>
+    <system:String x:Key="Str.OcrSettings.WindowsOcrDesc" xml:space="preserve">微软原生OCR解决方案。可很好地处理复杂背景和字体。&#13;&#13;&lt;Bold&gt;性能影响:&lt;/Bold&gt; 中</system:String>
     <system:String x:Key="Str.OcrSettings.WindowsOcrDesc2">可能需要安装其他语言包。</system:String>
     <system:String x:Key="Str.OcrSettings.EasyOcrDesc" xml:space="preserve">Jaided AI出品的最先进的开源OCR解决方案。&#13;&#13;即使在识别复杂的背景以及花哨的字体时，也能实现高精度的文本识别。&#13;&#13;&lt;Bold&gt;性能影响:&lt;/Bold&gt; 高</system:String>
     <system:String x:Key="Str.OcrSettings.EasyOcrDesc2">需要安装（Python、PyTorch）其他软件包。</system:String>

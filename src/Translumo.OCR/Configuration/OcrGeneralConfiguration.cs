@@ -4,7 +4,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Translumo.Infrastructure.Language;
 using Translumo.OCR.EasyOCR;
-using Translumo.OCR.Tesseract;
 using Translumo.OCR.WindowsOCR;
 using Translumo.Utils.Extensions;
 
@@ -15,7 +14,7 @@ namespace Translumo.OCR.Configuration
         public static OcrGeneralConfiguration Default => new OcrGeneralConfiguration()
         {
             OcrConfigurations = new OcrConfiguration[]
-                { new EasyOCRConfiguration(), new WindowsOCRConfiguration(), new TesseractOCRConfiguration() },
+                { new EasyOCRConfiguration(), new WindowsOCRConfiguration() },
         };
 
         public OcrConfiguration[] OcrConfigurations

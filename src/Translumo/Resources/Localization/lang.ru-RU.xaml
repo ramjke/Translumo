@@ -69,11 +69,9 @@
 
 
     <!--  OCR settings  -->
-    <system:String x:Key="Str.OcrSettings.TesseractOcr">Tesseract OCR</system:String>
     <system:String x:Key="Str.OcrSettings.WindowsOcr">Windows OCR</system:String>
     <system:String x:Key="Str.OcrSettings.EasyOcr">EasyOCR</system:String>
-    <system:String x:Key="Str.OcrSettings.TesseractOcrDesc" xml:space="preserve">Tesseract 5.0 в LSTM режиме. Одно из самых популярных и ранних open-source OCR решений.&#13;Стабильно определяет текст с простым шрифтом и идеальным однотонным фоном.&#13;&lt;Bold&gt;Влияние на производительность:&lt;/Bold&gt; небольшое</system:String>
-    <system:String x:Key="Str.OcrSettings.WindowsOcrDesc" xml:space="preserve">Нативное OCR решение от Microsoft. Способно работать с более сложным фоном и&#13;шрифтами, чем Tesseract.&#13;&lt;Bold&gt;Влияние на производительность:&lt;/Bold&gt; минимальное</system:String>
+    <system:String x:Key="Str.OcrSettings.WindowsOcrDesc" xml:space="preserve">Нативное OCR решение от Microsoft. Хорошо справляется со сложным фоном и шрифтами.&#13;&lt;Bold&gt;Влияние на производительность:&lt;/Bold&gt; минимальное</system:String>
     <system:String x:Key="Str.OcrSettings.WindowsOcrDesc2">Необходима установка дополнительных языковых пакетов</system:String>
     <system:String x:Key="Str.OcrSettings.EasyOcrDesc" xml:space="preserve">Наиболее продвинутое open-source OCR решение от Jaided AI.&#13;Высокая точность определение даже со сложным фоном и нестандартными шрифтами.&#13;&lt;Bold&gt;Влияние на производительность:&lt;/Bold&gt; высокое</system:String>
     <system:String x:Key="Str.OcrSettings.EasyOcrDesc2">Необходима установка дополнительных модулей (Python, PyTorch)</system:String>

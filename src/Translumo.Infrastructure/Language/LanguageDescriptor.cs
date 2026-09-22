@@ -6,8 +6,6 @@
 
         public string Code { get; set; }
 
-        public string TesseractCode { get; set; }
-
         public string EasyOcrCode { get; set; }
 
         public string IsoCode { get; set; }
