@@ -40,9 +40,7 @@
             </controls:OverlayControl.Triggers>
 
             <Grid>
-                <Grid.Background>
-                    <SolidColorBrush Opacity="0.5" Color="{Binding Color, Source={DynamicResource PrimaryHueMidBrush}}"></SolidColorBrush>
-                </Grid.Background>
+                <Border Background="{DynamicResource PrimaryHueMidBrush}" Opacity="0.5" />
                 <TextBlock Text="{Binding NotificationCaption}" Name="TbCaption" Visibility="Collapsed" Style="{StaticResource NotificationTextBlock}" Margin="5,0,0,0"/>
             </Grid>
         </controls:OverlayControl>
