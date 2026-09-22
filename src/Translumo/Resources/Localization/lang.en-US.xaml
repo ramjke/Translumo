@@ -158,6 +158,7 @@
     <system:String x:Key="Str.Button.ShowText">Show text example</system:String>
     <system:String x:Key="Str.Button.Apply">Apply</system:String>
 
+    <system:String x:Key="Str.UnhandledError">An unexpected error occurred:&#13;&#13;{0}&#13;&#13;The application will keep running, but something may not work correctly. Details are in the log file.</system:String>
     <system:String x:Key="Str.Lookupper.ProjectNote">My other project</system:String>
     <system:String x:Key="Str.Lookupper.LinkText">Lookupper — learning a language through games →</system:String>
     <system:String x:Key="Str.Lookupper.Url">https://lookupper.com</system:String>
