@@ -16,10 +16,10 @@ Lookupper — это мой коммерческий проект с беспл�
 ## Скачать Translumo
 
 **Прямая ссылка для скачивания последней версии:**  
-[Translumo_1.0.2.zip](https://github.com/ramjke/Translumo/releases/download/v.1.0.2/Translumo_1.0.2.zip)  
+[Translumo_1.1.0.zip](https://github.com/ramjke/Translumo/releases/download/v.1.1.0/Translumo_1.1.0.zip)  
 После скачивания распакуйте архив и запустите `Translumo.exe`.
 
-Версия 1.0.x включает множество изменений и улучшений по сравнению с версиями 0.9.x. Полный список обновлений смотрите на [странице релизов](https://github.com/ramjke/Translumo/releases).
+Версия 1.1.0 переводит DeepL и Яндекс на официальные API, поэтому обоим теперь нужен API-ключ. Google Translate по-прежнему работает без настройки. Полный список изменений на [странице релизов](https://github.com/ramjke/Translumo/releases).
 
 ## Основные функции
 
