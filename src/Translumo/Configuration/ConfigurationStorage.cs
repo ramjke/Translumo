@@ -53,7 +53,7 @@ namespace Translumo.Configuration
                 _logger.LogTrace($"Loading configuration from '{confPath}'");
                 using (FileStream fs = new FileStream(confPath, FileMode.Open))
                 {
-                    var decryptedConfig = _encryptionService.Decrypt(fs, ENCRYPTION_PASSWORD);
+                    var decryptedConfig = ReplaceRemovedTranslators(_encryptionService.Decrypt(fs, ENCRYPTION_PASSWORD));
                     using (var textReader = new StringReader(decryptedConfig))
                     {
                         savedConfigs = serializer.Deserialize(textReader) as List<object>;
@@ -141,6 +141,11 @@ namespace Translumo.Configuration
             }
         }
 
+
+        private static string ReplaceRemovedTranslators(string configuration)
+        {
+            return configuration.Replace("<Translator>Papago</Translator>", "<Translator>Google</Translator>");
+        }
 
         private string GetConfigurationPath()
         {

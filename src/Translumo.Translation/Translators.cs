@@ -7,8 +7,6 @@ namespace Translumo.Translation
 
         Yandex = 1,
 
-        Google = 2,
-
-        Papago = 3
+        Google = 2
     }
 }
