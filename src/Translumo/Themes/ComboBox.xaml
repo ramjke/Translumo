@@ -2,5 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style x:Key="ComboBoxBase" BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox">
         <Setter Property="Width" Value="130"></Setter>
+        <Setter Property="Height" Value="{DynamicResource ControlHeight}"></Setter>
+        <Setter Property="FontSize" Value="14"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
     </Style>
 </ResourceDictionary>

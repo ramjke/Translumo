@@ -7,12 +7,14 @@
         <Setter Property="Foreground" Value="#1b1d23"></Setter>
         <Setter Property="BorderBrush" Value="#868787"></Setter>
         <Setter Property="BorderThickness" Value="1"></Setter>
-        <Setter Property="FontWeight" Value="Bold"></Setter>
-        <Setter Property="FontSize" Value="15"></Setter>
+        <Setter Property="FontWeight" Value="SemiBold"></Setter>
+        <Setter Property="FontSize" Value="14"></Setter>
+        <Setter Property="Height" Value="{DynamicResource ControlHeight}"></Setter>
+        <Setter Property="Padding" Value="{DynamicResource ControlPadding}"></Setter>
         <Setter Property="IsReadOnly" Value="True"></Setter>
         <Style.Resources>
             <Style TargetType="Border">
-                <Setter Property="CornerRadius" Value="4"></Setter>
+                <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}"></Setter>
             </Style>
         </Style.Resources>
     </Style>

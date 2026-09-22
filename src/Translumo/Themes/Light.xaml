@@ -23,6 +23,6 @@
     <SolidColorBrush x:Key="WarningBrush" Color="#ffdad6" />
     <SolidColorBrush x:Key="HoverBackgroundBrush" Color="#ebf5f7" />
     <SolidColorBrush x:Key="ChromeBackgroundBrush" Color="#95c4cc" />
-    <SolidColorBrush x:Key="ChromeForegroundBrush" Color="#fffafafa" />
+    <SolidColorBrush x:Key="ChromeForegroundBrush" Color="#1b1d23" />
 
 </ResourceDictionary>

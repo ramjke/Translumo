@@ -65,29 +65,32 @@
                     <Image
                         Grid.Row="0"
                         Height="37"
-                        Margin="10,0,0,0"
+                        Margin="16,0,0,0"
                         HorizontalAlignment="Left"
                         RenderOptions.BitmapScalingMode="HighQuality"
                         Source="../../Resources/Icons/logo_full.png" />
                     <DockPanel Grid.Row="1">
-                        <materialDesign:ColorZone Mode="PrimaryDark">
+                        <materialDesign:ColorZone
+                            Background="{DynamicResource ChromeBackgroundBrush}"
+                            Foreground="{DynamicResource ChromeForegroundBrush}"
+                            Mode="Custom">
                             <mde:SideNavigation
                                 Name="SnMenu"
                                 Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-                                IconForeground="{DynamicResource MaterialDesignDarkForeground}"
+                                IconForeground="{DynamicResource ChromeForegroundBrush}"
                                 Items="{Binding Path=NavigationItems, Mode=OneTime}"
                                 LabelForeground="{DynamicResource ChromeForegroundBrush}"
                                 Loaded="SnMenu_Loaded"
                                 NavigationItemFeedback="{DynamicResource SecondaryHueLightBrush}"
                                 NavigationItemSelectedCommand="{Binding NavigationItemSelectedCommand}"
-                                SelectionBackground="{DynamicResource MaterialDesignBackground}"
-                                SelectionForeground="{DynamicResource MaterialDesignBackground}"
+                                SelectionBackground="{DynamicResource HoverBackgroundBrush}"
+                                SelectionForeground="{DynamicResource ChromeForegroundBrush}"
                                 Style="{DynamicResource MaterialSideNavigationBlock}" />
                         </materialDesign:ColorZone>
                     </DockPanel>
                     <DockPanel Grid.Row="2" ZIndex="1000">
                         <ListView
-                            Margin="8,0,0,0"
+                            Margin="16,0,0,0"
                             DockPanel.Dock="Left"
                             ItemContainerStyle="{StaticResource OutlinedListViewItem}"
                             ItemsSource="{Binding AvailableLanguages}"
@@ -95,7 +98,7 @@
                             SelectedValuePath="Name">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding TwoLetterISOLanguageName, Converter={StaticResource CaseConverter}}" Style="{StaticResource LightLabel}" />
+                                    <Label Content="{Binding TwoLetterISOLanguageName, Converter={StaticResource CaseConverter}}" Style="{StaticResource ChromeLabel}" />
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                             <ListView.ItemsPanel>
@@ -113,7 +116,7 @@
                             <wpf:PackIcon Kind="Information">
                                 <wpf:PackIcon.Style>
                                     <Style BasedOn="{StaticResource SystemAdditionalIcon}" TargetType="{x:Type wpf:PackIcon}">
-                                        <Setter Property="Foreground" Value="{DynamicResource PrimaryHueLightBrush}" />
+                                        <Setter Property="Foreground" Value="{DynamicResource ChromeForegroundBrush}" />
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding HasUpdates, Mode=OneWay}" Value="True">
                                                 <Setter Property="Foreground" Value="{DynamicResource WarningBrush}" />
@@ -134,13 +137,13 @@
                         Cursor="Hand">
                         <StackPanel>
                             <TextBlock
-                                Margin="12,8,0,0"
-                                FontSize="18"
+                                Margin="16,12,16,0"
+                                FontSize="16"
                                 Foreground="#1b1d23"
                                 Text="{DynamicResource Str.Lookupper.ProjectNote}" />
                             <Image
                                 Height="60"
-                                Margin="14,8,14,14"
+                                Margin="16,8,16,16"
                                 HorizontalAlignment="Left"
                                 RenderOptions.BitmapScalingMode="HighQuality"
                                 Source="../../Resources/Icons/lookupper.png" />

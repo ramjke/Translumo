@@ -12,33 +12,33 @@
         x:Key="NotificationTextBlock"
         BasedOn="{StaticResource TextBlockBase}"
         TargetType="{x:Type TextBlock}">
-        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontSize" Value="14" />
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontWeight" Value="SemiBold" />
     </Style>
 
     <Style
         x:Key="ButtonTextBlock"
         BasedOn="{StaticResource TextBlockBase}"
         TargetType="{x:Type TextBlock}">
-        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontSize" Value="14" />
     </Style>
 
     <Style
         x:Key="AdditionalTextBlock"
         BasedOn="{StaticResource TextBlockBase}"
         TargetType="{x:Type TextBlock}">
-        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontSize" Value="12" />
         <Setter Property="FontStyle" Value="Italic" />
         <Setter Property="HorizontalAlignment" Value="Center" />
     </Style>
 
     <Style x:Key="PrimaryHeaderRun" TargetType="{x:Type Run}">
-        <Setter Property="FontSize" Value="19" />
-        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontWeight" Value="SemiBold" />
     </Style>
 
     <Style x:Key="SecondaryHeaderRun" TargetType="{x:Type Run}">
-        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontSize" Value="14" />
     </Style>
 </ResourceDictionary>

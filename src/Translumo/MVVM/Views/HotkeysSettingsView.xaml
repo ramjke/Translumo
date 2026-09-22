@@ -22,7 +22,7 @@
             ItemsSource="{Binding Model}">
             <ItemsControl.ItemContainerStyle>
                 <Style>
-                    <Setter Property="FrameworkElement.Margin" Value="0 0 0 7" />
+                    <Setter Property="FrameworkElement.Margin" Value="0,0,0,8" />
                 </Style>
             </ItemsControl.ItemContainerStyle>
             <ItemsControl.ItemTemplate>

@@ -1,0 +1,15 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:Double x:Key="ControlHeight">32</system:Double>
+    <system:Double x:Key="ControlHeightSmall">24</system:Double>
+
+    <CornerRadius x:Key="ControlCornerRadius">4</CornerRadius>
+    <CornerRadius x:Key="SurfaceCornerRadius">8</CornerRadius>
+
+    <Thickness x:Key="ControlPadding">12,0,12,0</Thickness>
+    <Thickness x:Key="SurfacePadding">16</Thickness>
+
+</ResourceDictionary>

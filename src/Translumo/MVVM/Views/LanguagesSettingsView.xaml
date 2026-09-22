@@ -53,7 +53,7 @@
                     SelectedValuePath="LanguageDescriptor.Language"
                     Style="{StaticResource ComboBoxBase}" />
                 <Label
-                    Margin="10,0,0,0"
+                    Margin="12,0,0,0"
                     Content="{DynamicResource Str.LangSettings.SourceLang}"
                     Style="{StaticResource ControlCaptionLabel}" />
             </StackPanel>
@@ -67,7 +67,7 @@
                     SelectedValuePath="LanguageDescriptor.Language"
                     Style="{StaticResource ComboBoxBase}" />
                 <Label
-                    Margin="10,0,0,0"
+                    Margin="12,0,0,0"
                     Content="{DynamicResource Str.LangSettings.TranslationLang}"
                     Style="{StaticResource ControlCaptionLabel}" />
             </StackPanel>
@@ -77,9 +77,9 @@
                     FontSize="14"
                     ItemsSource="{Binding Source={StaticResource dataFromEnum}}"
                     SelectedItem="{Binding Path=Model.Translator}"
-                    Style="{DynamicResource MaterialDesignComboBox}" />
+                    Style="{StaticResource ComboBoxBase}" />
                 <Label
-                    Margin="10,0,0,0"
+                    Margin="12,0,0,0"
                     HorizontalAlignment="Stretch"
                     Content="{DynamicResource Str.LangSettings.Translator}"
                     Style="{StaticResource ControlCaptionLabel}" />
@@ -90,9 +90,9 @@
                     FontSize="14"
                     ItemsSource="{Binding Source={StaticResource ttsSystems}}"
                     SelectedItem="{Binding Path=TtsSystem}"
-                    Style="{DynamicResource MaterialDesignComboBox}" />
+                    Style="{StaticResource ComboBoxBase}" />
                 <Label
-                    Margin="10,0,0,0"
+                    Margin="12,0,0,0"
                     HorizontalAlignment="Stretch"
                     Content="{DynamicResource Str.LangSettings.TtsSystem}"
                     Style="{StaticResource ControlCaptionLabel}" />
@@ -104,9 +104,9 @@
                     DisplayMemberPath="Name"
                     Width="130"
                     FontSize="14"
-                    Style="{DynamicResource MaterialDesignComboBox}"/>
+                    Style="{StaticResource ComboBoxBase}"/>
                 <Label
-                    Margin="10,0,0,0"
+                    Margin="12,0,0,0"
                     HorizontalAlignment="Stretch"
                     Content="Voices"
                     Style="{StaticResource ControlCaptionLabel}" />
