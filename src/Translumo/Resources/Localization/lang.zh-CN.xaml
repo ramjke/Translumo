@@ -152,7 +152,7 @@
     <system:String x:Key="Str.UnhandledError">发生意外错误：&#13;&#13;{0}&#13;&#13;程序将继续运行，但某些功能可能不正常。详情见日志文件。</system:String>
     <system:String x:Key="Str.Lookupper.ProjectNote">我的另一个项目</system:String>
     <system:String x:Key="Str.Lookupper.LinkText">Lookupper — 通过游戏学习语言 →</system:String>
-    <system:String x:Key="Str.Lookupper.Url">https://lookupper.com</system:String>
+    <system:String x:Key="Str.Lookupper.Url">https://cn.lookupper.com</system:String>
 
 
 </ResourceDictionary>
