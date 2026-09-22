@@ -51,7 +51,7 @@ namespace Translumo.UI
             SetFields(original, translated);
         }
 
-        private void FollowTimer_Tick(object? sender, EventArgs e)
+        private void FollowTimer_Tick(object sender, EventArgs e)
         {
             if (pinned) return;
             var p = System.Windows.Forms.Cursor.Position;
