@@ -107,13 +107,13 @@ namespace Translumo.Configuration
             TextAlignment = TextAlignment.Left
         };
 
-        private Color _backgroundColor;
-        private Color _fontColor;
-        private float _backgroundOpacity;
-        private int _fontSize;
-        private bool _fontBold;
-        private bool _excludeFromCaptue;
-        private int _lineSpacing;
+        private Color _backgroundColor = Color.FromRgb(0, 0, 0);
+        private Color _fontColor = Color.FromRgb(255, 255, 255);
+        private float _backgroundOpacity = 0.65f;
+        private int _fontSize = 15;
+        private bool _fontBold = true;
+        private bool _excludeFromCaptue = true;
+        private int _lineSpacing = 14;
         private TextProcessingConfiguration _textProcessing = TextProcessingConfiguration.Default;
         private TextAlignment _textAlignment;
     }

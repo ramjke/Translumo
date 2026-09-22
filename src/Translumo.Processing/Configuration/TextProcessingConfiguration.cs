@@ -40,6 +40,6 @@ namespace Translumo.Processing.Configuration
 
         private bool _keepFormatting;
         private bool _autoClearTexts;
-        private uint _autoClearTextsDelayMs;
+        private uint _autoClearTextsDelayMs = 1000;
     }
 }
