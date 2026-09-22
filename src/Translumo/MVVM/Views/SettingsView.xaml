@@ -44,12 +44,12 @@
         <common:CaseConverter x:Key="CaseConverter" Case="Upper" />
         <common:BoolBrushConverter
             x:Key="HasUpdatesConverter"
-            FalseBrush="{StaticResource PrimaryHueLightBrush}"
-            TrueBrush="{StaticResource WarningBrush}" />
+            FalseBrush="{DynamicResource PrimaryHueLightBrush}"
+            TrueBrush="{DynamicResource WarningBrush}" />
         <system:Boolean x:Key="ConfirmationClose">True</system:Boolean>
     </Window.Resources>
 
-    <Border Background="{StaticResource SecondaryHueLightBrush}">
+    <Border Background="{DynamicResource SecondaryHueLightBrush}">
         <materialDesign:DialogHost CloseOnClickAway="{Binding DialogService.AllowCloseOnClickAway}" IsOpen="{Binding DialogService.IsOpen}">
             <materialDesign:DialogHost.DialogContent>
                 <views:SimpleDialogView />
@@ -59,7 +59,7 @@
                     <ColumnDefinition Width="250" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0" Background="{StaticResource ChromeBackgroundBrush}">
+                <Grid Grid.Column="0" Background="{DynamicResource ChromeBackgroundBrush}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="68" />
                         <RowDefinition Height="*" />
@@ -80,7 +80,7 @@
                                 Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                                 IconForeground="{DynamicResource MaterialDesignDarkForeground}"
                                 Items="{Binding Path=NavigationItems, Mode=OneTime}"
-                                LabelForeground="#FFFAFAFA"
+                                LabelForeground="{DynamicResource ChromeForegroundBrush}"
                                 Loaded="SnMenu_Loaded"
                                 NavigationItemFeedback="{DynamicResource SecondaryHueLightBrush}"
                                 NavigationItemSelectedCommand="{Binding NavigationItemSelectedCommand}"

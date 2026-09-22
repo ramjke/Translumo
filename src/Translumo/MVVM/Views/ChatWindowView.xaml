@@ -63,12 +63,12 @@
             <Run
                 Name="fontRunErrorInstance"
                 FontSize="14"
-                Foreground="{StaticResource ErrorBrush}" />
+                Foreground="{DynamicResource ErrorBrush}" />
             <Run
                 Name="fontRunInfoInstance"
                 FontSize="14"
                 FontStyle="Italic"
-                Foreground="{StaticResource PrimaryHueMidBrush}" />
+                Foreground="{DynamicResource PrimaryHueMidBrush}" />
         </TextBlock>
     </Grid>
 </Window>

@@ -10,9 +10,9 @@
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
     <DockPanel>
-        <StackPanel DockPanel.Dock="Top" Height="40" Orientation="Horizontal" Background="{StaticResource ChromeBackgroundBrush}">
+        <StackPanel DockPanel.Dock="Top" Height="40" Orientation="Horizontal" Background="{DynamicResource ChromeBackgroundBrush}">
             <Image Source="{Binding IconSource}"  Height="28" Width="28" Margin="7,0,0,0"></Image>
-            <Label VerticalAlignment="Center" Style="{StaticResource HeaderLabel}" Foreground="{StaticResource PrimaryHueLightBrush}" Margin="5,0,0,0" Content="{Binding Caption, Mode=OneWay}"/>
+            <Label VerticalAlignment="Center" Style="{StaticResource HeaderLabel}" Foreground="{DynamicResource PrimaryHueLightBrush}" Margin="5,0,0,0" Content="{Binding Caption, Mode=OneWay}"/>
         </StackPanel>
         <DockPanel Margin="13,8,13,13" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <TextBlock DockPanel.Dock="Top" Style="{DynamicResource MaterialDesignTextBlock}" FontSize="15" Text="{Binding TextContent, Mode=OneWay}" TextWrapping="Wrap" MaxHeight="105"/>

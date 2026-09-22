@@ -15,7 +15,7 @@
         <system:Double x:Key="ButtonAnimationTo">2</system:Double>
     </UserControl.Resources>
 
-    <Border BorderBrush="{StaticResource SecondaryHueMidBrush}" BorderThickness="1" CornerRadius="5">
+    <Border BorderBrush="{DynamicResource SecondaryHueMidBrush}" BorderThickness="1" CornerRadius="5">
         <Grid Margin="7,7,7,7">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>

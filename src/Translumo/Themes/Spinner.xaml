@@ -3,7 +3,7 @@
                     xmlns:mde="https://spiegelp.github.io/MaterialDesignExtensions/winfx/xaml">
 
     <Style TargetType="mde:OversizedNumberSpinner">
-        <Setter Property="Background" Value="{StaticResource SecondaryHueLightBrush}"></Setter>
+        <Setter Property="Background" Value="{DynamicResource SecondaryHueLightBrush}"></Setter>
         <Setter Property="Width" Value="30"></Setter>
         <Setter Property="Height" Value="58"></Setter>
         <Setter Property="Min" Value="1"></Setter>

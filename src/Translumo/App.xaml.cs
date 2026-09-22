@@ -92,6 +92,8 @@ namespace Translumo
         {
             base.OnExit(e);
 
+            ThemeManager.StopFollowingSystemTheme();
+
             var configurationStorage = _serviceProvider.GetService<ConfigurationStorage>();
             configurationStorage.SaveConfiguration();
         }
@@ -101,6 +103,8 @@ namespace Translumo
             base.OnStartup(e);
 
             CheckIfPathsIsASCII();
+
+            ThemeManager.StartFollowingSystemTheme();
 
             var configurationStorage = _serviceProvider.GetService<ConfigurationStorage>();
             configurationStorage.LoadConfiguration();

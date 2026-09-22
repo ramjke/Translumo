@@ -72,14 +72,14 @@ namespace Translumo.Utils
             }
 
             var source = $"{LocalizationSourcePrefix}{cultureInfo.Name}.xaml";
-            var currentDictionary = FindLocalizationDictionary(resources);
+            var currentDictionary = ResourceDictionaryHelper.FindBySource(resources, LocalizationSourcePrefix);
             if (currentDictionary == null || currentDictionary.Source?.OriginalString == source)
             {
                 return;
             }
 
             var newDictionary = new ResourceDictionary() { Source = new Uri(source, UriKind.Relative) };
-            if (TryReplaceDictionary(resources, currentDictionary, newDictionary))
+            if (ResourceDictionaryHelper.TryReplace(resources, currentDictionary, newDictionary))
             {
                 NotifyChangedValues();
             }
@@ -93,44 +93,6 @@ namespace Translumo.Utils
         }
 
 
-        private static ResourceDictionary FindLocalizationDictionary(ResourceDictionary owner)
-        {
-            foreach (var dictionary in owner.MergedDictionaries)
-            {
-                if (dictionary.Source?.OriginalString.Contains(LocalizationSourcePrefix) ?? false)
-                {
-                    return dictionary;
-                }
-
-                var nestedDictionary = FindLocalizationDictionary(dictionary);
-                if (nestedDictionary != null)
-                {
-                    return nestedDictionary;
-                }
-            }
-
-            return null;
-        }
-
-        private static bool TryReplaceDictionary(ResourceDictionary owner, ResourceDictionary target, ResourceDictionary replacement)
-        {
-            for (var i = 0; i < owner.MergedDictionaries.Count; i++)
-            {
-                if (ReferenceEquals(owner.MergedDictionaries[i], target))
-                {
-                    owner.MergedDictionaries[i] = replacement;
-
-                    return true;
-                }
-
-                if (TryReplaceDictionary(owner.MergedDictionaries[i], target, replacement))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
 
         private static void NotifyChangedValues()
         {
