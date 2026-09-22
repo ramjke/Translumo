@@ -5,6 +5,7 @@ using Serilog.Core;
 using Serilog.Events;
 using SharpDX.XInput;
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -103,6 +104,9 @@ namespace Translumo
 
             var configurationStorage = _serviceProvider.GetService<ConfigurationStorage>();
             configurationStorage.LoadConfiguration();
+
+            var systemConfiguration = _serviceProvider.GetService<SystemConfiguration>();
+            LocalizationManager.ChangeAppCulture(new CultureInfo(systemConfiguration.ApplicationCulture));
 
             var chatViewModel = _serviceProvider.GetService<ChatWindowViewModel>();
             var dialogService = _serviceProvider.GetService<DialogService>();

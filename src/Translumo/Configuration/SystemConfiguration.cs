@@ -7,7 +7,7 @@ namespace Translumo.Configuration
     {
         public static SystemConfiguration Default => new SystemConfiguration()
         {
-            ApplicationCulture = "en-US"
+            ApplicationCulture = LocalizationManager.GetSystemLocalization().Name
         };
 
         public string ApplicationCulture

@@ -26,24 +26,32 @@ namespace Translumo.Utils
             new CultureInfo("zh-CN")
         };
 
+        private const string LocalizationSourcePrefix = "Resources/Localization/lang.";
+
         private static readonly IDictionary<string, CallbackContext> ChangedValueCallbacks;
 
         static LocalizationManager()
         {
-            Thread.CurrentThread.CurrentUICulture = AvailableLocalizations.First(lang => lang.Name == "en-US");
             ChangedValueCallbacks = new Dictionary<string, CallbackContext>();
         }
 
+        public static CultureInfo GetSystemLocalization()
+        {
+            var systemCulture = CultureInfo.InstalledUICulture;
+
+            return AvailableLocalizations.FirstOrDefault(lang => lang.Name == systemCulture.Name)
+                   ?? AvailableLocalizations.FirstOrDefault(lang => lang.TwoLetterISOLanguageName == systemCulture.TwoLetterISOLanguageName)
+                   ?? AvailableLocalizations.First(lang => lang.Name == "en-US");
+        }
 
         public static string GetValue(string key, bool lineBreakReplacement = false, Action<string, string> changeValueCallback = null, object caller = null)
         {
-            string value = null;
+            string value = Application.Current.TryFindResource(key) as string;
             if (lineBreakReplacement)
             {
-                value = (Application.Current.TryFindResource(key) as string)?.Replace("&#13;", "\n");
+                value = value?.Replace("&#13;", "\n");
             }
 
-            value = Application.Current.TryFindResource(key) as string;
             if (changeValueCallback != null)
             {
                 ChangedValueCallbacks[key] = new CallbackContext() { Callback = changeValueCallback, Caller = caller, Value = value };
@@ -55,32 +63,26 @@ namespace Translumo.Utils
 
         public static void ChangeAppCulture(CultureInfo cultureInfo)
         {
-            if (Thread.CurrentThread.CurrentUICulture.Equals(cultureInfo))
+            Thread.CurrentThread.CurrentUICulture = cultureInfo;
+
+            var resources = Application.Current?.Resources;
+            if (resources == null)
             {
                 return;
             }
 
-            Thread.CurrentThread.CurrentUICulture = cultureInfo;
-
-            var resourceDictionary = new ResourceDictionary();
-            resourceDictionary.Source = new Uri(string.Format("Resources/Localization/lang.{0}.xaml", cultureInfo.Name),
-                UriKind.Relative);
-
-            var oldDictionary =
-                Application.Current.Resources.MergedDictionaries.FirstOrDefault(dict =>
-                    dict.Source?.OriginalString.Contains("Localization/lang.") ?? false);
-            if (oldDictionary != null)
+            var source = $"{LocalizationSourcePrefix}{cultureInfo.Name}.xaml";
+            var currentDictionary = FindLocalizationDictionary(resources);
+            if (currentDictionary == null || currentDictionary.Source?.OriginalString == source)
             {
-                int index = Application.Current.Resources.MergedDictionaries.IndexOf(oldDictionary);
-                Application.Current.Resources.MergedDictionaries.Remove(oldDictionary);
-                Application.Current.Resources.MergedDictionaries.Insert(index, resourceDictionary);
-            }
-            else
-            {
-                Application.Current.Resources.MergedDictionaries.Add(resourceDictionary);
+                return;
             }
 
-            NotifyChangedValues();
+            var newDictionary = new ResourceDictionary() { Source = new Uri(source, UriKind.Relative) };
+            if (TryReplaceDictionary(resources, currentDictionary, newDictionary))
+            {
+                NotifyChangedValues();
+            }
         }
 
         public static void ReleaseChangedValuesCallbacks(object caller)
@@ -90,6 +92,45 @@ namespace Translumo.Utils
             toRemove.ForEach(item => ChangedValueCallbacks.Remove(item));
         }
 
+
+        private static ResourceDictionary FindLocalizationDictionary(ResourceDictionary owner)
+        {
+            foreach (var dictionary in owner.MergedDictionaries)
+            {
+                if (dictionary.Source?.OriginalString.Contains(LocalizationSourcePrefix) ?? false)
+                {
+                    return dictionary;
+                }
+
+                var nestedDictionary = FindLocalizationDictionary(dictionary);
+                if (nestedDictionary != null)
+                {
+                    return nestedDictionary;
+                }
+            }
+
+            return null;
+        }
+
+        private static bool TryReplaceDictionary(ResourceDictionary owner, ResourceDictionary target, ResourceDictionary replacement)
+        {
+            for (var i = 0; i < owner.MergedDictionaries.Count; i++)
+            {
+                if (ReferenceEquals(owner.MergedDictionaries[i], target))
+                {
+                    owner.MergedDictionaries[i] = replacement;
+
+                    return true;
+                }
+
+                if (TryReplaceDictionary(owner.MergedDictionaries[i], target, replacement))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
 
         private static void NotifyChangedValues()
         {
