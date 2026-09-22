@@ -129,24 +129,19 @@
                     </DockPanel>
                     <Button
                         Grid.Row="3"
-                        Height="105"
-                        Padding="0"
-                        Background="White"
-                        BorderThickness="0,0,1,0"
                         Click="OnLookupperLinkClick"
-                        Cursor="Hand">
+                        Style="{StaticResource NavFooterButton}">
                         <StackPanel>
                             <TextBlock
-                                Margin="16,12,16,0"
-                                FontSize="16"
-                                Foreground="#1b1d23"
+                                FontWeight="SemiBold"
+                                Foreground="{DynamicResource ChromeForegroundBrush}"
+                                Style="{StaticResource TextBlockBase}"
                                 Text="{DynamicResource Str.Lookupper.ProjectNote}" />
-                            <Image
-                                Height="60"
-                                Margin="16,8,16,16"
-                                HorizontalAlignment="Left"
-                                RenderOptions.BitmapScalingMode="HighQuality"
-                                Source="../../Resources/Icons/lookupper.png" />
+                            <TextBlock
+                                Margin="0,4,0,0"
+                                Foreground="{DynamicResource ChromeForegroundBrush}"
+                                Style="{StaticResource TextBlockBase}"
+                                Text="{DynamicResource Str.Lookupper.LinkText}" />
                         </StackPanel>
                     </Button>
                 </Grid>

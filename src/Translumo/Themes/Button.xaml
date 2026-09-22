@@ -140,6 +140,32 @@
         </Setter>
     </Style>
 
+    <Style x:Key="NavFooterButton" TargetType="Button">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ChromeSelectionBrush}" />
+        <Setter Property="BorderThickness" Value="0,1,0,0" />
+        <Setter Property="Padding" Value="16,12,16,16" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource ChromeSelectionBrush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="controls:ExtendedButton">
         <Setter Property="BorderThickness" Value="0.8" />
         <Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueDarkBrush}" />

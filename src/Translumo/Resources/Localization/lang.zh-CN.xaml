@@ -159,7 +159,8 @@
     <system:String x:Key="Str.Button.ShowText">示例文本</system:String>
     <system:String x:Key="Str.Button.Apply">接受</system:String>
 
-    <system:String x:Key="Str.Lookupper.ProjectNote">我的项目首页:</system:String>
+    <system:String x:Key="Str.Lookupper.ProjectNote">我的另一个项目</system:String>
+    <system:String x:Key="Str.Lookupper.LinkText">Lookupper — 通过游戏学习语言 →</system:String>
     <system:String x:Key="Str.Lookupper.Url">https://lookupper.com</system:String>
 
 

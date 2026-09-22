@@ -13,12 +13,6 @@ This project has a sibling called **[Lookupper](https://lookupper.com)** — a s
 
 Lookupper is commercial project with a free version. If you find it useful and decide to grab the Pro version, you'll also be supporting the development of both Lookupper and Translumo.
 
-
-<a href="https://lookupper.com">
-<img width="300" alt="Lookupper" src="https://github.com/user-attachments/assets/ef2f83b3-e15f-4bd3-826e-858266f36c93" />
-</a>
-
-
 ## Download Translumo
 
 **Direct download link to the latest version:**  

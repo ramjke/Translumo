@@ -13,10 +13,6 @@
 
 Lookupper — это мой коммерческий проект с бесплатной версией. Но если решите приобрести Pro-версию, то поддержите разработку как Lookupper, так и Translumo.
 
-<a href="https://lookupper.ru">
-<img width="300" alt="Lookupper" src="https://github.com/user-attachments/assets/ef2f83b3-e15f-4bd3-826e-858266f36c93" />
-</a>
-
 ## Скачать Translumo
 
 **Прямая ссылка для скачивания последней версии:**  
