@@ -37,19 +37,14 @@
             <Run Style="{StaticResource PrimaryHeaderRun}" Text="{StaticResource ApplicationName}" />
             <Run Style="{StaticResource SecondaryHeaderRun}" Text="{Binding ApplicationVersion}" />
         </TextBlock>
-        <Label
-            Margin="0,4,0,0"
+        <TextBlock
+            Margin="20,8,20,0"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
-            Content="{DynamicResource Str.About.MaintainedBy}"
             DockPanel.Dock="Top"
-            Style="{StaticResource SecondaryLabel}" />
-        <Label
-            HorizontalAlignment="Center"
-            VerticalAlignment="Top"
-            Content="{DynamicResource Str.About.DevelopedBy}"
-            DockPanel.Dock="Top"
-            Style="{StaticResource SecondaryLabel}" />
+            Style="{StaticResource ButtonTextBlock}"
+            Text="{DynamicResource Str.About.Authors}"
+            TextAlignment="Center" />
         <TextBlock
             Margin="0,6,0,0"
             DockPanel.Dock="Top"

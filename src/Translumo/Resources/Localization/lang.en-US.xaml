@@ -85,8 +85,7 @@
     <system:String x:Key="Str.OcrSettings.EasyOcrDesc2">Installation additional packages (Python, PyTorch) is required</system:String>
 
     <!--  About window  -->
-    <system:String x:Key="Str.About.MaintainedBy">Owner and Maintainer Aleksei Vekhov</system:String>
-    <system:String x:Key="Str.About.DevelopedBy">Author Danil Iushkov</system:String>
+    <system:String x:Key="Str.About.Authors">Authors Aleksei Vekhov, Danil Iushkov and the Translumo community</system:String>
     <system:String x:Key="Str.About.ProjectPage">Project page</system:String>
     <system:String x:Key="Str.About.ReportIssue">Report an issue</system:String>
 

@@ -85,8 +85,7 @@
     <system:String x:Key="Str.OcrSettings.EasyOcrDesc2">需要安装（Python、PyTorch）其他软件包。</system:String>
 
     <!--  About window  -->
-    <system:String x:Key="Str.About.MaintainedBy">共同维护者：Aleksei Vekhov</system:String>
-    <system:String x:Key="Str.About.DevelopedBy">开发者：Danil Iushkov</system:String>
+    <system:String x:Key="Str.About.Authors">作者：Aleksei Vekhov、Danil Iushkov 及 Translumo 社区</system:String>
     <system:String x:Key="Str.About.ProjectPage">项目主页</system:String>
     <system:String x:Key="Str.About.ReportIssue">意见与反馈</system:String>
 
