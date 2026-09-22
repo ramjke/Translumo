@@ -68,6 +68,8 @@ namespace Translumo.MVVM.ViewModels
 
         public bool IsDeeplSelected => Model.Translator == Translators.Deepl;
 
+        public bool IsYandexSelected => Model.Translator == Translators.Yandex;
+
         public Translators Translator
         {
             get => Model.Translator;
@@ -76,6 +78,7 @@ namespace Translumo.MVVM.ViewModels
                 Model.Translator = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(IsDeeplSelected));
+                OnPropertyChanged(nameof(IsYandexSelected));
             }
         }
 
@@ -85,6 +88,16 @@ namespace Translumo.MVVM.ViewModels
             set
             {
                 Model.DeeplApiKey = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string YandexApiKey
+        {
+            get => Model.YandexApiKey;
+            set
+            {
+                Model.YandexApiKey = value;
                 OnPropertyChanged();
             }
         }

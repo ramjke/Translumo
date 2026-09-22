@@ -1,63 +1,65 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
+using System.Net;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Translumo.Infrastructure.Constants;
-using Translumo.Infrastructure.Dispatching;
 using Translumo.Infrastructure.Language;
 using Translumo.Translation.Configuration;
 using Translumo.Translation.Exceptions;
-using Translumo.Utils.Extensions;
+using Translumo.Utils.Http;
 
 namespace Translumo.Translation.Yandex
 {
     public sealed class YandexTranslator : BaseTranslator<YandexContainer>
     {
-        private readonly IActionDispatcher _actionDispatcher;
+        private const string CLOUD_API_URL = "https://translate.api.cloud.yandex.net/translate/v2/translate";
 
-        private readonly AutoResetEvent _sync;
-        
-        public YandexTranslator(TranslationConfiguration translationConfiguration, LanguageService languageService, 
-            IActionDispatcher actionDispatcher, ILogger logger) : base(translationConfiguration, languageService, logger)
+        public YandexTranslator(TranslationConfiguration translationConfiguration, LanguageService languageService, ILogger logger)
+            : base(translationConfiguration, languageService, logger)
         {
-            this._actionDispatcher = actionDispatcher;
-            this._sync = new AutoResetEvent(true);
         }
-        
-        protected override async Task<string> TranslateTextInternal(YandexContainer container, string sourceText)
+
+        public override Task<string> TranslateTextAsync(string sourceText)
         {
-            var sourceLangCode = SourceLangDescriptor.IsoCode;
-            var targetLangCode = TargetLangDescriptor.RegionalVariant ? TargetLangDescriptor.Code : TargetLangDescriptor.IsoCode;
-            if (string.IsNullOrEmpty(container.Sid))
+            if (string.IsNullOrWhiteSpace(TranslationConfiguration.YandexApiKey))
             {
-                await _sync.WaitOneAsync(CancellationToken.None);
-                try
-                {
-                    if (string.IsNullOrEmpty(container.Sid))
-                    {
-                        container.Sid = await container.Reader.RequestSidAsync().ConfigureAwait(false);
-                        if (string.IsNullOrEmpty(container.Sid))
-                        {
-                            Logger.LogTrace("Trying to request SID through browser");
-                            container.Sid = await RequestSidThroughBrowseAsync(container);
-                            if (string.IsNullOrEmpty(container.Sid))
-                            {
-                                throw new TranslationException($"Sid extraction error");
-                            }
-                        }
-                    }
-                }
-                finally
-                {
-                    _sync.Set();
-                }
+                throw new TranslationException("Yandex API key is not set. Add it in the language settings");
             }
 
-            var request = YandexRequestFactory.CreateRequest(container, sourceText, sourceLangCode, targetLangCode);
-            string translatedText = await container.Reader.RequestTranslationAsync(request).ConfigureAwait(false);
+            return base.TranslateTextAsync(sourceText);
+        }
 
-            return translatedText;
+        protected override async Task<string> TranslateTextInternal(YandexContainer container, string sourceText)
+        {
+            var apiKey = TranslationConfiguration.YandexApiKey.Trim();
+            var targetLangCode = TargetLangDescriptor.RegionalVariant ? TargetLangDescriptor.Code : TargetLangDescriptor.IsoCode;
+            var request = new YandexApiRequest(sourceText, SourceLangDescriptor.IsoCode, targetLangCode);
+            container.Reader.OptionalHeaders["Authorization"] = $"Api-Key {apiKey}";
+
+            var response = await container.Reader
+                .RequestWebDataAsync(CLOUD_API_URL, HttpMethods.POST, JsonSerializer.Serialize(request))
+                .ConfigureAwait(false);
+            if (!response.IsSuccessful)
+            {
+                throw new TranslationException($"Yandex request failed: '{DescribeFailure(response)}'", response.InnerException);
+            }
+
+            try
+            {
+                var translated = JsonSerializer.Deserialize<YandexApiResponse>(response.Body)?.Translations?.FirstOrDefault()?.Text;
+                if (translated == null)
+                {
+                    throw new TranslationException($"Unexpected Yandex response: '{response.Body}'");
+                }
+
+                return translated;
+            }
+            catch (JsonException ex)
+            {
+                throw new TranslationException($"Unexpected Yandex response: '{response.Body}'", ex);
+            }
         }
 
         protected override IList<YandexContainer> CreateContainers(TranslationConfiguration configuration)
@@ -68,22 +70,24 @@ namespace Translumo.Translation.Yandex
             return result;
         }
 
-        private async Task<string> RequestSidThroughBrowseAsync(YandexContainer container)
+        private static string DescribeFailure(HttpResponse response)
         {
-            var browseResult = await _actionDispatcher
-                .DispatchActionAsync<BrowseSiteDispatchArg, BrowseSiteDispatchResult>(DispatcherActions.PASS_SITE,
-                    new BrowseSiteDispatchArg()
-                    {
-                        SourceUrl = container.Reader.YandexRuUrl, TargetUrl = container.Reader.YandexRuUrl,
-                        Proxy = container.Proxy?.ToWebProxy()
-                    }).ConfigureAwait(false);
-
-            if (browseResult?.Cookies?.Any() ?? false)
+            if (response.InnerException is WebException webException && webException.Response is HttpWebResponse httpResponse)
             {
-                browseResult.Cookies.ForEach(cookie => container.Reader.HttpReader.Cookies.Add(cookie));
+                switch ((int)httpResponse.StatusCode)
+                {
+                    case 401:
+                        return "the API key was rejected";
+                    case 403:
+                        return "the API key has no access to the translate service";
+                    case 429:
+                        return "too many requests, try again later";
+                    default:
+                        return $"service responded with {(int)httpResponse.StatusCode}";
+                }
             }
 
-            return container.Reader.ExtractSid(browseResult?.HtmlPage);
+            return response.InnerException?.Message ?? response.Body ?? "empty response";
         }
     }
 }

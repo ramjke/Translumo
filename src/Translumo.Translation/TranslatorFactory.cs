@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.Extensions.Logging;
-using Translumo.Infrastructure.Dispatching;
 using Translumo.Infrastructure.Language;
 using Translumo.Translation.Configuration;
 using Translumo.Translation.Deepl;
@@ -13,13 +12,11 @@ namespace Translumo.Translation
     public class TranslatorFactory
     {
         private readonly LanguageService _languageService;
-        private readonly IActionDispatcher _actionDispatcher;
         private readonly ILogger _logger;
 
-        public TranslatorFactory(LanguageService languageService, IActionDispatcher actionDispatcher, ILogger<TranslatorFactory> logger)
+        public TranslatorFactory(LanguageService languageService, ILogger<TranslatorFactory> logger)
         {
             this._languageService = languageService;
-            this._actionDispatcher = actionDispatcher;
             this._logger = logger;
         }
 
@@ -30,7 +27,7 @@ namespace Translumo.Translation
                 case Translators.Deepl:
                     return new DeepLTranslator(translatorConfiguration, _languageService, _logger);
                 case Translators.Yandex:
-                    return new YandexTranslator(translatorConfiguration, _languageService, _actionDispatcher, _logger);
+                    return new YandexTranslator(translatorConfiguration, _languageService, _logger);
                 case Translators.Papago:
                     return new PapagoTranslator(translatorConfiguration, _languageService, _logger);
                 case Translators.Google:

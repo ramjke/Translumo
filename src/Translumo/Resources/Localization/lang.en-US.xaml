@@ -11,11 +11,9 @@
     <system:String x:Key="Str.NewVersion">New version available!</system:String>
 
     <!--  Notifications  -->
-    <system:String x:Key="Str.Notification.CaptchaPass" xml:space="preserve">Please complete captcha on the website to use service.&#13;Also it may be required for each registered proxy.</system:String>
 
     <!--  Titles  -->
     <system:String x:Key="Str.Title.SettingWindow" xml:space="preserve">Settings - Translumo</system:String>
-    <system:String x:Key="Str.Title.BrowserWindow" xml:space="preserve">Browser - Translumo</system:String>
 
     <!--  Tray  -->
     <system:String x:Key="Str.Tray.ShowHideSettings">Show/Hide settings</system:String>
@@ -30,6 +28,7 @@
     <!--  Language settings  -->
     <system:String x:Key="Str.LangSettings.SourceLang">Source language</system:String>
     <system:String x:Key="Str.LangSettings.TranslationLang">Translation language</system:String>
+    <system:String x:Key="Str.LangSettings.YandexApiKey">Yandex API key</system:String>
     <system:String x:Key="Str.LangSettings.DeeplApiKey">DeepL API key</system:String>
     <system:String x:Key="Str.LangSettings.Translator">Translator</system:String>
     <system:String x:Key="Str.LangSettings.TtsSystem">Text to speech system</system:String>

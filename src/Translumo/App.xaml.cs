@@ -15,7 +15,6 @@ using Translumo.Configuration;
 using Translumo.Dialog;
 using Translumo.HotKeys;
 using Translumo.Infrastructure.Constants;
-using Translumo.Infrastructure.Dispatching;
 using Translumo.Infrastructure.Encryption;
 using Translumo.Infrastructure.Language;
 using Translumo.Infrastructure.MachineLearning;
@@ -174,7 +173,6 @@ namespace Translumo
             services.AddSingleton<DialogService>();
             services.AddSingleton<LanguageService>();
             services.AddSingleton<TextDetectionProvider>();
-            services.AddSingleton<IActionDispatcher, InteractionActionDispatcher>();
             services.AddSingleton<TextValidityPredictor>();
             services.AddSingleton<IControllerService, GamepadService>();
             services.AddSingleton<IControllerInputProvider, ControllerInputProvider>();

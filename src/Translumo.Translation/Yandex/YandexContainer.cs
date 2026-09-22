@@ -1,36 +1,27 @@
 ﻿using Translumo.Translation.Configuration;
+using Translumo.Utils.Http;
 
 namespace Translumo.Translation.Yandex
 {
     public sealed class YandexContainer : TranslationContainer
     {
-        public YandexReaderProxy Reader { get; set; }
-        public string Sid { get; set; }
-
-        private int _requestNumber = -1;
+        public HttpReader Reader { get; private set; }
 
         public YandexContainer(Proxy proxy = null, bool isPrimary = false) : base(proxy, isPrimary)
         {
-            Reader = new YandexReaderProxy(proxy);
+            Reader = CreateReader(proxy);
         }
 
-        public int GetRequestNumber()
+        private static HttpReader CreateReader(Proxy proxy)
         {
-            lock (Obj)
+            return new HttpReader
             {
-                return ++_requestNumber;
-            }
-        }
-
-        public override void Reset()
-        {
-            base.Reset();
-            if (FailUsesCounter >= 2)
-            {
-                Sid = null;
-                _requestNumber = -1;
-                Reader = new YandexReaderProxy();
-            }
+                ThrowExceptions = false,
+                ContentType = "application/json",
+                Accept = "*/*",
+                UserAgent = "Translumo",
+                Proxy = proxy?.ToWebProxy()
+            };
         }
     }
 }

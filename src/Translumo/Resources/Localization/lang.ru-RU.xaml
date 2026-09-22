@@ -11,11 +11,9 @@
     <system:String x:Key="Str.NewVersion">Доступна новая версия!</system:String>
 
     <!--  Notifications  -->
-    <system:String x:Key="Str.Notification.CaptchaPass" xml:space="preserve">Пожалуйста пройдите капчу для использования сервиса&#13;Это окно может появиться для каждого задействованного прокси.</system:String>
 
     <!--  Titles  -->
     <system:String x:Key="Str.Title.SettingWindow" xml:space="preserve">Настройки - Translumo</system:String>
-    <system:String x:Key="Str.Title.BrowserWindow" xml:space="preserve">Браузер - Translumo</system:String>
 
     <!--  Tray  -->
     <system:String x:Key="Str.Tray.ShowHideSettings">Показать/Скрыть настройки</system:String>
@@ -30,6 +28,7 @@
     <!--  Language settings  -->
     <system:String x:Key="Str.LangSettings.SourceLang">Исходный язык</system:String>
     <system:String x:Key="Str.LangSettings.TranslationLang">Язык перевода</system:String>
+    <system:String x:Key="Str.LangSettings.YandexApiKey">Ключ API Яндекса</system:String>
     <system:String x:Key="Str.LangSettings.DeeplApiKey">Ключ API DeepL</system:String>
     <system:String x:Key="Str.LangSettings.Translator">Переводчик</system:String>
     <system:String x:Key="Str.LangSettings.TtsSystem">Синтез речи (TTS)</system:String>

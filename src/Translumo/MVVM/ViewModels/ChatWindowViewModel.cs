@@ -8,7 +8,6 @@ using Translumo.Dialog;
 using Translumo.HotKeys;
 using Translumo.Infrastructure;
 using Translumo.Infrastructure.Constants;
-using Translumo.Infrastructure.Dispatching;
 using Translumo.MVVM.Models;
 using Translumo.Services;
 using Translumo.Update;
@@ -40,7 +39,7 @@ namespace Translumo.MVVM.ViewModels
         private readonly UpdateManager _updateManager;
 
         public ChatWindowViewModel(ChatWindowModel model, HotKeysServiceManager hotKeysManager, ChatUITextMediator chatTextMediator, UpdateManager updateManager, 
-            IActionDispatcher dispatcher, DialogService dialogService, IServiceProvider serviceProvider, ILogger<ChatWindowViewModel> logger)
+            DialogService dialogService, IServiceProvider serviceProvider, ILogger<ChatWindowViewModel> logger)
         {
             this.Model = model;
             this._logger = logger;
@@ -48,8 +47,6 @@ namespace Translumo.MVVM.ViewModels
             this._serviceProvider = serviceProvider;
             this._hotKeysServiceManager = hotKeysManager;
             this._updateManager = updateManager;
-
-            dispatcher.RegisterConsumer<BrowseSiteDispatchArg, BrowseSiteDispatchResult>(DispatcherActions.PASS_SITE, BrowseSiteHandler);
 
             hotKeysManager.SelectAreaKeyPressed += HotKeysManagerOnSelectAreaKeyPressed;
             hotKeysManager.TranslationStateKeyPressed += HotKeysManagerOnTranslationStateKeyPressed;
@@ -176,18 +173,6 @@ namespace Translumo.MVVM.ViewModels
         }
 
 
-        private async Task<BrowseSiteDispatchResult> BrowseSiteHandler(BrowseSiteDispatchArg argument)
-        {
-            _logger.LogTrace($"Web page requested (Target url: '{argument.TargetUrl}'; Proxy: {argument.Proxy?.Address})");
-            var result = await WebBrowserProvider.BrowsePageAsync(argument.SourceUrl, argument.TargetUrl, CancellationToken.None,
-                argument.Proxy, LocalizationManager.GetValue("Str.Notification.CaptchaPass", true));
-
-            return new BrowseSiteDispatchResult()
-            {
-                HtmlPage = result?.Body,
-                Cookies = result?.Cookies
-            };
-        }
 
         private void SendHelpText()
         {

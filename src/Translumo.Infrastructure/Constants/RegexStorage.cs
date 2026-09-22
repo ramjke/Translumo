@@ -13,7 +13,6 @@ namespace Translumo.Infrastructure.Constants
 
         public static Regex GuidGenerationRegex { get; set; }
 
-        public static Regex YandexSidRegex { get; set; }
 
 
         static RegexStorage()
@@ -24,7 +23,6 @@ namespace Translumo.Infrastructure.Constants
             StartDotRegex = new Regex(@"^\.{3,}", RegexOptions.Compiled);
             EndDotRegex = new Regex(@"\.{3,}$", RegexOptions.Compiled);
             GuidGenerationRegex = new Regex("[xy]", RegexOptions.Compiled);
-            YandexSidRegex = new Regex(@"(?<=(sid\:\s*')).*(?=('))", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         }
     }
 }

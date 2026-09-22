@@ -96,6 +96,18 @@
                     Content="{DynamicResource Str.LangSettings.DeeplApiKey}"
                     Style="{StaticResource ControlCaptionLabel}" />
             </StackPanel>
+            <StackPanel Orientation="Horizontal" Visibility="{Binding IsYandexSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBox
+                    Width="220"
+                    VerticalContentAlignment="Center"
+                    FontSize="14"
+                    Text="{Binding YandexApiKey, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                <Label
+                    Margin="12,0,0,0"
+                    HorizontalAlignment="Stretch"
+                    Content="{DynamicResource Str.LangSettings.YandexApiKey}"
+                    Style="{StaticResource ControlCaptionLabel}" />
+            </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <ComboBox
                     Width="130"

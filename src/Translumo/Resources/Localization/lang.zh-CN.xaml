@@ -11,11 +11,9 @@
     <system:String x:Key="Str.NewVersion">Translumo更新啦!</system:String>
 
     <!--  Notifications  -->
-    <system:String x:Key="Str.Notification.CaptchaPass" xml:space="preserve">请在网站上完成验证码以使用该服务。&#13;另外，每个已注册的代理可能都需要完成一次验证码。</system:String>
 
     <!--  Titles  -->
     <system:String x:Key="Str.Title.SettingWindow" xml:space="preserve">Translumo设置</system:String>
-    <system:String x:Key="Str.Title.BrowserWindow" xml:space="preserve">Translumo游览器</system:String>
 
     <!--  Tray  -->
     <system:String x:Key="Str.Tray.ShowHideSettings">打开/关闭 设置</system:String>
@@ -30,6 +28,7 @@
     <!--  Language settings  -->
     <system:String x:Key="Str.LangSettings.SourceLang">源语言（您想要翻译的语言）</system:String>
     <system:String x:Key="Str.LangSettings.TranslationLang">目标语言（您想要看到的语言）</system:String>
+    <system:String x:Key="Str.LangSettings.YandexApiKey">Yandex API 密钥</system:String>
     <system:String x:Key="Str.LangSettings.DeeplApiKey">DeepL API 密钥</system:String>
     <system:String x:Key="Str.LangSettings.Translator">翻译源</system:String>
     <system:String x:Key="Str.LangSettings.TtsSystem">朗读源</system:String>
