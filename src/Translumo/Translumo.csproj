@@ -8,7 +8,6 @@
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
 		<UseWPF>true</UseWPF>
-		<UseWindowsForms>true</UseWindowsForms>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
 		<SatelliteResourceLanguages>en-US;en</SatelliteResourceLanguages>
@@ -86,7 +85,6 @@
     <PackageReference Include="SharpDX.Direct3D11" Version="4.2.0" />
     <PackageReference Include="SharpDX.XInput" Version="4.2.0" />
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
-    <PackageReference Include="System.Management.Automation" Version="7.1.7" />
   </ItemGroup>
 
   <ItemGroup>
@@ -136,6 +134,19 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+
+  <Target Name="RemoveUnusedNativeLibraries" AfterTargets="Build">
+    <ItemGroup>
+      <UnusedNativeLibrary Include="$(TargetDir)opencv_videoio_ffmpeg*.dll" />
+    </ItemGroup>
+    <Delete Files="@(UnusedNativeLibrary)" />
+  </Target>
+
+  <Target Name="ExcludeUnusedNativeLibrariesFromPublish" BeforeTargets="ComputeResolvedFilesToPublishList">
+    <ItemGroup>
+      <ResolvedFileToPublish Remove="@(ResolvedFileToPublish)" Condition="$([System.String]::Copy('%(Filename)').StartsWith('opencv_videoio_ffmpeg'))" />
+    </ItemGroup>
+  </Target>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition=" '$(SkipBinariesExtract)' == '' ">
     <Exec Command="&quot;$(SolutionDir)binaries_extract.bat&quot; &quot;$(TargetDir)&quot;" />

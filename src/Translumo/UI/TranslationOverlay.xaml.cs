@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -8,7 +9,7 @@ namespace Translumo.UI
     {
         private readonly DispatcherTimer followTimer;
         private bool pinned = false;
-        private System.Drawing.Point lastCursorPosition;
+        private CursorPoint lastCursorPosition;
 
         private string FrontText;
         private string BackText;
@@ -20,7 +21,7 @@ namespace Translumo.UI
             OriginalText.Text = original;
             TranslatedText.Text = translated;
 
-            var p = System.Windows.Forms.Cursor.Position;
+            var p = GetCursorPosition();
             this.Left = p.X + 16;
             this.Top = p.Y + 16;
 
@@ -54,8 +55,8 @@ namespace Translumo.UI
         private void FollowTimer_Tick(object sender, EventArgs e)
         {
             if (pinned) return;
-            var p = System.Windows.Forms.Cursor.Position;
-            if (p == lastCursorPosition) return;
+            var p = GetCursorPosition();
+            if (p.Equals(lastCursorPosition)) return;
             lastCursorPosition = p;
             this.Left = p.X + 16;
             this.Top = p.Y + 16;
@@ -69,6 +70,24 @@ namespace Translumo.UI
         }
 
         private void UpdatePinButton() => PinButton.Content = pinned ? "Pinned" : "Pin";
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct CursorPoint
+        {
+            public int X;
+            public int Y;
+        }
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool GetCursorPos(out CursorPoint point);
+
+        private static CursorPoint GetCursorPosition()
+        {
+            GetCursorPos(out var point);
+
+            return point;
+        }
 
         public void SetFields(string front, string back)
         {
