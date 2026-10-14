@@ -15,8 +15,7 @@ namespace Translumo.Services
         public int CaptureAttempts { get; set; } = 3;
         public int AttemptDelayMs { get; set; } = 300;
 
-        private int _height;
-        private int _width;
+        private Rectangle _virtualScreen;
 
         private readonly ScreenCaptureConfiguration _configuration;
 
@@ -27,8 +26,7 @@ namespace Translumo.Services
 
         public void Initialize()
         {
-            _width = Win32Interfaces.GetSystemMetrics(SystemMetricTypes.SM_CXVIRTUALSCREEN);
-            _height = Win32Interfaces.GetSystemMetrics(SystemMetricTypes.SM_CYVIRTUALSCREEN);
+            _virtualScreen = VirtualScreen.GetBounds();
         }
 
         public byte[] CaptureScreen()
@@ -61,13 +59,18 @@ namespace Translumo.Services
                 hdcSrc = Win32Interfaces.GetDCEx(IntPtr.Zero, IntPtr.Zero,
                     DeviceContextValues.Window | DeviceContextValues.Cache | DeviceContextValues.LockWindowUpdate);
                 hdcDest = Win32Interfaces.CreateCompatibleDC(hdcSrc);
-                hBitmap = Win32Interfaces.CreateCompatibleBitmap(hdcSrc, _width, _height);
+                hBitmap = Win32Interfaces.CreateCompatibleBitmap(hdcSrc, _virtualScreen.Width, _virtualScreen.Height);
                 var hOld = Win32Interfaces.SelectObject(hdcDest, hBitmap);
-                Win32Interfaces.BitBlt(hdcDest, 0, 0, _width, _height, hdcSrc, 0, 0, TernaryRasterOperations.SRCCOPY);
+                // The screen DC uses virtual-screen coordinates, whose origin is negative when a monitor sits left of / above the primary one
+                Win32Interfaces.BitBlt(hdcDest, 0, 0, _virtualScreen.Width, _virtualScreen.Height, hdcSrc,
+                    _virtualScreen.X, _virtualScreen.Y, TernaryRasterOperations.SRCCOPY);
                 Win32Interfaces.SelectObject(hdcDest, hOld);
 
+                var relativeArea = new RectangleF(captureArea.X - _virtualScreen.X, captureArea.Y - _virtualScreen.Y,
+                    captureArea.Width, captureArea.Height);
+
                 using var img = Image.FromHbitmap(hBitmap);
-                using var bitmap = img.Clone(captureArea, PixelFormat.Format32bppArgb);
+                using var bitmap = img.Clone(relativeArea, PixelFormat.Format32bppArgb);
 
                 return bitmap.ToBytes(ImageFormat.Tiff);
             }

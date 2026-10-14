@@ -3,7 +3,9 @@ using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
+using Translumo.Utils;
 using Color = System.Windows.Media.Color;
 using Point = System.Windows.Point;
 
@@ -17,6 +19,8 @@ namespace Translumo
 
         private bool _mouseIsDown = false; // Set to 'true' when mouse is held down.
         private Point _relativeInitialPos; // The point where the mouse button was clicked down.
+
+        private const uint SWP_NOACTIVATE = 0x0010;
 
         private readonly bool _readonlyMode = false;
 
@@ -138,12 +142,24 @@ namespace Translumo
 
         private void SelectionAreaWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
+            CoverAllMonitors();
+
             if (!SelectedArea.IsEmpty && _readonlyMode)
             {
                 var leftUpperPoint = this.PointFromScreen(new Point(SelectedArea.X, SelectedArea.Y));
                 var rightBottomPoint = this.PointFromScreen(new Point(SelectedArea.Right, SelectedArea.Bottom));
                 DrawSelection(leftUpperPoint.X, leftUpperPoint.Y, rightBottomPoint.X - leftUpperPoint.X, rightBottomPoint.Y - leftUpperPoint.Y);
             }
+        }
+
+        // A maximized window only fills a single monitor, so stretch the overlay over the whole virtual desktop.
+        private void CoverAllMonitors()
+        {
+            var hwnd = new WindowInteropHelper(this).Handle;
+            var hwndTopmost = new IntPtr(-1);
+            var bounds = VirtualScreen.GetBounds();
+
+            Win32Interfaces.SetWindowPos(hwnd, hwndTopmost,bounds.X, bounds.Y, bounds.Width, bounds.Height, SWP_NOACTIVATE);
         }
 
         private void SelectionAreaWindow_OnKeyDown(object sender, KeyEventArgs e)

@@ -15,7 +15,7 @@
     Opacity="0.3"
     ResizeMode="NoResize"
     ShowInTaskbar="False"
-    WindowState="Maximized"
+    WindowStartupLocation="Manual"
     WindowStyle="None"
     mc:Ignorable="d">
     <Grid

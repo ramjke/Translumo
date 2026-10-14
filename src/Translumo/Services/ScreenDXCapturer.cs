@@ -27,6 +27,9 @@ namespace Translumo.Services
 
         private OutputDuplication _duplicatedOutput;
 
+        private Rectangle _outputBounds;
+        private BitBltScreenCapture _gdiFallback;
+
         private int _width;
         private int _height;
 
@@ -41,23 +44,42 @@ namespace Translumo.Services
 
         public void Initialize()
         {
+            // Without a selected area yet, start on the monitor holding the virtual screen origin (the primary one)
+            var area = _configuration.CaptureArea.IsEmpty
+                ? new RectangleF(0, 0, 1, 1)
+                : _configuration.CaptureArea;
+
+            if (!TryFindOutput(area, out var adapterIndex, out var outputIndex))
+            {
+                adapterIndex = 0;
+                outputIndex = 0;
+            }
+
+            InitializeOutput(adapterIndex, outputIndex);
+        }
+
+        // Duplicates a single monitor, so pick the adapter/output that contains the capture area
+        private void InitializeOutput(int adapterIndex, int outputIndex)
+        {
             if (_initialized)
             {
                 Dispose();
             }
-            
+
             _factory = new Factory1();
-            //Get first adapter
-            _adapter = _factory.GetAdapter1(0);
+            _adapter = _factory.GetAdapter1(adapterIndex);
             //Get device from adapter
             _device = new SharpDX.Direct3D11.Device(_adapter);
             //Get front buffer of the adapter
-            _output = _adapter.GetOutput(0);
+            _output = _adapter.GetOutput(outputIndex);
             _output1 = _output.QueryInterface<Output1>();
 
-            // Width/Height of desktop to capture
-            _width = _output.Description.DesktopBounds.Right;
-            _height = _output.Description.DesktopBounds.Bottom;
+            // Position and size of the monitor within the virtual desktop
+            var desktopBounds = _output.Description.DesktopBounds;
+            _outputBounds = new Rectangle(desktopBounds.Left, desktopBounds.Top,
+                desktopBounds.Right - desktopBounds.Left, desktopBounds.Bottom - desktopBounds.Top);
+            _width = _outputBounds.Width;
+            _height = _outputBounds.Height;
 
             // Create Staging texture CPU-accessible
             _textureDesc = new Texture2DDescription
@@ -88,7 +110,7 @@ namespace Translumo.Services
                     throw new CaptureException($"Capture area is not selected");
                 }
 
-                return MakeScreenshotInternal(_configuration.CaptureArea, 1);
+                return CaptureArea(_configuration.CaptureArea);
             }
             catch (CaptureException)
             {
@@ -104,7 +126,7 @@ namespace Translumo.Services
         {
             try
             {
-                return MakeScreenshotInternal(captureArea, 1);
+                return CaptureArea(captureArea);
             }
             catch (CaptureException)
             {
@@ -118,6 +140,10 @@ namespace Translumo.Services
 
         public void Dispose()
         {
+            _gdiFallback?.Dispose();
+            _gdiFallback = null;
+            _factory?.Dispose();
+            _factory = null;
             _duplicatedOutput?.Dispose();
             _duplicatedOutput = null;
             _device?.Dispose();
@@ -132,6 +158,59 @@ namespace Translumo.Services
             _output1 = null;
 
             _initialized = false;
+        }
+
+        private byte[] CaptureArea(RectangleF captureArea)
+        {
+            if (!_outputBounds.Contains(Rectangle.Round(captureArea)))
+            {
+                if (!TryFindOutput(captureArea, out var adapterIndex, out var outputIndex))
+                {
+                    // The area spans several monitors, which a single output duplication can't cover
+                    return CaptureWithGdi(captureArea);
+                }
+
+                InitializeOutput(adapterIndex, outputIndex);
+            }
+
+            return MakeScreenshotInternal(captureArea, 1);
+        }
+
+        private byte[] CaptureWithGdi(RectangleF captureArea)
+        {
+            if (_gdiFallback == null)
+            {
+                _gdiFallback = new BitBltScreenCapture(_configuration);
+                _gdiFallback.Initialize();
+            }
+
+            return _gdiFallback.CaptureScreen(captureArea);
+        }
+
+        private static bool TryFindOutput(RectangleF captureArea, out int adapterIndex, out int outputIndex)
+        {
+            var area = Rectangle.Round(captureArea);
+
+            using var factory = new Factory1();
+            for (int a = 0; a < factory.GetAdapterCount1(); a++)
+            {
+                using var adapter = factory.GetAdapter1(a);
+                for (int o = 0; o < adapter.GetOutputCount(); o++)
+                {
+                    using var output = adapter.GetOutput(o);
+                    var bounds = output.Description.DesktopBounds;
+                    var outputBounds = new Rectangle(bounds.Left, bounds.Top, bounds.Right - bounds.Left, bounds.Bottom - bounds.Top);
+                    if (outputBounds.Contains(area))
+                    {
+                        adapterIndex = a;
+                        outputIndex = o;
+                        return true;
+                    }
+                }
+            }
+
+            adapterIndex = outputIndex = -1;
+            return false;
         }
 
         private byte[] MakeScreenshotInternal(RectangleF captureArea, int curAttempt)
@@ -180,8 +259,12 @@ namespace Translumo.Services
                     bitmap.UnlockBits(mapDest);
                     _device.ImmediateContext.UnmapSubresource(_screenTexture, 0);
 
-                    return bitmap.Clone(captureArea, bitmap.PixelFormat)
-                        .ToBytes(ImageFormat.Tiff);
+                    // The duplicated texture starts at the monitor's corner, not at the virtual screen origin
+                    var relativeArea = new RectangleF(captureArea.X - _outputBounds.X, captureArea.Y - _outputBounds.Y,
+                        captureArea.Width, captureArea.Height);
+
+                    using var croppedBitmap = bitmap.Clone(relativeArea, bitmap.PixelFormat);
+                    return croppedBitmap.ToBytes(ImageFormat.Tiff);
                 }
             }
             catch (Exception)

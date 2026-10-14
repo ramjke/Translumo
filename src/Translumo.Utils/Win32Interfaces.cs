@@ -19,6 +19,10 @@ namespace Translumo.Utils
         [DllImport("user32.dll")]
         public static extern int GetSystemMetrics(SystemMetricTypes nIndex);
 
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetWindowPos(IntPtr hwnd, IntPtr hwndInsertAfter, int x, int y, int cx, int cy, uint flags);
+
         [DllImport("user32.dll")]
         public static extern int GetWindowLong(IntPtr hwnd, int index);
 
