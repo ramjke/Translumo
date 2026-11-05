@@ -30,6 +30,7 @@
     <system:String x:Key="Str.LangSettings.TranslationLang">目标语言（您想要看到的语言）</system:String>
     <system:String x:Key="Str.LangSettings.YandexApiKey">Yandex API 密钥</system:String>
     <system:String x:Key="Str.LangSettings.DeeplApiKey">DeepL API 密钥</system:String>
+    <system:String x:Key="Str.LangSettings.DeepSeekApiKey">DeepSeek API 密钥</system:String>
     <system:String x:Key="Str.LangSettings.Translator">翻译源</system:String>
     <system:String x:Key="Str.LangSettings.TtsSystem">朗读源</system:String>
 

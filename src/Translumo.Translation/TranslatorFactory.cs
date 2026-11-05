@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Translumo.Infrastructure.Language;
 using Translumo.Translation.Configuration;
+using Translumo.Translation.DeepSeek;
 using Translumo.Translation.Deepl;
 using Translumo.Translation.Google;
 using Translumo.Translation.Yandex;
@@ -29,6 +30,8 @@ namespace Translumo.Translation
                     return new YandexTranslator(translatorConfiguration, _languageService, _logger);
                 case Translators.Google:
                     return new GoogleTranslator(translatorConfiguration, _languageService, _logger);
+                case Translators.DeepSeek:
+                    return new DeepSeekTranslator(translatorConfiguration, _languageService, _logger);
                 default:
                     throw new NotSupportedException();
             }
