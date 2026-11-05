@@ -30,6 +30,7 @@
     <system:String x:Key="Str.LangSettings.TranslationLang">Язык перевода</system:String>
     <system:String x:Key="Str.LangSettings.YandexApiKey">Ключ API Яндекса</system:String>
     <system:String x:Key="Str.LangSettings.DeeplApiKey">Ключ API DeepL</system:String>
+    <system:String x:Key="Str.LangSettings.DeepSeekApiKey">Ключ API DeepSeek</system:String>
     <system:String x:Key="Str.LangSettings.Translator">Переводчик</system:String>
     <system:String x:Key="Str.LangSettings.TtsSystem">Синтез речи (TTS)</system:String>
 

@@ -38,7 +38,7 @@ Version 1.1.0 moves DeepL and Yandex onto their official APIs, so both now need 
 
 - **Integrated modern OCR engines**: Windows OCR (recommended), EasyOCR
 
-- **Available translators**: Google Translate (works out of the box), DeepL (needs a free API key), Yandex Translate (needs a Yandex Cloud API key).
+- **Available translators**: Google Translate (works out of the box), DeepL (needs a free API key), Yandex Translate (needs a Yandex Cloud API key), DeepSeek (needs an API key).
 
 - **Supported recognition languages**: English, Russian, Japanese, Chinese (Simplified), Korean.
 
@@ -81,6 +81,11 @@ DeepL works through its official API, so it needs a key. Create one for free at 
 ### Set Up the Yandex API Key
 Yandex Translate also works through its official API. Create an API key in the [Yandex Cloud console](https://yandex.cloud/en/docs/iam/operations/api-key/create) for a service account with the `ai.translate.user` role, then paste it into **Languages -> Yandex API key**. The field only appears when Yandex is selected as the translator.
 
+### Set Up the DeepSeek API Key
+DeepSeek works through its OpenAI-compatible API, so it needs a key. Create one at [platform.deepseek.com](https://platform.deepseek.com) and paste it into **Languages -> DeepSeek API key**. The field only appears when DeepSeek is selected as the translator.
+
+The model is fixed to `deepseek-chat` and the endpoint to `https://api.deepseek.com`. Only the key is configurable — no other settings are required.
+
 ### Use Borderless or Windowed Modes in Games (Not Fullscreen)
 These modes are required for correct translation overlay display. If your game does not support them, use tools like [Borderless Gaming](https://github.com/Codeusa/Borderless-Gaming).
 
@@ -100,6 +105,9 @@ A: Check the API key in **Languages -> DeepL API key**. "The API key was rejecte
 
 **Q: Yandex does not translate**  
 A: Check the API key in **Languages -> Yandex API key**. "The API key was rejected" means the key is wrong; "no access to the translate service" means the service account is missing the `ai.translate.user` role.
+
+**Q: DeepSeek does not translate**  
+A: Check the API key in **Languages -> DeepSeek API key**. The reason is shown in the translation window and written to the log: HTTP 401 means the key is rejected, 402 means the account has no balance, 404 means the model is unavailable, 429 means the request rate limit is reached.
 
 **Q: Hotkeys don't work**  
 A: Other applications may be intercepting hotkeys.

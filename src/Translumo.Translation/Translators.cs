@@ -7,6 +7,8 @@ namespace Translumo.Translation
 
         Yandex = 1,
 
-        Google = 2
+        Google = 2,
+
+        DeepSeek = 3
     }
 }

@@ -11,7 +11,8 @@ namespace Translumo.Translation.Configuration
             TranslateToLang = Languages.Russian,
             Translator = Translators.Google,
             DeeplApiKey = string.Empty,
-            YandexApiKey = string.Empty
+            YandexApiKey = string.Empty,
+            DeepSeekApiKey = string.Empty
         };
 
         public Languages TranslateFromLang
@@ -59,11 +60,21 @@ namespace Translumo.Translation.Configuration
             }
         }
 
+        public string DeepSeekApiKey
+        {
+            get => _deepSeekApiKey;
+            set
+            {
+                SetProperty(ref _deepSeekApiKey, value);
+            }
+        }
+
 
         private Languages _translateFromLang;
         private Languages _translateToLang;
         private Translators _translator;
         private string _deeplApiKey = string.Empty;
         private string _yandexApiKey = string.Empty;
+        private string _deepSeekApiKey = string.Empty;
     }
 }
